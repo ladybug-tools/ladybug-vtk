@@ -1,4 +1,5 @@
 *.pyc
+*.vtp
 test.py
 .pytest_cache
 *__pycache__
