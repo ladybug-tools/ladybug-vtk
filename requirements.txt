@@ -1,1 +1,2 @@
 ladybug-geometry==1.23.19
+vtk==9.1.0
