@@ -1,3 +1,5 @@
+"""ModelDataSet object to control the representation of a Polydata object."""
+
 import pathlib
 from typing import List
 from .polydata import PolyData

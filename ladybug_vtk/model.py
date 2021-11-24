@@ -1,4 +1,4 @@
-"""A VTK representation of HBModel."""
+"""A Model object to collect all other ModelDataSet objcts."""
 
 from __future__ import annotations
 import shutil

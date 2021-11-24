@@ -1,10 +1,10 @@
-"""Vtk legend parameters."""
+"""VTK legend parameters."""
 
 import vtk
 from ladybug.color import Colorset
 from enum import Enum, auto
 from typing import Tuple, Union
-from ._helper import _validate_input
+from ._helper import validate_input
 
 
 class DecimalCount (Enum):
@@ -118,7 +118,7 @@ class Text:
     def color(self, val) -> None:
         if not val:
             self._color = (0, 0, 0)
-        elif isinstance(val, (tuple, list)) and _validate_input(val, [int], 256) \
+        elif isinstance(val, (tuple, list)) and validate_input(val, [int], 256) \
                 and len(val) == 3:
             self._color = (val[0] / 255, val[1] / 255, val[2] / 255)
         else:
@@ -354,7 +354,7 @@ class LegendParameter:
     def position(self, val) -> None:
         if not val:
             self._position = (0.5, 0.1)
-        elif isinstance(val, (tuple, list)) and _validate_input(val, [float], 0.96) \
+        elif isinstance(val, (tuple, list)) and validate_input(val, [float], 0.96) \
                 and len(val) == 2:
             self._position = val
         else:

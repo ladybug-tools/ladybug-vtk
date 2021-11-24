@@ -1,3 +1,5 @@
+"""A VTK Polydata object with additional methods."""
+
 import vtk
 import warnings
 from typing import Dict, List, Tuple, Union
