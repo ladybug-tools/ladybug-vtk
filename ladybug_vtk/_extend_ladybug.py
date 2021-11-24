@@ -1,3 +1,5 @@
+"""Extend Ladybug Core functionalities."""
+
 import math
 from pathlib import Path
 
@@ -5,7 +7,7 @@ from typing import List, Union, Tuple, Optional
 from ladybug.sunpath import Sunpath, Point3D, Vector3D
 from ladybug.datacollection import HourlyContinuousCollection
 
-from .to_vtk import create_points, create_polyline
+from .to_vtk import to_vtk_points, to_vtk_polyline, to_vtk_polyline_from_points
 from .model_dataset import ModelDataSet
 from .model import Model
 
@@ -29,14 +31,14 @@ def sunpath_to_vtkjs(self, output_folder: str, name: str = 'sunpath', radius: in
 
     polylines = self.hourly_analemma_polyline3d(
         origin=origin, daytime_only=True, radius=radius)
-    sp_polydata = [create_polyline(pl) for pl in polylines]
-    sp_dataset = ModelDataSet(name='Polylines', data=sp_polydata)
+    sp_polydata = [to_vtk_polyline(pl) for pl in polylines]
+    sp_dataset = ModelDataSet(name='Hourly_Analemmas', data=sp_polydata)
 
     # monthly arcs
     arcs = self.monthly_day_arc3d()
     arc_polylines = [arc.to_polyline(divisions=10)for arc in arcs]
-    arc_polydata = [create_polyline(arc) for arc in arc_polylines]
-    arc_dataset = ModelDataSet(name='Arcs', data=arc_polydata)
+    arc_polydata = [to_vtk_polyline(arc) for arc in arc_polylines]
+    arc_dataset = ModelDataSet(name='Monthly_Arcs', data=arc_polydata)
 
     # add a circle
     north = origin.move(Vector3D(0, radius, 0))
@@ -44,8 +46,8 @@ def sunpath_to_vtkjs(self, output_folder: str, name: str = 'sunpath', radius: in
         north.rotate_xy(math.radians(angle), origin)
         for angle in range(0, 365, 5)
     ]
-    plot = create_points(plot_points)
-    plot_dataset = ModelDataSet(name='Plot', data=[plot])
+    plot = to_vtk_polyline_from_points(plot_points)
+    plot_dataset = ModelDataSet(name='Base_Circle', data=[plot])
 
     # add suns
     day = self.hourly_analemma_suns(daytime_only=True)
@@ -57,7 +59,7 @@ def sunpath_to_vtkjs(self, output_folder: str, name: str = 'sunpath', radius: in
             pts.append(origin.move(sun.sun_vector.reverse() * radius))
             hours.append(sun.hoy)
 
-    sun_positions = create_points(pts)
+    sun_positions = to_vtk_points(pts)
 
     datasets = [sp_dataset, arc_dataset, plot_dataset]
     if data:
