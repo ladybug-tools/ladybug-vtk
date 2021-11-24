@@ -1,2 +1,2 @@
-ladybug-geometry==1.23.19
+ladybug-core==0.39.25
 vtk==9.1.0
