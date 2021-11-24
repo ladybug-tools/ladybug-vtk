@@ -1,24 +1,27 @@
 import math
 from pathlib import Path
 
+from typing import List, Union, Tuple, Optional
 from ladybug.sunpath import Sunpath, Point3D, Vector3D
+from ladybug.datacollection import HourlyContinuousCollection
 
 from .to_vtk import create_points, create_polyline
 from .model_dataset import ModelDataSet
 from .model import Model
 
 
-def sunpath_to_vtkjs(self, output_folder, name='sunpath', radius=100, data=None):
+def sunpath_to_vtkjs(self, output_folder: str, name: str = 'sunpath', radius: int = 100,
+                     data: List[HourlyContinuousCollection] = None):
     """Export sunpath as a vtkjs file.
 
     Args:
         output_folder:
-        name: Output file name (default: sunpath).
-        radius:
-        data: A list of Ladybug continuous hourly data.
+        name: Output file name. Defaults to Sunpath.
+        radius: Radius of the sunpath. Defaults to 100.
+        data: A list of Ladybug continuous hourly collection objects. Defaults to None.
 
     Returns:
-        path to vtkjs file.
+        A pathlib Path object to the vtkjs file.
     """
     # daily analemmas
     data = data or []
@@ -56,10 +59,11 @@ def sunpath_to_vtkjs(self, output_folder, name='sunpath', radius=100, data=None)
 
     sun_positions = create_points(pts)
 
-    # TODO: Only add checks for data type
-    datasets=[sp_dataset, arc_dataset, plot_dataset]
+    datasets = [sp_dataset, arc_dataset, plot_dataset]
     if data:
         for dt in data:
+            assert isinstance(dt, HourlyContinuousCollection), 'Data needs to be a'\
+                f' Ladybug HourlyContinuousCollection object. Instead got {type(dt)}'
             filtered_data = dt.filter_by_hoys(hours)
             name = filtered_data.header.data_type.name
             sun_positions.add_data(filtered_data.values, name=name, cell=False)
@@ -71,8 +75,7 @@ def sunpath_to_vtkjs(self, output_folder, name='sunpath', radius=100, data=None)
 
     # join polylines into a single polydata
     sunpath = Model(datasets=datasets)
-    path = Path(sunpath.to_vtkjs(output_folder, 'sunpath'))
-    return path
+    return Path(sunpath.to_vtkjs(output_folder, 'sunpath'))
+
 
 Sunpath.to_vtkjs = sunpath_to_vtkjs
-
