@@ -13,4 +13,4 @@ wheel==0.36.2
 setuptools==57.0.0
 importlib-metadata==4.3.1
 pydantic==1.8.2
-ladybug==0.39.25
+ladybug-core==0.39.25
