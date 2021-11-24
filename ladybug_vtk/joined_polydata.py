@@ -1,3 +1,5 @@
+"""A VTK Appended Polydata object with additional methods."""
+
 import vtk
 from typing import List
 from .writer import write_to_file, write_to_folder

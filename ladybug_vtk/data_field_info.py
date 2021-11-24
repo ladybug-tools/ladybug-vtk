@@ -1,3 +1,5 @@
+"""Data object for Data to be mounted on Polydata."""
+
 from typing import Tuple
 from .legend_parameter import LegendParameter, ColorSets
 
