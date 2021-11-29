@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ladybug_vtk.to_vtk &#8212; ladybug-vtk  documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          ladybug-vtk</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ladybug_vtk.html">ladybug_vtk package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../ladybug_vtk.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ladybug_vtk.vtkjs.html">ladybug_vtk.vtkjs package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../ladybug_vtk.vtkjs.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../ladybug_vtk.vtkjs.helper.html">ladybug_vtk.vtkjs.helper module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../ladybug_vtk.vtkjs.schema.html">ladybug_vtk.vtkjs.schema module</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../ladybug_vtk.vtkjs.html#module-ladybug_vtk.vtkjs">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ladybug_vtk.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ladybug_vtk.data_field_info.html">ladybug_vtk.data_field_info module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ladybug_vtk.joined_polydata.html">ladybug_vtk.joined_polydata module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ladybug_vtk.legend_parameter.html">ladybug_vtk.legend_parameter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ladybug_vtk.model.html">ladybug_vtk.model module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ladybug_vtk.model_dataset.html">ladybug_vtk.model_dataset module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ladybug_vtk.polydata.html">ladybug_vtk.polydata module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ladybug_vtk.to_vtk.html">ladybug_vtk.to_vtk module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ladybug_vtk.writer.html">ladybug_vtk.writer module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ladybug_vtk.html#module-ladybug_vtk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ladybug_vtk.html">ladybug_vtk package</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ladybug_vtk.html">ladybug_vtk package</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-8 content" role="main">
+      
+  <h1>Source code for ladybug_vtk.to_vtk</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Functions to create VTK objects from Ladybug Objects.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">vtk</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">ladybug_geometry.geometry3d</span> <span class="kn">import</span> <span class="n">Point3D</span><span class="p">,</span> <span class="n">Polyline3D</span>
+<span class="kn">from</span> <span class="nn">.polydata</span> <span class="kn">import</span> <span class="n">PolyData</span>
+
+
+<div class="viewcode-block" id="to_vtk_points"><a class="viewcode-back" href="../../ladybug_vtk.to_vtk.html#ladybug_vtk.to_vtk.to_vtk_points">[docs]</a><span class="k">def</span> <span class="nf">to_vtk_points</span><span class="p">(</span><span class="n">points</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Point3D</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">PolyData</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Create Polydata from a list of Points.&quot;&quot;&quot;</span>
+    <span class="n">vtk_points</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+    <span class="n">vtk_vertices</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
+        <span class="n">vtk_points</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">point</span><span class="p">))</span>
+
+    <span class="n">vtk_vertices</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">))))</span>
+
+    <span class="n">polydata</span> <span class="o">=</span> <span class="n">PolyData</span><span class="p">()</span>
+    <span class="n">polydata</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">vtk_points</span><span class="p">)</span>
+    <span class="n">polydata</span><span class="o">.</span><span class="n">SetVerts</span><span class="p">(</span><span class="n">vtk_vertices</span><span class="p">)</span>
+    <span class="n">polydata</span><span class="o">.</span><span class="n">Modified</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">polydata</span></div>
+
+
+<div class="viewcode-block" id="to_vtk_polyline_from_points"><a class="viewcode-back" href="../../ladybug_vtk.to_vtk.html#ladybug_vtk.to_vtk.to_vtk_polyline_from_points">[docs]</a><span class="k">def</span> <span class="nf">to_vtk_polyline_from_points</span><span class="p">(</span><span class="n">points</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Point3D</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">PolyData</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Create Polydata with a Polyline from a list of points.&quot;&quot;&quot;</span>
+    <span class="c1"># Create a vtkPoints container and store the points for all the lines</span>
+    <span class="n">pts</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="n">points</span><span class="p">:</span>
+        <span class="n">pts</span><span class="o">.</span><span class="n">InsertNextPoint</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">pt</span><span class="p">))</span>
+
+    <span class="c1"># add all the points to lines dataset</span>
+    <span class="n">polyline</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyLine</span><span class="p">()</span>
+    <span class="n">polyline</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetNumberOfIds</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)):</span>
+        <span class="n">polyline</span><span class="o">.</span><span class="n">GetPointIds</span><span class="p">()</span><span class="o">.</span><span class="n">SetId</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+    <span class="c1"># Create a cell array to store the lines in and add the lines to it</span>
+    <span class="n">cells</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
+    <span class="n">cells</span><span class="o">.</span><span class="n">InsertNextCell</span><span class="p">(</span><span class="n">polyline</span><span class="p">)</span>
+
+    <span class="c1"># Create a polydata to store everything in</span>
+    <span class="n">polydata</span> <span class="o">=</span> <span class="n">PolyData</span><span class="p">()</span>
+
+    <span class="c1"># Add the points to the dataset</span>
+    <span class="n">polydata</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+
+    <span class="c1"># Add the lines to the dataset</span>
+    <span class="n">polydata</span><span class="o">.</span><span class="n">SetLines</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">polydata</span></div>
+
+
+<div class="viewcode-block" id="to_vtk_polyline"><a class="viewcode-back" href="../../ladybug_vtk.to_vtk.html#ladybug_vtk.to_vtk.to_vtk_polyline">[docs]</a><span class="k">def</span> <span class="nf">to_vtk_polyline</span><span class="p">(</span><span class="n">polyline</span><span class="p">:</span> <span class="n">Polyline3D</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolyData</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Create Polydata from a Polyline.&quot;&quot;&quot;</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">polyline</span><span class="o">.</span><span class="n">vertices</span>
+    <span class="k">return</span> <span class="n">to_vtk_polyline_from_points</span><span class="p">(</span><span class="n">points</span><span class="p">)</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ladybug Tools.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.3.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

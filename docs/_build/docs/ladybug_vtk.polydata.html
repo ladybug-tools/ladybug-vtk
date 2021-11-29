@@ -1,0 +1,3715 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>ladybug_vtk.polydata module &#8212; ladybug-vtk  documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ladybug_vtk.to_vtk module" href="ladybug_vtk.to_vtk.html" />
+    <link rel="prev" title="ladybug_vtk.model_dataset module" href="ladybug_vtk.model_dataset.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          ladybug-vtk</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="ladybug_vtk.html">ladybug_vtk package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ladybug_vtk.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.vtkjs.html">ladybug_vtk.vtkjs package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ladybug_vtk.vtkjs.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="ladybug_vtk.vtkjs.helper.html">ladybug_vtk.vtkjs.helper module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="ladybug_vtk.vtkjs.schema.html">ladybug_vtk.vtkjs.schema module</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="ladybug_vtk.vtkjs.html#module-ladybug_vtk.vtkjs">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="ladybug_vtk.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.data_field_info.html">ladybug_vtk.data_field_info module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.joined_polydata.html">ladybug_vtk.joined_polydata module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.legend_parameter.html">ladybug_vtk.legend_parameter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.model.html">ladybug_vtk.model module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.model_dataset.html">ladybug_vtk.model_dataset module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ladybug_vtk.polydata module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.to_vtk.html">ladybug_vtk.to_vtk module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.writer.html">ladybug_vtk.writer module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ladybug_vtk.html#module-ladybug_vtk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="ladybug_vtk.html">ladybug_vtk package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ladybug_vtk.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="ladybug_vtk.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.data_field_info.html">ladybug_vtk.data_field_info module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.joined_polydata.html">ladybug_vtk.joined_polydata module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.legend_parameter.html">ladybug_vtk.legend_parameter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.model.html">ladybug_vtk.model module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.model_dataset.html">ladybug_vtk.model_dataset module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ladybug_vtk.polydata module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.to_vtk.html">ladybug_vtk.to_vtk module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.writer.html">ladybug_vtk.writer module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ladybug_vtk.html#module-ladybug_vtk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="ladybug_vtk.model_dataset.html" title="Previous Chapter: ladybug_vtk.model_dataset module"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; ladybug_vtk.m...</span>
+    </a>
+  </li>
+  <li>
+    <a href="ladybug_vtk.to_vtk.html" title="Next Chapter: ladybug_vtk.to_vtk module"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">ladybug_vtk.t... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/ladybug_vtk.polydata.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="ladybug_vtk.html">ladybug_vtk package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ladybug_vtk.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="ladybug_vtk.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.data_field_info.html">ladybug_vtk.data_field_info module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.joined_polydata.html">ladybug_vtk.joined_polydata module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.legend_parameter.html">ladybug_vtk.legend_parameter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.model.html">ladybug_vtk.model module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.model_dataset.html">ladybug_vtk.model_dataset module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ladybug_vtk.polydata module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.to_vtk.html">ladybug_vtk.to_vtk module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.writer.html">ladybug_vtk.writer module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ladybug_vtk.html#module-ladybug_vtk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-8 content" role="main">
+      
+  <section id="module-ladybug_vtk.polydata">
+<span id="ladybug-vtk-polydata-module"></span><h1>ladybug_vtk.polydata module<a class="headerlink" href="#module-ladybug_vtk.polydata" title="Permalink to this headline">¶</a></h1>
+<p>A VTK Polydata object with additional methods.</p>
+<dl class="py class">
+<dt id="ladybug_vtk.polydata.PolyData">
+<em class="property">class </em><code class="sig-prename descclassname">ladybug_vtk.polydata.</code><code class="sig-name descname">PolyData</code><a class="reference internal" href="_modules/ladybug_vtk/polydata.html#PolyData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.polydata.PolyData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">vtkmodules.vtkCommonDataModel.vtkPolyData</span></code></p>
+<p>A thin wrapper around vtk.vtkPolyData.</p>
+<p>PolyData has additional fields for metadata information.</p>
+<dl class="py class">
+<dt id="ladybug_vtk.polydata.PolyData.AttributeTypes">
+<em class="property">class </em><code class="sig-name descname">AttributeTypes</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AttributeTypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.AttributeTypes.as_integer_ratio">
+<code class="sig-name descname">as_integer_ratio</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AttributeTypes.as_integer_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return integer ratio.</p>
+<p>Return a pair of integers, whose ratio is exactly equal to the original int
+and with a positive denominator.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="go">(10, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="go">(-10, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="go">(0, 1)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.AttributeTypes.bit_length">
+<code class="sig-name descname">bit_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AttributeTypes.bit_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of bits necessary to represent self in binary.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">bin</span><span class="p">(</span><span class="mi">37</span><span class="p">)</span>
+<span class="go">&#39;0b100101&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">37</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span>
+<span class="go">6</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.AttributeTypes.conjugate">
+<code class="sig-name descname">conjugate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AttributeTypes.conjugate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns self, the complex conjugate of any int.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.AttributeTypes.from_bytes">
+<code class="sig-name descname">from_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">byteorder</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">signed</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AttributeTypes.from_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the integer represented by the given array of bytes.</p>
+<dl class="simple">
+<dt>bytes</dt><dd><p>Holds the array of bytes to convert.  The argument must either
+support the buffer protocol or be an iterable object producing bytes.
+Bytes and bytearray are examples of built-in objects that support the
+buffer protocol.</p>
+</dd>
+<dt>byteorder</dt><dd><p>The byte order used to represent the integer.  If byteorder is ‘big’,
+the most significant byte is at the beginning of the byte array.  If
+byteorder is ‘little’, the most significant byte is at the end of the
+byte array.  To request the native byte order of the host system, use
+<a href="#id1"><span class="problematic" id="id2">`</span></a>sys.byteorder’ as the byte order value.</p>
+</dd>
+<dt>signed</dt><dd><p>Indicates whether two’s complement is used to represent the integer.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.AttributeTypes.to_bytes">
+<code class="sig-name descname">to_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">length</span></em>, <em class="sig-param"><span class="n">byteorder</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">signed</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AttributeTypes.to_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an array of bytes representing an integer.</p>
+<dl class="simple">
+<dt>length</dt><dd><p>Length of bytes object to use.  An OverflowError is raised if the
+integer is not representable with the given number of bytes.</p>
+</dd>
+<dt>byteorder</dt><dd><p>The byte order used to represent the integer.  If byteorder is ‘big’,
+the most significant byte is at the beginning of the byte array.  If
+byteorder is ‘little’, the most significant byte is at the end of the
+byte array.  To request the native byte order of the host system, use
+<a href="#id3"><span class="problematic" id="id4">`</span></a>sys.byteorder’ as the byte order value.</p>
+</dd>
+<dt>signed</dt><dd><p>Determines whether two’s complement is used to represent the integer.
+If signed is False and a negative integer is given, an OverflowError
+is raised.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.AttributeTypes.denominator">
+<code class="sig-name descname">denominator</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AttributeTypes.denominator" title="Permalink to this definition">¶</a></dt>
+<dd><p>the denominator of a rational number in lowest terms</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.AttributeTypes.imag">
+<code class="sig-name descname">imag</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AttributeTypes.imag" title="Permalink to this definition">¶</a></dt>
+<dd><p>the imaginary part of a complex number</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.AttributeTypes.numerator">
+<code class="sig-name descname">numerator</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AttributeTypes.numerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>the numerator of a rational number in lowest terms</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.AttributeTypes.real">
+<code class="sig-name descname">real</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AttributeTypes.real" title="Permalink to this definition">¶</a></dt>
+<dd><p>the real part of a complex number</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="ladybug_vtk.polydata.PolyData.FieldAssociations">
+<em class="property">class </em><code class="sig-name descname">FieldAssociations</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldAssociations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.FieldAssociations.as_integer_ratio">
+<code class="sig-name descname">as_integer_ratio</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldAssociations.as_integer_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return integer ratio.</p>
+<p>Return a pair of integers, whose ratio is exactly equal to the original int
+and with a positive denominator.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="go">(10, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="go">(-10, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="go">(0, 1)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.FieldAssociations.bit_length">
+<code class="sig-name descname">bit_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldAssociations.bit_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of bits necessary to represent self in binary.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">bin</span><span class="p">(</span><span class="mi">37</span><span class="p">)</span>
+<span class="go">&#39;0b100101&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">37</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span>
+<span class="go">6</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.FieldAssociations.conjugate">
+<code class="sig-name descname">conjugate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldAssociations.conjugate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns self, the complex conjugate of any int.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.FieldAssociations.from_bytes">
+<code class="sig-name descname">from_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">byteorder</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">signed</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldAssociations.from_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the integer represented by the given array of bytes.</p>
+<dl class="simple">
+<dt>bytes</dt><dd><p>Holds the array of bytes to convert.  The argument must either
+support the buffer protocol or be an iterable object producing bytes.
+Bytes and bytearray are examples of built-in objects that support the
+buffer protocol.</p>
+</dd>
+<dt>byteorder</dt><dd><p>The byte order used to represent the integer.  If byteorder is ‘big’,
+the most significant byte is at the beginning of the byte array.  If
+byteorder is ‘little’, the most significant byte is at the end of the
+byte array.  To request the native byte order of the host system, use
+<a href="#id5"><span class="problematic" id="id6">`</span></a>sys.byteorder’ as the byte order value.</p>
+</dd>
+<dt>signed</dt><dd><p>Indicates whether two’s complement is used to represent the integer.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.FieldAssociations.to_bytes">
+<code class="sig-name descname">to_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">length</span></em>, <em class="sig-param"><span class="n">byteorder</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">signed</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldAssociations.to_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an array of bytes representing an integer.</p>
+<dl class="simple">
+<dt>length</dt><dd><p>Length of bytes object to use.  An OverflowError is raised if the
+integer is not representable with the given number of bytes.</p>
+</dd>
+<dt>byteorder</dt><dd><p>The byte order used to represent the integer.  If byteorder is ‘big’,
+the most significant byte is at the beginning of the byte array.  If
+byteorder is ‘little’, the most significant byte is at the end of the
+byte array.  To request the native byte order of the host system, use
+<a href="#id7"><span class="problematic" id="id8">`</span></a>sys.byteorder’ as the byte order value.</p>
+</dd>
+<dt>signed</dt><dd><p>Determines whether two’s complement is used to represent the integer.
+If signed is False and a negative integer is given, an OverflowError
+is raised.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FieldAssociations.denominator">
+<code class="sig-name descname">denominator</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldAssociations.denominator" title="Permalink to this definition">¶</a></dt>
+<dd><p>the denominator of a rational number in lowest terms</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FieldAssociations.imag">
+<code class="sig-name descname">imag</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldAssociations.imag" title="Permalink to this definition">¶</a></dt>
+<dd><p>the imaginary part of a complex number</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FieldAssociations.numerator">
+<code class="sig-name descname">numerator</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldAssociations.numerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>the numerator of a rational number in lowest terms</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FieldAssociations.real">
+<code class="sig-name descname">real</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldAssociations.real" title="Permalink to this definition">¶</a></dt>
+<dd><p>the real part of a complex number</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="ladybug_vtk.polydata.PolyData.FieldDataType">
+<em class="property">class </em><code class="sig-name descname">FieldDataType</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldDataType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.FieldDataType.as_integer_ratio">
+<code class="sig-name descname">as_integer_ratio</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldDataType.as_integer_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return integer ratio.</p>
+<p>Return a pair of integers, whose ratio is exactly equal to the original int
+and with a positive denominator.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="go">(10, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="go">(-10, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="go">(0, 1)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.FieldDataType.bit_length">
+<code class="sig-name descname">bit_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldDataType.bit_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of bits necessary to represent self in binary.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">bin</span><span class="p">(</span><span class="mi">37</span><span class="p">)</span>
+<span class="go">&#39;0b100101&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">37</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span>
+<span class="go">6</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.FieldDataType.conjugate">
+<code class="sig-name descname">conjugate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldDataType.conjugate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns self, the complex conjugate of any int.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.FieldDataType.from_bytes">
+<code class="sig-name descname">from_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">byteorder</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">signed</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldDataType.from_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the integer represented by the given array of bytes.</p>
+<dl class="simple">
+<dt>bytes</dt><dd><p>Holds the array of bytes to convert.  The argument must either
+support the buffer protocol or be an iterable object producing bytes.
+Bytes and bytearray are examples of built-in objects that support the
+buffer protocol.</p>
+</dd>
+<dt>byteorder</dt><dd><p>The byte order used to represent the integer.  If byteorder is ‘big’,
+the most significant byte is at the beginning of the byte array.  If
+byteorder is ‘little’, the most significant byte is at the end of the
+byte array.  To request the native byte order of the host system, use
+<a href="#id9"><span class="problematic" id="id10">`</span></a>sys.byteorder’ as the byte order value.</p>
+</dd>
+<dt>signed</dt><dd><p>Indicates whether two’s complement is used to represent the integer.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.FieldDataType.to_bytes">
+<code class="sig-name descname">to_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">length</span></em>, <em class="sig-param"><span class="n">byteorder</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">signed</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldDataType.to_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an array of bytes representing an integer.</p>
+<dl class="simple">
+<dt>length</dt><dd><p>Length of bytes object to use.  An OverflowError is raised if the
+integer is not representable with the given number of bytes.</p>
+</dd>
+<dt>byteorder</dt><dd><p>The byte order used to represent the integer.  If byteorder is ‘big’,
+the most significant byte is at the beginning of the byte array.  If
+byteorder is ‘little’, the most significant byte is at the end of the
+byte array.  To request the native byte order of the host system, use
+<a href="#id11"><span class="problematic" id="id12">`</span></a>sys.byteorder’ as the byte order value.</p>
+</dd>
+<dt>signed</dt><dd><p>Determines whether two’s complement is used to represent the integer.
+If signed is False and a negative integer is given, an OverflowError
+is raised.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FieldDataType.denominator">
+<code class="sig-name descname">denominator</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldDataType.denominator" title="Permalink to this definition">¶</a></dt>
+<dd><p>the denominator of a rational number in lowest terms</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FieldDataType.imag">
+<code class="sig-name descname">imag</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldDataType.imag" title="Permalink to this definition">¶</a></dt>
+<dd><p>the imaginary part of a complex number</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FieldDataType.numerator">
+<code class="sig-name descname">numerator</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldDataType.numerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>the numerator of a rational number in lowest terms</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FieldDataType.real">
+<code class="sig-name descname">real</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldDataType.real" title="Permalink to this definition">¶</a></dt>
+<dd><p>the real part of a complex number</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="ladybug_vtk.polydata.PolyData.FieldOperations">
+<em class="property">class </em><code class="sig-name descname">FieldOperations</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldOperations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.FieldOperations.as_integer_ratio">
+<code class="sig-name descname">as_integer_ratio</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldOperations.as_integer_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return integer ratio.</p>
+<p>Return a pair of integers, whose ratio is exactly equal to the original int
+and with a positive denominator.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="go">(10, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="go">(-10, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">as_integer_ratio</span><span class="p">()</span>
+<span class="go">(0, 1)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.FieldOperations.bit_length">
+<code class="sig-name descname">bit_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldOperations.bit_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of bits necessary to represent self in binary.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">bin</span><span class="p">(</span><span class="mi">37</span><span class="p">)</span>
+<span class="go">&#39;0b100101&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">37</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span>
+<span class="go">6</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.FieldOperations.conjugate">
+<code class="sig-name descname">conjugate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldOperations.conjugate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns self, the complex conjugate of any int.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.FieldOperations.from_bytes">
+<code class="sig-name descname">from_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">byteorder</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">signed</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldOperations.from_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the integer represented by the given array of bytes.</p>
+<dl class="simple">
+<dt>bytes</dt><dd><p>Holds the array of bytes to convert.  The argument must either
+support the buffer protocol or be an iterable object producing bytes.
+Bytes and bytearray are examples of built-in objects that support the
+buffer protocol.</p>
+</dd>
+<dt>byteorder</dt><dd><p>The byte order used to represent the integer.  If byteorder is ‘big’,
+the most significant byte is at the beginning of the byte array.  If
+byteorder is ‘little’, the most significant byte is at the end of the
+byte array.  To request the native byte order of the host system, use
+<a href="#id13"><span class="problematic" id="id14">`</span></a>sys.byteorder’ as the byte order value.</p>
+</dd>
+<dt>signed</dt><dd><p>Indicates whether two’s complement is used to represent the integer.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.FieldOperations.to_bytes">
+<code class="sig-name descname">to_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">length</span></em>, <em class="sig-param"><span class="n">byteorder</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">signed</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldOperations.to_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an array of bytes representing an integer.</p>
+<dl class="simple">
+<dt>length</dt><dd><p>Length of bytes object to use.  An OverflowError is raised if the
+integer is not representable with the given number of bytes.</p>
+</dd>
+<dt>byteorder</dt><dd><p>The byte order used to represent the integer.  If byteorder is ‘big’,
+the most significant byte is at the beginning of the byte array.  If
+byteorder is ‘little’, the most significant byte is at the end of the
+byte array.  To request the native byte order of the host system, use
+<a href="#id15"><span class="problematic" id="id16">`</span></a>sys.byteorder’ as the byte order value.</p>
+</dd>
+<dt>signed</dt><dd><p>Determines whether two’s complement is used to represent the integer.
+If signed is False and a negative integer is given, an OverflowError
+is raised.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FieldOperations.denominator">
+<code class="sig-name descname">denominator</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldOperations.denominator" title="Permalink to this definition">¶</a></dt>
+<dd><p>the denominator of a rational number in lowest terms</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FieldOperations.imag">
+<code class="sig-name descname">imag</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldOperations.imag" title="Permalink to this definition">¶</a></dt>
+<dd><p>the imaginary part of a complex number</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FieldOperations.numerator">
+<code class="sig-name descname">numerator</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldOperations.numerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>the numerator of a rational number in lowest terms</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FieldOperations.real">
+<code class="sig-name descname">real</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FieldOperations.real" title="Permalink to this definition">¶</a></dt>
+<dd><p>the real part of a complex number</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.add_data">
+<code class="sig-name descname">add_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">List</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">cell</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">colors</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">data_range</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ladybug_vtk/polydata.html#PolyData.add_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.add_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a list of data to a vtkPolyData.</p>
+<p>Data can be added to cells or points. By default the data will be added to cells.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – A list of values. The length of the data should match the length of
+DataCells or DataPoints in Polydata.</p></li>
+<li><p><strong>name</strong> – Name of data (e.g. Useful Daylight Autonomy.)</p></li>
+<li><p><strong>cell</strong> – A Boolean to indicate if the data is per cell or per point. In
+most cases except for sensor points that are loaded as sensors the data
+are provided per cell.</p></li>
+<li><p><strong>colors</strong> – A Colors object that defines colors for the legend.</p></li>
+<li><p><strong>data_range</strong> – A list with two values for minimum and maximum values for legend
+parameters.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.color_by">
+<code class="sig-name descname">color_by</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">cell</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/ladybug_vtk/polydata.html#PolyData.color_by"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.color_by" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the name for active data that should be used to color PolyData.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.to_folder">
+<code class="sig-name descname">to_folder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target_folder</span><span class="o">=</span><span class="default_value">'.'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ladybug_vtk/polydata.html#PolyData.to_folder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.to_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write data to a folder with a JSON meta file.</p>
+<p>This method generates a folder that includes a JSON meta file along with all the
+binary arrays written as standalone binary files.</p>
+<p>The generated format can be used by vtk.js using the reader below
+<a class="reference external" href="https://kitware.github.io/vtk-js/examples/HttpDataSetReader.html">https://kitware.github.io/vtk-js/examples/HttpDataSetReader.html</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target_folder</strong> – Path to target folder. Default: .</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.to_vtk">
+<code class="sig-name descname">to_vtk</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target_folder</span></em>, <em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">writer</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ladybug_vtk/polydata.html#PolyData.to_vtk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.to_vtk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write to a VTK file.</p>
+<p>The file extension will be set to vtk for ASCII format and vtp for binary format.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.ALL_PIECES_EXTENT">
+<code class="sig-name descname">ALL_PIECES_EXTENT</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.ALL_PIECES_EXTENT" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationIntegerVectorKey <a href="#id17"><span class="problematic" id="id18">*</span></a>ALL_PIECES_EXTENT()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.AddCellReference">
+<code class="sig-name descname">AddCellReference</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AddCellReference" title="Permalink to this definition">¶</a></dt>
+<dd><p>void AddCellReference(vtkIdType cellId)</p>
+<p>Add references to cell in cell structure. This means the links
+from the cell’s points to the cell are modified. Memory is not
+extended. Use the method ResizeCellList() to resize the link list
+from a point to its using cells. (This operator assumes
+BuildLinks() has been called.) Use this method only when the
+dataset is set as Editable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.AddObserver">
+<code class="sig-name descname">AddObserver</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AddObserver" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>unsigned long AddObserver(const char* event,</dt><dd><p>vtkCommand* command, float priority=0.0f)</p>
+</dd>
+</dl>
+<p>Add an event callback command(o:vtkObject, event:int) for an event type.
+Returns a handle that can be used with RemoveEvent(event:int).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.AddReferenceToCell">
+<code class="sig-name descname">AddReferenceToCell</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AddReferenceToCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>void AddReferenceToCell(vtkIdType ptId, vtkIdType cellId)</p>
+<p>Add a reference to a cell in a particular point’s link list. (You
+may also consider using AddCellReference() to add the references
+from all the cell’s points to the cell.) This operator does not
+realloc memory; use the operator ResizeCellList() to do this if
+necessary. Use this method only when the dataset is set as
+Editable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.Allocate">
+<code class="sig-name descname">Allocate</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.Allocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>void Allocate(vtkIdType numCells=1000, int extSize=1000)
+Allocate(self, inPolyData:vtkPolyData, numCells:int=1000,</p>
+<blockquote>
+<div><p>extSize:int=1000) -&gt; None</p>
+</div></blockquote>
+<dl class="simple">
+<dt>C++: void Allocate(vtkPolyData <a href="#id19"><span class="problematic" id="id20">*</span></a>inPolyData,</dt><dd><p>vtkIdType numCells=1000, int extSize=1000)</p>
+</dd>
+</dl>
+<p>Method allocates initial storage for vertex, line, polygon, and
+triangle strip arrays. Use this method before the method
+PolyData::InsertNextCell(). (Or, provide vertex, line, polygon,
+and triangle strip cell arrays). extSize is no longer used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.AllocateCellGhostArray">
+<code class="sig-name descname">AllocateCellGhostArray</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AllocateCellGhostArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkUnsignedCharArray <a href="#id21"><span class="problematic" id="id22">*</span></a>AllocateCellGhostArray()</p>
+<p>Allocate ghost array for cells.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.AllocateCopy">
+<code class="sig-name descname">AllocateCopy</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AllocateCopy" title="Permalink to this definition">¶</a></dt>
+<dd><p>bool AllocateCopy(vtkPolyData <a href="#id23"><span class="problematic" id="id24">*</span></a>pd)</p>
+<p>Preallocate memory for the internal cell arrays such that they
+are the same size as those in pd.</p>
+<p>Existing data is not preserved and the number of cells is set to
+zero.</p>
+<p>&#64;return True if allocation succeeds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.AllocateEstimate">
+<code class="sig-name descname">AllocateEstimate</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AllocateEstimate" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>bool AllocateEstimate(vtkIdType numCells,</dt><dd><p>vtkIdType maxCellSize)</p>
+</dd>
+<dt>AllocateEstimate(self, numVerts:int, maxVertSize:int,</dt><dd><p>numLines:int, maxLineSize:int, numPolys:int, maxPolySize:int,
+numStrips:int, maxStripSize:int) -&gt; bool</p>
+</dd>
+<dt>C++: bool AllocateEstimate(vtkIdType numVerts,</dt><dd><p>vtkIdType maxVertSize, vtkIdType numLines,
+vtkIdType maxLineSize, vtkIdType numPolys,
+vtkIdType maxPolySize, vtkIdType numStrips,
+vtkIdType maxStripSize)</p>
+</dd>
+</dl>
+<p>Preallocate memory for the internal cell arrays. Each of the
+internal cell arrays (verts, lines, polys, and strips) will be
+resized to holdnumCells cells of size maxCellSize.</p>
+<p>Existing data is not preserved and the number of cells is set to
+zero.</p>
+<p>&#64;return True if allocation succeeds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.AllocateExact">
+<code class="sig-name descname">AllocateExact</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AllocateExact" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>bool AllocateExact(vtkIdType numCells,</dt><dd><p>vtkIdType connectivitySize)</p>
+</dd>
+<dt>AllocateExact(self, numVerts:int, vertConnSize:int, numLines:int,</dt><dd><p>lineConnSize:int, numPolys:int, polyConnSize:int,
+numStrips:int, stripConnSize:int) -&gt; bool</p>
+</dd>
+<dt>C++: bool AllocateExact(vtkIdType numVerts,</dt><dd><p>vtkIdType vertConnSize, vtkIdType numLines,
+vtkIdType lineConnSize, vtkIdType numPolys,
+vtkIdType polyConnSize, vtkIdType numStrips,
+vtkIdType stripConnSize)</p>
+</dd>
+</dl>
+<p>Preallocate memory for the internal cell arrays. Each of the
+internal cell arrays (verts, lines, polys, and strips) will be
+resized to holdnumCells cells and connectivitySize pointIds.</p>
+<p>Existing data is not preserved and the number of cells is set to
+zero.</p>
+<p>&#64;return True if allocation succeeds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.AllocatePointGhostArray">
+<code class="sig-name descname">AllocatePointGhostArray</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AllocatePointGhostArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkUnsignedCharArray <a href="#id25"><span class="problematic" id="id26">*</span></a>AllocatePointGhostArray()</p>
+<p>Allocate ghost array for points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.AllocateProportional">
+<code class="sig-name descname">AllocateProportional</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.AllocateProportional" title="Permalink to this definition">¶</a></dt>
+<dd><p>bool AllocateProportional(vtkPolyData <a href="#id27"><span class="problematic" id="id28">*</span></a>pd, double ratio)</p>
+<p>Preallocate memory for the internal cell arrays such that they
+are proportional to those in pd by a factor of ratio (for
+instance,ratio = 2 allocates twice as many cells).</p>
+<p>Existing data is not preserved and the number of cells is set to
+zero.</p>
+<p>&#64;return True if allocation succeeds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.BOUNDING_BOX">
+<code class="sig-name descname">BOUNDING_BOX</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.BOUNDING_BOX" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationDoubleVectorKey <a href="#id29"><span class="problematic" id="id30">*</span></a>BOUNDING_BOX()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.BreakOnError">
+<code class="sig-name descname">BreakOnError</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.BreakOnError" title="Permalink to this definition">¶</a></dt>
+<dd><p>static void BreakOnError()</p>
+<p>This method is called when vtkErrorMacro executes. It allows the
+debugger to break on error.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.BuildCellLocator">
+<code class="sig-name descname">BuildCellLocator</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.BuildCellLocator" title="Permalink to this definition">¶</a></dt>
+<dd><p>void BuildCellLocator()</p>
+<p>Build the cell locator. In a multi-threaded environment, call
+this method in a single thread before using FindCell().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.BuildCells">
+<code class="sig-name descname">BuildCells</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.BuildCells" title="Permalink to this definition">¶</a></dt>
+<dd><p>void BuildCells()</p>
+<p>Create data structure that allows random access of cells.
+BuildCells is expensive but necessary to make use of the faster
+non-virtual implementations of GetCell/GetCellPoints. One may
+check if cells need to be built via NeedToBuilds before invoking.
+Cells always need to be built/re-built after low level direct
+modifications to verts, lines, polys or strips cell arrays.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.BuildLinks">
+<code class="sig-name descname">BuildLinks</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.BuildLinks" title="Permalink to this definition">¶</a></dt>
+<dd><p>void BuildLinks(int initialSize=0)</p>
+<p>Create upward links from points to cells that use each point.
+Enables topologically complex queries. Normally the links array
+is allocated based on the number of points in the vtkPolyData.
+The optional initialSize parameter can be used to allocate a
+larger size initially.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.BuildLocator">
+<code class="sig-name descname">BuildLocator</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.BuildLocator" title="Permalink to this definition">¶</a></dt>
+<dd><p>void BuildLocator()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.BuildPointLocator">
+<code class="sig-name descname">BuildPointLocator</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.BuildPointLocator" title="Permalink to this definition">¶</a></dt>
+<dd><p>void BuildPointLocator()</p>
+<p>Build the internal point locator . In a multi-threaded
+environment, call this method in a single thread before using
+FindCell() or FindPoint().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.CELL">
+<code class="sig-name descname">CELL</code><em class="property"> = 1</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.CELL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.CELL_DATA_FIELD">
+<code class="sig-name descname">CELL_DATA_FIELD</code><em class="property"> = 2</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.CELL_DATA_FIELD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.CELL_DATA_VECTOR">
+<code class="sig-name descname">CELL_DATA_VECTOR</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.CELL_DATA_VECTOR" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationInformationVectorKey <a href="#id31"><span class="problematic" id="id32">*</span></a>CELL_DATA_VECTOR()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.CheckAttributes">
+<code class="sig-name descname">CheckAttributes</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.CheckAttributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>int CheckAttributes()</p>
+<p>This method checks to see if the cell and point attributes match
+the geometry.  Many filters will crash if the number of tuples in
+an array is less than the number of points/cells. This method
+returns 1 if there is a mismatch, and 0 if everything is ok.  It
+prints an error if an array is too short, and a warning if an
+array is too long.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.ComputeBounds">
+<code class="sig-name descname">ComputeBounds</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.ComputeBounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>void ComputeBounds() override;</p>
+<p>Compute the (X, Y, Z)  bounds of the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.ComputeCellsBounds">
+<code class="sig-name descname">ComputeCellsBounds</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.ComputeCellsBounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>void ComputeCellsBounds()</p>
+<p>Compute the (X, Y, Z)  bounds of the data. Note that the method
+only considers points that are used by cells. This is done for
+usability and historical reasons.</p>
+<p>IMPORTANT</p>
+<p>Until vtk 9.0.1, vtkPolyData::ComputeBounds() used to ignore
+points that do not belong to any cell. That was not consistent
+with other vtkPointSet subclasses and thus was error prone. See
+this ParaView issue
+<a class="reference external" href="https://gitlab.kitware.com/paraview/paraview/-/issues/20354">https://gitlab.kitware.com/paraview/paraview/-/issues/20354</a> Now
+it defers to vtkPointSet::ComputeBounds() so
+vtkPolyData::GetBounds() may not return the same bounds as
+before. This behavior is probably the one you want when using
+bounds.</p>
+<p>The previous behavior is still availble through
+vtkPolyData::ComputeCellsBounds() and
+vtkPolyData::GetCellsBounds(). This is mainly used for rendering
+purpose.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.CopyAttributes">
+<code class="sig-name descname">CopyAttributes</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.CopyAttributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void CopyAttributes(vtkDataSet <a href="#id33"><span class="problematic" id="id34">*</span></a>ds)</p>
+<p>Copy the attributes associated with the specified dataset to this
+instance of vtkDataSet. THIS METHOD IS NOT THREAD SAFE.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.CopyCells">
+<code class="sig-name descname">CopyCells</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.CopyCells" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>vtkIdList,</dt><dd><p>locator:vtkIncrementalPointLocator=…) -&gt; None</p>
+</dd>
+<dt>C++: void CopyCells(vtkPolyData <a href="#id35"><span class="problematic" id="id36">*</span></a>pd, vtkIdList <a href="#id37"><span class="problematic" id="id38">*</span></a>idList,</dt><dd><p>vtkIncrementalPointLocator <a href="#id39"><span class="problematic" id="id40">*</span></a>locator=nullptr)</p>
+</dd>
+</dl>
+<p>Copy cells listed in idList from pd, including points, point
+data, and cell data.  This method assumes that point and cell
+data have been allocated.  If you pass in a point locator, then
+the points won’t be duplicated in the output. This requires the
+use of an incremental point locator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>CopyCells(self, pd</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>vtkPolyData, idList</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.CopyInformationFromPipeline">
+<code class="sig-name descname">CopyInformationFromPipeline</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.CopyInformationFromPipeline" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>virtual void CopyInformationFromPipeline(</dt><dd><p>vtkInformation <a href="#id41"><span class="problematic" id="id42">*</span></a>info)</p>
+</dd>
+</dl>
+<p>Copy from the pipeline information to the data object’s own
+information. Called right before the main execution pass.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.CopyInformationToPipeline">
+<code class="sig-name descname">CopyInformationToPipeline</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.CopyInformationToPipeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void CopyInformationToPipeline(vtkInformation <a href="#id43"><span class="problematic" id="id44">*</span></a>info)</p>
+<p>Copy information from this data object to the pipeline
+information. This is used by the vtkTrivialProducer that is
+created when someone calls SetInputData() to connect a data
+object to a pipeline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.CopyStructure">
+<code class="sig-name descname">CopyStructure</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.CopyStructure" title="Permalink to this definition">¶</a></dt>
+<dd><p>void CopyStructure(vtkDataSet <a href="#id45"><span class="problematic" id="id46">*</span></a>ds) override;</p>
+<p>Copy the geometric and topological structure of an input poly
+data object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.Crop">
+<code class="sig-name descname">Crop</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.Crop" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void Crop(const int <a href="#id47"><span class="problematic" id="id48">*</span></a>updateExtent)</p>
+<p>This method crops the data object (if necessary) so that the
+extent matches the update extent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DATA_EXTENT">
+<code class="sig-name descname">DATA_EXTENT</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DATA_EXTENT" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationIntegerPointerKey <a href="#id49"><span class="problematic" id="id50">*</span></a>DATA_EXTENT()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DATA_EXTENT_TYPE">
+<code class="sig-name descname">DATA_EXTENT_TYPE</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DATA_EXTENT_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationIntegerKey <a href="#id51"><span class="problematic" id="id52">*</span></a>DATA_EXTENT_TYPE()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DATA_NUMBER_OF_GHOST_LEVELS">
+<code class="sig-name descname">DATA_NUMBER_OF_GHOST_LEVELS</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DATA_NUMBER_OF_GHOST_LEVELS" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationIntegerKey <a href="#id53"><span class="problematic" id="id54">*</span></a>DATA_NUMBER_OF_GHOST_LEVELS(
+)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DATA_NUMBER_OF_PIECES">
+<code class="sig-name descname">DATA_NUMBER_OF_PIECES</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DATA_NUMBER_OF_PIECES" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationIntegerKey <a href="#id55"><span class="problematic" id="id56">*</span></a>DATA_NUMBER_OF_PIECES()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DATA_OBJECT">
+<code class="sig-name descname">DATA_OBJECT</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DATA_OBJECT" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationDataObjectKey <a href="#id57"><span class="problematic" id="id58">*</span></a>DATA_OBJECT()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DATA_OBJECT_FIELD">
+<code class="sig-name descname">DATA_OBJECT_FIELD</code><em class="property"> = 0</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DATA_OBJECT_FIELD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DATA_PIECE_NUMBER">
+<code class="sig-name descname">DATA_PIECE_NUMBER</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DATA_PIECE_NUMBER" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationIntegerKey <a href="#id59"><span class="problematic" id="id60">*</span></a>DATA_PIECE_NUMBER()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DATA_TIME_STEP">
+<code class="sig-name descname">DATA_TIME_STEP</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DATA_TIME_STEP" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationDoubleKey <a href="#id61"><span class="problematic" id="id62">*</span></a>DATA_TIME_STEP()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DATA_TYPE_NAME">
+<code class="sig-name descname">DATA_TYPE_NAME</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DATA_TYPE_NAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationStringKey <a href="#id63"><span class="problematic" id="id64">*</span></a>DATA_TYPE_NAME()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DIRECTION">
+<code class="sig-name descname">DIRECTION</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DIRECTION" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationDoubleVectorKey <a href="#id65"><span class="problematic" id="id66">*</span></a>DIRECTION()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DataHasBeenGenerated">
+<code class="sig-name descname">DataHasBeenGenerated</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DataHasBeenGenerated" title="Permalink to this definition">¶</a></dt>
+<dd><p>void DataHasBeenGenerated()</p>
+<p>This method is called by the source when it executes to generate
+data. It is sort of the opposite of ReleaseData. It sets the
+DataReleased flag to 0, and sets a new UpdateTime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DebugOff">
+<code class="sig-name descname">DebugOff</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DebugOff" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void DebugOff()</p>
+<p>Turn debugging output off.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DebugOn">
+<code class="sig-name descname">DebugOn</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DebugOn" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void DebugOn()</p>
+<p>Turn debugging output on.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DeepCopy">
+<code class="sig-name descname">DeepCopy</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DeepCopy" title="Permalink to this definition">¶</a></dt>
+<dd><p>void DeepCopy(vtkDataObject <a href="#id67"><span class="problematic" id="id68">*</span></a>src) override;</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DeleteCell">
+<code class="sig-name descname">DeleteCell</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DeleteCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>void DeleteCell(vtkIdType cellId)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DeleteCells">
+<code class="sig-name descname">DeleteCells</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DeleteCells" title="Permalink to this definition">¶</a></dt>
+<dd><p>void DeleteCells()</p>
+<p>Release data structure that allows random access of the cells.
+This must be done before a 2nd call to BuildLinks(). DeleteCells
+implicitly deletes the links as well since they are no longer
+valid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DeleteLinks">
+<code class="sig-name descname">DeleteLinks</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DeleteLinks" title="Permalink to this definition">¶</a></dt>
+<dd><p>void DeleteLinks()</p>
+<p>Release the upward links from point to cells that use each point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.DeletePoint">
+<code class="sig-name descname">DeletePoint</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.DeletePoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>void DeletePoint(vtkIdType ptId)</p>
+<p>Mark a point/cell as deleted from this vtkPolyData. Use this
+method only when the dataset is set as Editable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.EDGE">
+<code class="sig-name descname">EDGE</code><em class="property"> = 5</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.EDGE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.EDGE_DATA_VECTOR">
+<code class="sig-name descname">EDGE_DATA_VECTOR</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.EDGE_DATA_VECTOR" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationInformationVectorKey <a href="#id69"><span class="problematic" id="id70">*</span></a>EDGE_DATA_VECTOR()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.ERR_INCORRECT_FIELD">
+<code class="sig-name descname">ERR_INCORRECT_FIELD</code><em class="property"> = -3</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.ERR_INCORRECT_FIELD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.ERR_NON_MANIFOLD_STAR">
+<code class="sig-name descname">ERR_NON_MANIFOLD_STAR</code><em class="property"> = -2</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.ERR_NON_MANIFOLD_STAR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.ERR_NO_SUCH_FIELD">
+<code class="sig-name descname">ERR_NO_SUCH_FIELD</code><em class="property"> = -4</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.ERR_NO_SUCH_FIELD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.EditableOff">
+<code class="sig-name descname">EditableOff</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.EditableOff" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void EditableOff()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.EditableOn">
+<code class="sig-name descname">EditableOn</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.EditableOn" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void EditableOn()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.ExtendedNew">
+<code class="sig-name descname">ExtendedNew</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.ExtendedNew" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkPolyData <a href="#id71"><span class="problematic" id="id72">*</span></a>ExtendedNew()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD">
+<code class="sig-name descname">FIELD</code><em class="property"> = 2</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_ACTIVE_ATTRIBUTE">
+<code class="sig-name descname">FIELD_ACTIVE_ATTRIBUTE</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_ACTIVE_ATTRIBUTE" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationIntegerKey <a href="#id73"><span class="problematic" id="id74">*</span></a>FIELD_ACTIVE_ATTRIBUTE()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_ARRAY_TYPE">
+<code class="sig-name descname">FIELD_ARRAY_TYPE</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_ARRAY_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationIntegerKey <a href="#id75"><span class="problematic" id="id76">*</span></a>FIELD_ARRAY_TYPE()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_ASSOCIATION">
+<code class="sig-name descname">FIELD_ASSOCIATION</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_ASSOCIATION" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationIntegerKey <a href="#id77"><span class="problematic" id="id78">*</span></a>FIELD_ASSOCIATION()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_ASSOCIATION_CELLS">
+<code class="sig-name descname">FIELD_ASSOCIATION_CELLS</code><em class="property"> = 1</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_ASSOCIATION_CELLS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_ASSOCIATION_EDGES">
+<code class="sig-name descname">FIELD_ASSOCIATION_EDGES</code><em class="property"> = 5</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_ASSOCIATION_EDGES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_ASSOCIATION_NONE">
+<code class="sig-name descname">FIELD_ASSOCIATION_NONE</code><em class="property"> = 2</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_ASSOCIATION_NONE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_ASSOCIATION_POINTS">
+<code class="sig-name descname">FIELD_ASSOCIATION_POINTS</code><em class="property"> = 0</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_ASSOCIATION_POINTS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_ASSOCIATION_POINTS_THEN_CELLS">
+<code class="sig-name descname">FIELD_ASSOCIATION_POINTS_THEN_CELLS</code><em class="property"> = 3</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_ASSOCIATION_POINTS_THEN_CELLS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_ASSOCIATION_ROWS">
+<code class="sig-name descname">FIELD_ASSOCIATION_ROWS</code><em class="property"> = 6</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_ASSOCIATION_ROWS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_ASSOCIATION_VERTICES">
+<code class="sig-name descname">FIELD_ASSOCIATION_VERTICES</code><em class="property"> = 4</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_ASSOCIATION_VERTICES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_ATTRIBUTE_TYPE">
+<code class="sig-name descname">FIELD_ATTRIBUTE_TYPE</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_ATTRIBUTE_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationIntegerKey <a href="#id79"><span class="problematic" id="id80">*</span></a>FIELD_ATTRIBUTE_TYPE()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_NAME">
+<code class="sig-name descname">FIELD_NAME</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_NAME" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationStringKey <a href="#id81"><span class="problematic" id="id82">*</span></a>FIELD_NAME()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_NUMBER_OF_COMPONENTS">
+<code class="sig-name descname">FIELD_NUMBER_OF_COMPONENTS</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_NUMBER_OF_COMPONENTS" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationIntegerKey <a href="#id83"><span class="problematic" id="id84">*</span></a>FIELD_NUMBER_OF_COMPONENTS()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_NUMBER_OF_TUPLES">
+<code class="sig-name descname">FIELD_NUMBER_OF_TUPLES</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_NUMBER_OF_TUPLES" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationIntegerKey <a href="#id85"><span class="problematic" id="id86">*</span></a>FIELD_NUMBER_OF_TUPLES()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_OPERATION">
+<code class="sig-name descname">FIELD_OPERATION</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_OPERATION" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationIntegerKey <a href="#id87"><span class="problematic" id="id88">*</span></a>FIELD_OPERATION()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_OPERATION_MODIFIED">
+<code class="sig-name descname">FIELD_OPERATION_MODIFIED</code><em class="property"> = 2</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_OPERATION_MODIFIED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_OPERATION_PRESERVED">
+<code class="sig-name descname">FIELD_OPERATION_PRESERVED</code><em class="property"> = 0</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_OPERATION_PRESERVED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_OPERATION_REINTERPOLATED">
+<code class="sig-name descname">FIELD_OPERATION_REINTERPOLATED</code><em class="property"> = 1</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_OPERATION_REINTERPOLATED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_OPERATION_REMOVED">
+<code class="sig-name descname">FIELD_OPERATION_REMOVED</code><em class="property"> = 3</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_OPERATION_REMOVED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FIELD_RANGE">
+<code class="sig-name descname">FIELD_RANGE</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FIELD_RANGE" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationDoubleVectorKey <a href="#id89"><span class="problematic" id="id90">*</span></a>FIELD_RANGE()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FastDelete">
+<code class="sig-name descname">FastDelete</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FastDelete" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void FastDelete()</p>
+<p>Delete a reference to this object.  This version will not invoke
+garbage collection and can potentially leak the object if it is
+part of a reference loop.  Use this method only when it is known
+that the object has another reference and would not be collected
+if a full garbage collection check were done.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FindAndGetCell">
+<code class="sig-name descname">FindAndGetCell</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FindAndGetCell" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>vtkCell,</dt><dd><p>cellId:int, tol2:float, subId:int, pcoords:[float, float,
+float], weights:[float, …]) -&gt; vtkCell</p>
+</dd>
+<dt>C++: virtual vtkCell <a href="#id91"><span class="problematic" id="id92">*</span></a>FindAndGetCell(double x[3], vtkCell <a href="#id93"><span class="problematic" id="id94">*</span></a>cell,</dt><dd><p>vtkIdType cellId, double tol2, int &amp;subId, double pcoords[3],
+double <a href="#id95"><span class="problematic" id="id96">*</span></a>weights)</p>
+</dd>
+</dl>
+<p>Locate the cell that contains a point and return the cell. Also
+returns the subcell id, parametric coordinates and weights for
+subsequent interpolation. This method combines the derived class
+methods int FindCell and vtkCell <a href="#id97"><span class="problematic" id="id98">*</span></a>GetCell. Derived classes may
+provide a more efficient implementation. See for example
+vtkStructuredPoints. THIS METHOD IS NOT THREAD SAFE.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>FindAndGetCell(self, x</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>[float, float, float], cell</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FindCell">
+<code class="sig-name descname">FindCell</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FindCell" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>vtkCell, cellId:int,</dt><dd><p>tol2:float, subId:int, pcoords:[float, float, float],
+weights:[float, …]) -&gt; int</p>
+</dd>
+<dt>C++: vtkIdType FindCell(double x[3], vtkCell <a href="#id99"><span class="problematic" id="id100">*</span></a>cell,</dt><dd><p>vtkIdType cellId, double tol2, int &amp;subId, double pcoords[3],
+double <a href="#id101"><span class="problematic" id="id102">*</span></a>weights) override;</p>
+</dd>
+<dt>FindCell(self, x:[float, float, float], cell:vtkCell,</dt><dd><p>gencell:vtkGenericCell, cellId:int, tol2:float, subId:int,
+pcoords:[float, float, float], weights:[float, …]) -&gt; int</p>
+</dd>
+<dt>C++: vtkIdType FindCell(double x[3], vtkCell <a href="#id103"><span class="problematic" id="id104">*</span></a>cell,</dt><dd><p>vtkGenericCell <a href="#id105"><span class="problematic" id="id106">*</span></a>gencell, vtkIdType cellId, double tol2,
+int &amp;subId, double pcoords[3], double <a href="#id107"><span class="problematic" id="id108">*</span></a>weights) override;</p>
+</dd>
+</dl>
+<p>Locate cell based on global coordinate x and tolerance squared.
+If cell and cellId is non-nullptr, then search starts from this
+cell and looks at immediate neighbors.  Returns cellId &gt;= 0 if
+inside, &lt; 0 otherwise.  The parametric coordinates are provided
+in pcoords[3]. The interpolation weights are returned in
+weights[]. (The number of weights is equal to the number of
+points in the found cell). Tolerance is used to control how close
+the point is to be considered “in” the cell. THIS METHOD IS NOT
+THREAD SAFE.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>FindCell(self, x</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>[float, float, float], cell</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.FindPoint">
+<code class="sig-name descname">FindPoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">x</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">y</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">z</span><span class="p">:</span> <span class="n">float</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#ladybug_vtk.polydata.PolyData.FindPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkIdType FindPoint(double x, double y, double z)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GenerateGhostArray">
+<code class="sig-name descname">GenerateGhostArray</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GenerateGhostArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>-&gt; None
+C++: virtual void GenerateGhostArray(int zeroExt[6])
+GenerateGhostArray(self, zeroExt:[int, int, int, int, int, int],</p>
+<blockquote>
+<div><p>cellOnly:bool) -&gt; None</p>
+</div></blockquote>
+<dl class="simple">
+<dt>C++: virtual void GenerateGhostArray(int zeroExt[6],</dt><dd><p>bool cellOnly)</p>
+</dd>
+</dl>
+<p>Normally called by pipeline executives or algorithms only. This
+method computes the ghost arrays for a given dataset. The zeroExt
+argument specifies the extent of the region which ghost type = 0.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetActiveFieldInformation">
+<code class="sig-name descname">GetActiveFieldInformation</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetActiveFieldInformation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>vtkInformation,</dt><dd><p>fieldAssociation:int, attributeType:int) -&gt; vtkInformation</p>
+</dd>
+<dt>C++: static vtkInformation <a href="#id109"><span class="problematic" id="id110">*</span></a>GetActiveFieldInformation(</dt><dd><p>vtkInformation <a href="#id111"><span class="problematic" id="id112">*</span></a>info, int fieldAssociation, int attributeType)</p>
+</dd>
+</dl>
+<p>Return the information object within the input information
+object’s field data corresponding to the specified association
+(FIELD_ASSOCIATION_POINTS or FIELD_ASSOCIATION_CELLS) and
+attribute (SCALARS, VECTORS, NORMALS, TCOORDS, or TENSORS)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>GetActiveFieldInformation(info</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetActualMemorySize">
+<code class="sig-name descname">GetActualMemorySize</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetActualMemorySize" title="Permalink to this definition">¶</a></dt>
+<dd><p>unsigned long GetActualMemorySize() override;</p>
+<p>Return the actual size of the data in kibibytes (1024 bytes).
+This number is valid only after the pipeline has updated. The
+memory size returned is guaranteed to be greater than or equal to
+the memory required to represent the data (e.g., extra space in
+arrays, etc. are not included in the return value). THIS METHOD
+IS THREAD SAFE.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetAddressAsString">
+<code class="sig-name descname">GetAddressAsString</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetAddressAsString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get address of C++ object in format ‘Addr=%p’ after casting to
+the specified type.  This method is obsolete, you can get the
+same information from o.__this__.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetAssociationTypeAsString">
+<code class="sig-name descname">GetAssociationTypeAsString</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetAssociationTypeAsString" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>static const char <a href="#id113"><span class="problematic" id="id114">*</span></a>GetAssociationTypeAsString(</dt><dd><p>int associationType)</p>
+</dd>
+</dl>
+<p>Given an integer association type, this static method returns a
+string type for the attribute (i.e. associationType = 0: returns
+“Points”).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetAssociationTypeFromString">
+<code class="sig-name descname">GetAssociationTypeFromString</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetAssociationTypeFromString" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>static int GetAssociationTypeFromString(</dt><dd><p>const char <a href="#id115"><span class="problematic" id="id116">*</span></a>associationName)</p>
+</dd>
+</dl>
+<p>Given a string association name, this static method returns an
+integer association type for the attribute (i.e. associationName
+= “Points”: returns 0).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetAttributeTypeForArray">
+<code class="sig-name descname">GetAttributeTypeForArray</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetAttributeTypeForArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual int GetAttributeTypeForArray(vtkAbstractArray <a href="#id117"><span class="problematic" id="id118">*</span></a>arr)</p>
+<p>Retrieves the attribute type that an array came from. This is
+useful for obtaining which attribute type a input array to an
+algorithm came from (retrieved from
+GetInputAbstractArrayToProcesss).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetAttributes">
+<code class="sig-name descname">GetAttributes</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetAttributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual vtkDataSetAttributes <a href="#id119"><span class="problematic" id="id120">*</span></a>GetAttributes(int type)</p>
+<p>Returns the attributes of the data object of the specified
+attribute type. The type may be:  POINT  - Defined in vtkDataSet
+subclasses. CELL   - Defined in vtkDataSet subclasses. VERTEX -
+Defined in vtkGraph subclasses. EDGE   - Defined in vtkGraph
+subclasses. ROW    - Defined in vtkTable.  The other attribute
+type, FIELD, will return nullptr since field data is stored as a
+vtkFieldData instance, not a vtkDataSetAttributes instance. To
+retrieve field data, use GetAttributesAsFieldData.</p>
+<p>&#64;warning This method NEEDS to be
+overriden in subclasses to work as documented. If not, it returns
+nullptr for any type but FIELD.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetAttributesAsFieldData">
+<code class="sig-name descname">GetAttributesAsFieldData</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetAttributesAsFieldData" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkFieldData <a href="#id121"><span class="problematic" id="id122">*</span></a>GetAttributesAsFieldData(int type) override;</p>
+<p>Returns the attributes of the data object as a vtkFieldData. This
+returns non-null values in all the same cases as GetAttributes,
+in addition to the case of FIELD, which will return the field
+data for any vtkDataObject subclass.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetBounds">
+<code class="sig-name descname">GetBounds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bounds</span><span class="p">:</span> <span class="n"><span class="p">[</span>float<span class="p">, </span>float<span class="p">, </span>float<span class="p">, </span>float<span class="p">, </span>float<span class="p">, </span>float<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetBounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>-&gt; None
+C++: void GetBounds(double bounds[6])</p>
+<p>Return a pointer to the geometry bounding box in the form
+(xmin,xmax, ymin,ymax, zmin,zmax). THIS METHOD IS NOT THREAD
+SAFE.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetCell">
+<code class="sig-name descname">GetCell</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">cellId</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">cell</span><span class="p">:</span> <span class="n">vtkGenericCell</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetCell" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>void GetCell(vtkIdType cellId, vtkGenericCell <a href="#id123"><span class="problematic" id="id124">*</span></a>cell)</dt><dd><p>override;</p>
+</dd>
+</dl>
+<p>GetCell(self, cellId:int, pts:(int, …)) -&gt; int
+C++: unsigned char GetCell(vtkIdType cellId,</p>
+<blockquote>
+<div><p>const vtkIdType <a href="#id125"><span class="problematic" id="id126">*</span></a>&amp;pts)</p>
+</div></blockquote>
+<p>GetCell(self, i:int, j:int, k:int) -&gt; vtkCell
+C++: virtual vtkCell <a href="#id127"><span class="problematic" id="id128">*</span></a>GetCell(int i, int j, int k)</p>
+<p>This method always return a <cite>vtkEmptyCell</cite>, as there is no cell
+in a <cite>vtkPointSet</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetCellBounds">
+<code class="sig-name descname">GetCellBounds</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetCellBounds" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>[float, float, float,</dt><dd><p>float, float, float]) -&gt; None</p>
+</dd>
+<dt>C++: void GetCellBounds(vtkIdType cellId, double bounds[6])</dt><dd><p>override;</p>
+</dd>
+</dl>
+<p>Get the bounds of the cell with cellId such that: 0 &lt;= cellId &lt;
+NumberOfCells. A subclass may be able to determine the bounds of
+cell without using an expensive GetCell() method. A default
+implementation is provided that actually uses a GetCell() call.
+This is to ensure the method is available to all datasets.
+Subclasses should override this method to provide an efficient
+implementation. THIS METHOD IS THREAD SAFE IF FIRST CALLED FROM A
+SINGLE THREAD AND THE DATASET IS NOT MODIFIED</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>GetCellBounds(self, cellId</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>int, bounds</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetCellData">
+<code class="sig-name descname">GetCellData</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetCellData" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkCellData <a href="#id129"><span class="problematic" id="id130">*</span></a>GetCellData()</p>
+<p>Return a pointer to this dataset’s cell data. THIS METHOD IS
+THREAD SAFE</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetCellEdgeNeighbors">
+<code class="sig-name descname">GetCellEdgeNeighbors</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetCellEdgeNeighbors" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>int, p2:int,</dt><dd><p>cellIds:vtkIdList) -&gt; None</p>
+</dd>
+<dt>C++: void GetCellEdgeNeighbors(vtkIdType cellId, vtkIdType p1,</dt><dd><p>vtkIdType p2, vtkIdList <a href="#id131"><span class="problematic" id="id132">*</span></a>cellIds)</p>
+</dd>
+</dl>
+<p>Get the neighbors at an edge. More efficient than the general
+GetCellNeighbors(). Assumes links have been built (with
+BuildLinks()), and looks specifically for edge neighbors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>GetCellEdgeNeighbors(self, cellId</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>int, p1</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetCellGhostArray">
+<code class="sig-name descname">GetCellGhostArray</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetCellGhostArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkUnsignedCharArray <a href="#id133"><span class="problematic" id="id134">*</span></a>GetCellGhostArray()</p>
+<p>Get the array that defines the ghost type of each cell. We cache
+the pointer to the array to save a lookup involving string
+comparisons</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetCellIdRelativeToCellArray">
+<code class="sig-name descname">GetCellIdRelativeToCellArray</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetCellIdRelativeToCellArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkIdType GetCellIdRelativeToCellArray(vtkIdType cellId)</p>
+<p>Maps the cell at position <cite>cellId</cite> inside the <cite>vtkPolyData</cite> to
+its location in the corresponding cell array. For instance, if
+cell <cite>cellId</cite> is a line, then this method returns the position of
+this cell in the <cite>Lines</cite> cell array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetCellLocator">
+<code class="sig-name descname">GetCellLocator</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetCellLocator" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual vtkAbstractCellLocator <a href="#id135"><span class="problematic" id="id136">*</span></a>GetCellLocator()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetCellNeighbors">
+<code class="sig-name descname">GetCellNeighbors</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetCellNeighbors" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>vtkIdList,</dt><dd><p>cellIds:vtkIdList) -&gt; None</p>
+</dd>
+<dt>C++: void GetCellNeighbors(vtkIdType cellId, vtkIdList <a href="#id137"><span class="problematic" id="id138">*</span></a>ptIds,</dt><dd><p>vtkIdList <a href="#id139"><span class="problematic" id="id140">*</span></a>cellIds) override;</p>
+</dd>
+</dl>
+<p>Topological inquiry to get all cells using list of points
+exclusive of cell specified (e.g., cellId). Note that the list
+consists of only cells that use ALL the points provided. THIS
+METHOD IS THREAD SAFE IF FIRST CALLED FROM A SINGLE THREAD AND
+THE DATASET IS NOT MODIFIED</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>GetCellNeighbors(self, cellId</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>int, ptIds</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetCellPoints">
+<code class="sig-name descname">GetCellPoints</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">cellId</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">npts</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">pts</span><span class="p">:</span> <span class="n">int<span class="p">, </span><span class="p">…</span></span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetCellPoints" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>unsigned char GetCellPoints(vtkIdType cellId,</dt><dd><p>vtkIdType &amp;npts, vtkIdType const <a href="#id141"><span class="problematic" id="id142">*</span></a>&amp;pts)</p>
+</dd>
+</dl>
+<p>Copy a cells point ids into list provided. (Less efficient.)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetCellType">
+<code class="sig-name descname">GetCellType</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetCellType" title="Permalink to this definition">¶</a></dt>
+<dd><p>int GetCellType(vtkIdType cellId) override;</p>
+<p>This method always returns <cite>VTK_EMPTY_CELL</cite>, as there is no cell
+in a <cite>vtkPointSet</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetCellTypes">
+<code class="sig-name descname">GetCellTypes</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetCellTypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void GetCellTypes(vtkCellTypes <a href="#id143"><span class="problematic" id="id144">*</span></a>types)</p>
+<p>Get a list of types of cells in a dataset. The list consists of
+an array of types (not necessarily in any order), with a single
+entry per type. For example a dataset 5 triangles, 3 lines, and
+100 hexahedra would result a list of three entries, corresponding
+to the types VTK_TRIANGLE, VTK_LINE, and VTK_HEXAHEDRON. THIS
+METHOD IS THREAD SAFE IF FIRST CALLED FROM A SINGLE THREAD AND
+THE DATASET IS NOT MODIFIED</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetCellsBounds">
+<code class="sig-name descname">GetCellsBounds</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetCellsBounds" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>[float, float, float, float, float,</dt><dd><p>float]) -&gt; None</p>
+</dd>
+</dl>
+<p>C++: void GetCellsBounds(double bounds[6])</p>
+<p>Get the cells bounds. Internally calls ComputeCellsBounds().
+&#64;sa ComputeCellsBounds()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>GetCellsBounds(self, bounds</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetCenter">
+<code class="sig-name descname">GetCenter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">center</span><span class="p">:</span> <span class="n"><span class="p">[</span>float<span class="p">, </span>float<span class="p">, </span>float<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetCenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>void GetCenter(double center[3])</p>
+<p>Get the center of the bounding box. THIS METHOD IS NOT THREAD
+SAFE.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetClassName">
+<code class="sig-name descname">GetClassName</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetClassName" title="Permalink to this definition">¶</a></dt>
+<dd><p>const char <a href="#id145"><span class="problematic" id="id146">*</span></a>GetClassName()</p>
+<p>Return the class name as a string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetCommand">
+<code class="sig-name descname">GetCommand</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkCommand <a href="#id147"><span class="problematic" id="id148">*</span></a>GetCommand(unsigned long tag)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetData">
+<code class="sig-name descname">GetData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">v</span><span class="p">:</span> <span class="n">vtkInformationVector</span></em>, <em class="sig-param"><span class="n">i</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; vtkPolyData<a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetData" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkPolyData <a href="#id149"><span class="problematic" id="id150">*</span></a>GetData(vtkInformationVector <a href="#id151"><span class="problematic" id="id152">*</span></a>v, int i=0)</p>
+<p>Retrieve an instance of this class from an information object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetDataObjectType">
+<code class="sig-name descname">GetDataObjectType</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetDataObjectType" title="Permalink to this definition">¶</a></dt>
+<dd><p>int GetDataObjectType() override;</p>
+<p>Return what type of dataset this is.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetDataReleased">
+<code class="sig-name descname">GetDataReleased</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetDataReleased" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual int GetDataReleased()</p>
+<p>Get the flag indicating the data has been released.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetDebug">
+<code class="sig-name descname">GetDebug</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetDebug" title="Permalink to this definition">¶</a></dt>
+<dd><p>bool GetDebug()</p>
+<p>Get the value of the debug flag.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetEditable">
+<code class="sig-name descname">GetEditable</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetEditable" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual bool GetEditable()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetExtentType">
+<code class="sig-name descname">GetExtentType</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetExtentType" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual int GetExtentType()</p>
+<p>The ExtentType will be left as VTK_PIECES_EXTENT for data objects
+such as vtkPolyData and vtkUnstructuredGrid. The ExtentType will
+be changed to VTK_3D_EXTENT for data objects with 3D structure
+such as vtkImageData (and its subclass vtkStructuredPoints),
+vtkRectilinearGrid, and vtkStructuredGrid. The default is the
+have an extent in pieces, with only one piece (no streaming
+possible).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetFieldData">
+<code class="sig-name descname">GetFieldData</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetFieldData" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual vtkFieldData <a href="#id153"><span class="problematic" id="id154">*</span></a>GetFieldData()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetGhostArray">
+<code class="sig-name descname">GetGhostArray</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetGhostArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual vtkDataArray <a href="#id155"><span class="problematic" id="id156">*</span></a>GetGhostArray(int type)</p>
+<p>Returns the ghost arrays of the data object of the specified
+atribute type. The type may be:  POINT    - Defined in vtkDataSet
+subclasses CELL   - Defined in vtkDataSet subclasses.  The other
+attribute types, will return nullptr since ghosts arrays are not
+defined for now outside of point or cell.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetGhostLevel">
+<code class="sig-name descname">GetGhostLevel</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetGhostLevel" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual int GetGhostLevel()</p>
+<p>Get the ghost level.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetGlobalReleaseDataFlag">
+<code class="sig-name descname">GetGlobalReleaseDataFlag</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetGlobalReleaseDataFlag" title="Permalink to this definition">¶</a></dt>
+<dd><p>static int GetGlobalReleaseDataFlag()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetGlobalWarningDisplay">
+<code class="sig-name descname">GetGlobalWarningDisplay</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetGlobalWarningDisplay" title="Permalink to this definition">¶</a></dt>
+<dd><p>static int GetGlobalWarningDisplay()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetInformation">
+<code class="sig-name descname">GetInformation</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetInformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual vtkInformation <a href="#id157"><span class="problematic" id="id158">*</span></a>GetInformation()</p>
+<p>Set/Get the information object associated with this data object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetIsInMemkind">
+<code class="sig-name descname">GetIsInMemkind</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetIsInMemkind" title="Permalink to this definition">¶</a></dt>
+<dd><p>bool GetIsInMemkind()</p>
+<p>A local state flag that remembers whether this object lives in
+the normal or extended memory space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetLength">
+<code class="sig-name descname">GetLength</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetLength" title="Permalink to this definition">¶</a></dt>
+<dd><p>double GetLength()</p>
+<p>Return the length of the diagonal of the bounding box. THIS
+METHOD IS THREAD SAFE IF FIRST CALLED FROM A SINGLE THREAD AND
+THE DATASET IS NOT MODIFIED</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetLines">
+<code class="sig-name descname">GetLines</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetLines" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkCellArray <a href="#id159"><span class="problematic" id="id160">*</span></a>GetLines()</p>
+<p>Get the cell array defining lines. If there are no lines, an
+empty array will be returned (convenience to simplify traversal).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetMTime">
+<code class="sig-name descname">GetMTime</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetMTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkMTimeType GetMTime() override;</p>
+<p>Get MTime which also considers its cell array MTime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetMaxCellSize">
+<code class="sig-name descname">GetMaxCellSize</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetMaxCellSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>int GetMaxCellSize() override;</p>
+<p>Return the maximum cell size in this poly data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetMeshMTime">
+<code class="sig-name descname">GetMeshMTime</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetMeshMTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual vtkMTimeType GetMeshMTime()</p>
+<p>Return the mesh (geometry/topology) modification time. This time
+is different from the usual MTime which also takes into account
+the modification of data arrays. This function can be used to
+track the changes on the mesh separately from the data arrays
+(eg. static mesh over time with transient data).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetNamedFieldInformation">
+<code class="sig-name descname">GetNamedFieldInformation</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetNamedFieldInformation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>vtkInformation,</dt><dd><p>fieldAssociation:int, name:str) -&gt; vtkInformation</p>
+</dd>
+<dt>C++: static vtkInformation <a href="#id161"><span class="problematic" id="id162">*</span></a>GetNamedFieldInformation(</dt><dd><p>vtkInformation <a href="#id163"><span class="problematic" id="id164">*</span></a>info, int fieldAssociation, const char <a href="#id165"><span class="problematic" id="id166">*</span></a>name)</p>
+</dd>
+</dl>
+<p>Return the information object within the input information
+object’s field data corresponding to the specified association
+(FIELD_ASSOCIATION_POINTS or FIELD_ASSOCIATION_CELLS) and name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>GetNamedFieldInformation(info</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetNumberOfCells">
+<code class="sig-name descname">GetNumberOfCells</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetNumberOfCells" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkIdType GetNumberOfCells() override;</p>
+<p>Standard vtkDataSet interface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetNumberOfElements">
+<code class="sig-name descname">GetNumberOfElements</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetNumberOfElements" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkIdType GetNumberOfElements(int type) override;</p>
+<p>Get the number of elements for a specific attribute type (POINT,
+CELL, etc.).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetNumberOfGenerationsFromBase">
+<code class="sig-name descname">GetNumberOfGenerationsFromBase</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetNumberOfGenerationsFromBase" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>vtkIdType GetNumberOfGenerationsFromBase(const char <a href="#id167"><span class="problematic" id="id168">*</span></a>type)</dt><dd><p>override;</p>
+</dd>
+</dl>
+<p>Given the name of a base class of this class type, return the
+distance of inheritance between this class type and the named
+class (how many generations of inheritance are there between this
+class and the named class). If the named class is not in this
+class’s inheritance tree, return a negative value. Valid
+responses will always be nonnegative. This method works in
+combination with vtkTypeMacro found in vtkSetGet.h.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetNumberOfGenerationsFromBaseType">
+<code class="sig-name descname">GetNumberOfGenerationsFromBaseType</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetNumberOfGenerationsFromBaseType" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>static vtkIdType GetNumberOfGenerationsFromBaseType(</dt><dd><p>const char <a href="#id169"><span class="problematic" id="id170">*</span></a>type)</p>
+</dd>
+</dl>
+<p>Given a the name of a base class of this class type, return the
+distance of inheritance between this class type and the named
+class (how many generations of inheritance are there between this
+class and the named class). If the named class is not in this
+class’s inheritance tree, return a negative value. Valid
+responses will always be nonnegative. This method works in
+combination with vtkTypeMacro found in vtkSetGet.h.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetNumberOfLines">
+<code class="sig-name descname">GetNumberOfLines</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetNumberOfLines" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkIdType GetNumberOfLines()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetNumberOfPieces">
+<code class="sig-name descname">GetNumberOfPieces</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetNumberOfPieces" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual int GetNumberOfPieces()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetNumberOfPoints">
+<code class="sig-name descname">GetNumberOfPoints</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetNumberOfPoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkIdType GetNumberOfPoints() override;</p>
+<p>See vtkDataSet for additional information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetNumberOfPolys">
+<code class="sig-name descname">GetNumberOfPolys</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetNumberOfPolys" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkIdType GetNumberOfPolys()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetNumberOfStrips">
+<code class="sig-name descname">GetNumberOfStrips</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetNumberOfStrips" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkIdType GetNumberOfStrips()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetNumberOfVerts">
+<code class="sig-name descname">GetNumberOfVerts</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetNumberOfVerts" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkIdType GetNumberOfVerts()</p>
+<p>Return the number of primitives of a particular type held.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetPiece">
+<code class="sig-name descname">GetPiece</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetPiece" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual int GetPiece()</p>
+<p>Get the piece and the number of pieces. Similar to extent in 3D.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetPoint">
+<code class="sig-name descname">GetPoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">ptId</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>double <a href="#id171"><span class="problematic" id="id172">*</span></a>GetPoint(vtkIdType ptId) override;</p>
+<p>Copy point coordinates into user provided array x[3] for
+specified point id. THIS METHOD IS THREAD SAFE IF FIRST CALLED
+FROM A SINGLE THREAD AND THE DATASET IS NOT MODIFIED</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetPointCells">
+<code class="sig-name descname">GetPointCells</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">ptId</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">ncells</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">cells</span><span class="p">:</span> <span class="n"><span class="p">[</span>int<span class="p">, </span><span class="p">…</span><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetPointCells" title="Permalink to this definition">¶</a></dt>
+<dd><p>-&gt; None
+C++: void GetPointCells(vtkIdType ptId, vtkIdType &amp;ncells,</p>
+<blockquote>
+<div><p>vtkIdType <a href="#id173"><span class="problematic" id="id174">*</span></a>&amp;cells)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>GetPointCells(self, ptId:int, ncells:int, cells:[int, …])</dt><dd><p>-&gt; None</p>
+</dd>
+<dt>C++: void GetPointCells(vtkIdType ptId, unsigned short &amp;ncells,</dt><dd><p>vtkIdType <a href="#id175"><span class="problematic" id="id176">*</span></a>&amp;cells)</p>
+</dd>
+</dl>
+<p>Efficient method to obtain cells using a particular point. Make
+sure that routine BuildLinks() has been called.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetPointData">
+<code class="sig-name descname">GetPointData</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetPointData" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkPointData <a href="#id177"><span class="problematic" id="id178">*</span></a>GetPointData()</p>
+<p>Return a pointer to this dataset’s point data. THIS METHOD IS
+THREAD SAFE</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetPointGhostArray">
+<code class="sig-name descname">GetPointGhostArray</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetPointGhostArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkUnsignedCharArray <a href="#id179"><span class="problematic" id="id180">*</span></a>GetPointGhostArray()</p>
+<p>Gets the array that defines the ghost type of each point. We
+cache the pointer to the array to save a lookup involving string
+comparisons</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetPointLocator">
+<code class="sig-name descname">GetPointLocator</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetPointLocator" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual vtkAbstractPointLocator <a href="#id181"><span class="problematic" id="id182">*</span></a>GetPointLocator()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetPoints">
+<code class="sig-name descname">GetPoints</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetPoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual vtkPoints <a href="#id183"><span class="problematic" id="id184">*</span></a>GetPoints()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetPolys">
+<code class="sig-name descname">GetPolys</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetPolys" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkCellArray <a href="#id185"><span class="problematic" id="id186">*</span></a>GetPolys()</p>
+<p>Get the cell array defining polygons. If there are no polygons,
+an empty array will be returned (convenience to simplify
+traversal).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetReferenceCount">
+<code class="sig-name descname">GetReferenceCount</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetReferenceCount" title="Permalink to this definition">¶</a></dt>
+<dd><p>int GetReferenceCount()</p>
+<p>Return the current reference count of this object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetScalarFieldCriticalIndex">
+<code class="sig-name descname">GetScalarFieldCriticalIndex</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">pointId</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">fieldName</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetScalarFieldCriticalIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>-&gt; int
+C++: int GetScalarFieldCriticalIndex(vtkIdType pointId,</p>
+<blockquote>
+<div><p>const char <a href="#id187"><span class="problematic" id="id188">*</span></a>fieldName)</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetScalarRange">
+<code class="sig-name descname">GetScalarRange</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetScalarRange" title="Permalink to this definition">¶</a></dt>
+<dd><p>double <a href="#id189"><span class="problematic" id="id190">*</span></a>GetScalarRange()</p>
+<p>Convenience method to get the range of the first component (and
+only the first component) of any scalars in the data set.  If the
+data has both point data and cell data, it returns the (min/max)
+range of combined point and cell data.  If there are no point or
+cell scalars the method will return (0,1).  Note: It might be
+necessary to call Update to create or refresh the scalars before
+calling this method. THIS METHOD IS THREAD SAFE IF FIRST CALLED
+FROM A SINGLE THREAD AND THE DATASET IS NOT MODIFIED</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetStrips">
+<code class="sig-name descname">GetStrips</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetStrips" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkCellArray <a href="#id191"><span class="problematic" id="id192">*</span></a>GetStrips()</p>
+<p>Get the cell array defining triangle strips. If there are no
+triangle strips, an empty array will be returned (convenience to
+simplify traversal).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetUpdateTime">
+<code class="sig-name descname">GetUpdateTime</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetUpdateTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkMTimeType GetUpdateTime()</p>
+<p>Used by Threaded ports to determine if they should initiate an
+asynchronous update (still in development).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetUsingMemkind">
+<code class="sig-name descname">GetUsingMemkind</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetUsingMemkind" title="Permalink to this definition">¶</a></dt>
+<dd><p>static bool GetUsingMemkind()</p>
+<p>A global state flag that controls whether vtkObjects are
+constructed in the usual way (the default) or within the extended
+memory space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GetVerts">
+<code class="sig-name descname">GetVerts</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GetVerts" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkCellArray <a href="#id193"><span class="problematic" id="id194">*</span></a>GetVerts()</p>
+<p>Get the cell array defining vertices. If there are no vertices,
+an empty array will be returned (convenience to simplify
+traversal).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GlobalReleaseDataFlagOff">
+<code class="sig-name descname">GlobalReleaseDataFlagOff</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GlobalReleaseDataFlagOff" title="Permalink to this definition">¶</a></dt>
+<dd><p>void GlobalReleaseDataFlagOff()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GlobalReleaseDataFlagOn">
+<code class="sig-name descname">GlobalReleaseDataFlagOn</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GlobalReleaseDataFlagOn" title="Permalink to this definition">¶</a></dt>
+<dd><p>void GlobalReleaseDataFlagOn()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GlobalWarningDisplayOff">
+<code class="sig-name descname">GlobalWarningDisplayOff</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GlobalWarningDisplayOff" title="Permalink to this definition">¶</a></dt>
+<dd><p>static void GlobalWarningDisplayOff()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.GlobalWarningDisplayOn">
+<code class="sig-name descname">GlobalWarningDisplayOn</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.GlobalWarningDisplayOn" title="Permalink to this definition">¶</a></dt>
+<dd><p>static void GlobalWarningDisplayOn()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.HasAnyBlankCells">
+<code class="sig-name descname">HasAnyBlankCells</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.HasAnyBlankCells" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual bool HasAnyBlankCells()</p>
+<p>Returns 1 if there are any blanking cells 0 otherwise. Blanking
+is supported only for vtkStructuredGrid and vtkUniformGrid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.HasAnyBlankPoints">
+<code class="sig-name descname">HasAnyBlankPoints</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.HasAnyBlankPoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual bool HasAnyBlankPoints()</p>
+<p>Returns 1 if there are any blanking points 0 otherwise. Blanking
+is supported only for vtkStructuredGrid and vtkUniformGrid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.HasAnyGhostCells">
+<code class="sig-name descname">HasAnyGhostCells</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.HasAnyGhostCells" title="Permalink to this definition">¶</a></dt>
+<dd><p>bool HasAnyGhostCells()</p>
+<p>Returns 1 if there are any ghost cells 0 otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.HasAnyGhostPoints">
+<code class="sig-name descname">HasAnyGhostPoints</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.HasAnyGhostPoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>bool HasAnyGhostPoints()</p>
+<p>Returns 1 if there are any ghost points 0 otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.HasObserver">
+<code class="sig-name descname">HasObserver</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">event</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">__b</span><span class="p">:</span> <span class="n">vtkCommand</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#ladybug_vtk.polydata.PolyData.HasObserver" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkTypeBool HasObserver(const char <a href="#id195"><span class="problematic" id="id196">*</span></a>event, vtkCommand <a href="#id197"><span class="problematic" id="id198">*</span></a>)
+HasObserver(self, event:int) -&gt; int
+C++: vtkTypeBool HasObserver(unsigned long event)
+HasObserver(self, event:str) -&gt; int
+C++: vtkTypeBool HasObserver(const char <a href="#id199"><span class="problematic" id="id200">*</span></a>event)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.Initialize">
+<code class="sig-name descname">Initialize</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.Initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>void Initialize() override;</p>
+<p>Restore object to initial state. Release memory back to system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.InitializeObjectBase">
+<code class="sig-name descname">InitializeObjectBase</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.InitializeObjectBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>void InitializeObjectBase()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.InsertNextCell">
+<code class="sig-name descname">InsertNextCell</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">type</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">pts</span><span class="p">:</span> <span class="n">vtkIdList</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#ladybug_vtk.polydata.PolyData.InsertNextCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkIdType InsertNextCell(int type, vtkIdList <a href="#id201"><span class="problematic" id="id202">*</span></a>pts)</p>
+<p>Insert a cell of type VTK_VERTEX, VTK_POLY_VERTEX, VTK_LINE,
+VTK_POLY_LINE, VTK_TRIANGLE, VTK_QUAD, VTK_POLYGON, or
+VTK_TRIANGLE_STRIP.  Make sure that the PolyData::Allocate()
+function has been called first or that vertex, line, polygon, and
+triangle strip arrays have been supplied. Note: will also insert
+VTK_PIXEL, but converts it to VTK_QUAD.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.InsertNextLinkedCell">
+<code class="sig-name descname">InsertNextLinkedCell</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.InsertNextLinkedCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>-&gt; int
+C++: vtkIdType InsertNextLinkedCell(int type, int npts,</p>
+<blockquote>
+<div><p>const vtkIdType pts[])</p>
+</div></blockquote>
+<p>Add a new cell to the cell data structure (after cell pointers
+have been built). This method adds the cell and then updates the
+links from the points to the cells. (Memory is allocated as
+necessary.) Use this method only when the dataset is set as
+Editable.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.InsertNextLinkedPoint">
+<code class="sig-name descname">InsertNextLinkedPoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">x</span><span class="p">:</span> <span class="n"><span class="p">[</span>float<span class="p">, </span>float<span class="p">, </span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">numLinks</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.InsertNextLinkedPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>-&gt; int
+C++: vtkIdType InsertNextLinkedPoint(double x[3], int numLinks)</p>
+<p>Add a point to the cell data structure (after cell pointers have
+been built). This method adds the point and then allocates memory
+for the links to the cells.  (To use this method, make sure
+points are available and BuildLinks() has been invoked.) Of the
+two methods below, one inserts a point coordinate and the other
+just makes room for cell links. Use this method only when the
+dataset is set as Editable.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.InvokeEvent">
+<code class="sig-name descname">InvokeEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">event</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">callData</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#ladybug_vtk.polydata.PolyData.InvokeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>int InvokeEvent(const char* event, void* callData)
+InvokeEvent(self, event:int) -&gt; int
+C++: int InvokeEvent(unsigned long event)
+InvokeEvent(self, event:str) -&gt; int
+C++: int InvokeEvent(const char* event)</p>
+<p>This method invokes an event and returns whether the event was
+aborted or not. If the event was aborted, the return value is 1,
+otherwise it is 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.IsA">
+<code class="sig-name descname">IsA</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.IsA" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkTypeBool IsA(const char <a href="#id203"><span class="problematic" id="id204">*</span></a>type) override;</p>
+<p>Return 1 if this class is the same type of (or a subclass of) the
+named class. Returns 0 otherwise. This method works in
+combination with vtkTypeMacro found in vtkSetGet.h.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.IsEdge">
+<code class="sig-name descname">IsEdge</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.IsEdge" title="Permalink to this definition">¶</a></dt>
+<dd><p>int IsEdge(vtkIdType p1, vtkIdType p2)</p>
+<p>Determine whether two points form an edge. If they do, return
+non-zero. By definition PolyVertex and PolyLine have no edges
+since 1-dimensional edges are only found on cells 2D and higher.
+Edges are defined as 1-D boundary entities to cells. Make sure
+BuildLinks() has been called first.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.IsPointUsedByCell">
+<code class="sig-name descname">IsPointUsedByCell</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.IsPointUsedByCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>int IsPointUsedByCell(vtkIdType ptId, vtkIdType cellId)</p>
+<p>Determine whether a point is used by a particular cell. If it is,
+return non-zero. Make sure BuildCells() has been called first.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.IsTriangle">
+<code class="sig-name descname">IsTriangle</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.IsTriangle" title="Permalink to this definition">¶</a></dt>
+<dd><p>int IsTriangle(int v1, int v2, int v3)</p>
+<p>Given three vertices, determine whether it’s a triangle. Make
+sure BuildLinks() has been called first.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.IsTypeOf">
+<code class="sig-name descname">IsTypeOf</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.IsTypeOf" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkTypeBool IsTypeOf(const char <a href="#id205"><span class="problematic" id="id206">*</span></a>type)</p>
+<p>Return 1 if this class type is the same type of (or a subclass
+of) the named class. Returns 0 otherwise. This method works in
+combination with vtkTypeMacro found in vtkSetGet.h.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.MAXIMUM">
+<code class="sig-name descname">MAXIMUM</code><em class="property"> = 2</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.MAXIMUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.MINIMUM">
+<code class="sig-name descname">MINIMUM</code><em class="property"> = 0</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.MINIMUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.Modified">
+<code class="sig-name descname">Modified</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.Modified" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void Modified()</p>
+<p>Update the modification time for this object. Many filters rely
+on the modification time to determine if they need to recompute
+their data. The modification time is a unique monotonically
+increasing unsigned long integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.NUMBER_OF_ASSOCIATIONS">
+<code class="sig-name descname">NUMBER_OF_ASSOCIATIONS</code><em class="property"> = 7</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.NUMBER_OF_ASSOCIATIONS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.NUMBER_OF_ATTRIBUTE_TYPES">
+<code class="sig-name descname">NUMBER_OF_ATTRIBUTE_TYPES</code><em class="property"> = 7</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.NUMBER_OF_ATTRIBUTE_TYPES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.NeedToBuildCells">
+<code class="sig-name descname">NeedToBuildCells</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.NeedToBuildCells" title="Permalink to this definition">¶</a></dt>
+<dd><p>bool NeedToBuildCells()</p>
+<p>Check if BuildCells is needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.NewCellIterator">
+<code class="sig-name descname">NewCellIterator</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.NewCellIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkCellIterator <a href="#id207"><span class="problematic" id="id208">*</span></a>NewCellIterator() override;</p>
+<p>Return an iterator that traverses the cells in this data set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.NewInstance">
+<code class="sig-name descname">NewInstance</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.NewInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>vtkPolyData <a href="#id209"><span class="problematic" id="id210">*</span></a>NewInstance()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.ORIGIN">
+<code class="sig-name descname">ORIGIN</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.ORIGIN" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationDoubleVectorKey <a href="#id211"><span class="problematic" id="id212">*</span></a>ORIGIN()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.PIECE_EXTENT">
+<code class="sig-name descname">PIECE_EXTENT</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.PIECE_EXTENT" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationIntegerVectorKey <a href="#id213"><span class="problematic" id="id214">*</span></a>PIECE_EXTENT()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.POINT">
+<code class="sig-name descname">POINT</code><em class="property"> = 0</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.POINT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.POINT_DATA_FIELD">
+<code class="sig-name descname">POINT_DATA_FIELD</code><em class="property"> = 1</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.POINT_DATA_FIELD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.POINT_DATA_VECTOR">
+<code class="sig-name descname">POINT_DATA_VECTOR</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.POINT_DATA_VECTOR" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationInformationVectorKey <a href="#id215"><span class="problematic" id="id216">*</span></a>POINT_DATA_VECTOR(
+)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.POINT_THEN_CELL">
+<code class="sig-name descname">POINT_THEN_CELL</code><em class="property"> = 3</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.POINT_THEN_CELL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.PrepareForNewData">
+<code class="sig-name descname">PrepareForNewData</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.PrepareForNewData" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void PrepareForNewData()</p>
+<p>make the output data ready for new data to be inserted. For most
+objects we just call Initialize. But for vtkImageData we leave
+the old data in case the memory can be reused.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.REGULAR_POINT">
+<code class="sig-name descname">REGULAR_POINT</code><em class="property"> = -1</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.REGULAR_POINT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.ROW">
+<code class="sig-name descname">ROW</code><em class="property"> = 6</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.ROW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.Register">
+<code class="sig-name descname">Register</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.Register" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void Register(vtkObjectBase <a href="#id217"><span class="problematic" id="id218">*</span></a>o)</p>
+<p>Increase the reference count by 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.ReleaseData">
+<code class="sig-name descname">ReleaseData</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.ReleaseData" title="Permalink to this definition">¶</a></dt>
+<dd><p>void ReleaseData()</p>
+<p>Release data back to system to conserve memory resource. Used
+during visualization network execution.  Releasing this data does
+not make down-stream data invalid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.RemoveAllObservers">
+<code class="sig-name descname">RemoveAllObservers</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.RemoveAllObservers" title="Permalink to this definition">¶</a></dt>
+<dd><p>void RemoveAllObservers()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.RemoveCellReference">
+<code class="sig-name descname">RemoveCellReference</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.RemoveCellReference" title="Permalink to this definition">¶</a></dt>
+<dd><p>void RemoveCellReference(vtkIdType cellId)</p>
+<p>Remove all references to cell in cell structure. This means the
+links from the cell’s points to the cell are deleted. Memory is
+not reclaimed. Use the method ResizeCellList() to resize the link
+list from a point to its using cells. (This operator assumes
+BuildLinks() has been called.) Use this method only when the
+dataset is set as Editable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.RemoveDeletedCells">
+<code class="sig-name descname">RemoveDeletedCells</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.RemoveDeletedCells" title="Permalink to this definition">¶</a></dt>
+<dd><p>void RemoveDeletedCells()</p>
+<p>The cells marked by calls to DeleteCell are stored in the Cell
+Array VTK_EMPTY_CELL, but they still exist in the cell arrays.
+Calling RemoveDeletedCells will traverse the cell arrays and
+remove/compact the cell arrays as well as any cell data thus
+truly removing the cells from the polydata object. Use this
+method only when the dataset is set as Editable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.RemoveGhostCells">
+<code class="sig-name descname">RemoveGhostCells</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.RemoveGhostCells" title="Permalink to this definition">¶</a></dt>
+<dd><p>void RemoveGhostCells()</p>
+<p>This method will remove any cell that is marked as ghost (has the
+vtkDataSetAttributes::DUPLICATECELL or the
+vtkDataSetAttributes::HIDDENCELL bit set). It does not remove
+unused points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.RemoveNamedFieldInformation">
+<code class="sig-name descname">RemoveNamedFieldInformation</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.RemoveNamedFieldInformation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>vtkInformation,</dt><dd><p>fieldAssociation:int, name:str) -&gt; None</p>
+</dd>
+<dt>C++: static void RemoveNamedFieldInformation(vtkInformation <a href="#id219"><span class="problematic" id="id220">*</span></a>info,</dt><dd><p>int fieldAssociation, const char <a href="#id221"><span class="problematic" id="id222">*</span></a>name)</p>
+</dd>
+</dl>
+<p>Remove the info associated with an array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>RemoveNamedFieldInformation(info</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.RemoveObserver">
+<code class="sig-name descname">RemoveObserver</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">tag</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#ladybug_vtk.polydata.PolyData.RemoveObserver" title="Permalink to this definition">¶</a></dt>
+<dd><p>void RemoveObserver(unsigned long tag)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.RemoveObservers">
+<code class="sig-name descname">RemoveObservers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">event</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">__b</span><span class="p">:</span> <span class="n">vtkCommand</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#ladybug_vtk.polydata.PolyData.RemoveObservers" title="Permalink to this definition">¶</a></dt>
+<dd><p>void RemoveObservers(const char <a href="#id223"><span class="problematic" id="id224">*</span></a>event, vtkCommand <a href="#id225"><span class="problematic" id="id226">*</span></a>)
+RemoveObservers(self, event:int) -&gt; None
+C++: void RemoveObservers(unsigned long event)
+RemoveObservers(self, event:str) -&gt; None
+C++: void RemoveObservers(const char <a href="#id227"><span class="problematic" id="id228">*</span></a>event)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.RemoveReferenceToCell">
+<code class="sig-name descname">RemoveReferenceToCell</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.RemoveReferenceToCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>void RemoveReferenceToCell(vtkIdType ptId, vtkIdType cellId)</p>
+<p>Remove a reference to a cell in a particular point’s link list.
+You may also consider using RemoveCellReference() to remove the
+references from all the cell’s points to the cell. This operator
+does not reallocate memory; use the operator ResizeCellList() to
+do this if necessary. Use this method only when the dataset is
+set as Editable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.ReplaceCell">
+<code class="sig-name descname">ReplaceCell</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">cellId</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">npts</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">pts</span><span class="p">:</span> <span class="n">int<span class="p">, </span><span class="p">…</span></span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#ladybug_vtk.polydata.PolyData.ReplaceCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>void ReplaceCell(vtkIdType cellId, int npts,
+const vtkIdType pts[])</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.ReplaceCellPoint">
+<code class="sig-name descname">ReplaceCellPoint</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.ReplaceCellPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>-&gt; None
+C++: void ReplaceCellPoint(vtkIdType cellId, vtkIdType oldPtId,</p>
+<blockquote>
+<div><p>vtkIdType newPtId)</p>
+</div></blockquote>
+<p>Replace a point in the cell connectivity list with a different
+point. Use this method only when the dataset is set as Editable.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.ReplaceLinkedCell">
+<code class="sig-name descname">ReplaceLinkedCell</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.ReplaceLinkedCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>-&gt; None
+C++: void ReplaceLinkedCell(vtkIdType cellId, int npts,</p>
+<blockquote>
+<div><p>const vtkIdType pts[])</p>
+</div></blockquote>
+<p>Replace one cell with another in cell structure. This operator
+updates the connectivity list and the point’s link list. It does
+not delete references to the old cell in the point’s link list.
+Use the operator RemoveCellReference() to delete all references
+from points to (old) cell.  You may also want to consider using
+the operator ResizeCellList() if the link list is changing size.
+Use this method only when the dataset is set as Editable.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.Reset">
+<code class="sig-name descname">Reset</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.Reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>void Reset()</p>
+<p>Begin inserting data all over again. Memory is not freed but
+otherwise objects are returned to their initial state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.ResizeCellList">
+<code class="sig-name descname">ResizeCellList</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.ResizeCellList" title="Permalink to this definition">¶</a></dt>
+<dd><p>void ResizeCellList(vtkIdType ptId, int size)</p>
+<p>Resize the list of cells using a particular point. (This operator
+assumes that BuildLinks() has been called.) Use this method only
+when the dataset is set as Editable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.ReverseCell">
+<code class="sig-name descname">ReverseCell</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.ReverseCell" title="Permalink to this definition">¶</a></dt>
+<dd><p>void ReverseCell(vtkIdType cellId)</p>
+<p>Reverse the order of point ids defining the cell. Use this method
+only when the dataset is set as Editable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SADDLE">
+<code class="sig-name descname">SADDLE</code><em class="property"> = 1</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SADDLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SIL">
+<code class="sig-name descname">SIL</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SIL" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationDataObjectKey <a href="#id229"><span class="problematic" id="id230">*</span></a>SIL()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SPACING">
+<code class="sig-name descname">SPACING</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SPACING" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationDoubleVectorKey <a href="#id231"><span class="problematic" id="id232">*</span></a>SPACING()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SafeDownCast">
+<code class="sig-name descname">SafeDownCast</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SafeDownCast" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkPolyData <a href="#id233"><span class="problematic" id="id234">*</span></a>SafeDownCast(vtkObjectBase <a href="#id235"><span class="problematic" id="id236">*</span></a>o)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetActiveAttribute">
+<code class="sig-name descname">SetActiveAttribute</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetActiveAttribute" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>int,</dt><dd><p>attributeName:str, attributeType:int) -&gt; vtkInformation</p>
+</dd>
+<dt>C++: static vtkInformation <a href="#id237"><span class="problematic" id="id238">*</span></a>SetActiveAttribute(</dt><dd><p>vtkInformation <a href="#id239"><span class="problematic" id="id240">*</span></a>info, int fieldAssociation,
+const char <a href="#id241"><span class="problematic" id="id242">*</span></a>attributeName, int attributeType)</p>
+</dd>
+</dl>
+<p>Set the named array to be the active field for the specified type
+(SCALARS, VECTORS, NORMALS, TCOORDS, or TENSORS) and association
+(FIELD_ASSOCIATION_POINTS or FIELD_ASSOCIATION_CELLS).  Returns
+the active field information object and creates on entry if one
+not found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>SetActiveAttribute(info</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>vtkInformation, fieldAssociation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetActiveAttributeInfo">
+<code class="sig-name descname">SetActiveAttributeInfo</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetActiveAttributeInfo" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>int,</dt><dd><dl class="simple">
+<dt>attributeType:int, name:str, arrayType:int, numComponents:int,</dt><dd><p>numTuples:int) -&gt; None</p>
+</dd>
+</dl>
+</dd>
+<dt>C++: static void SetActiveAttributeInfo(vtkInformation <a href="#id243"><span class="problematic" id="id244">*</span></a>info,</dt><dd><p>int fieldAssociation, int attributeType, const char <a href="#id245"><span class="problematic" id="id246">*</span></a>name,
+int arrayType, int numComponents, int numTuples)</p>
+</dd>
+</dl>
+<p>Set the name, array type, number of components, and number of
+tuples within the passed information object for the active
+attribute of type attributeType (in specified association,
+FIELD_ASSOCIATION_POINTS or FIELD_ASSOCIATION_CELLS).  If there
+is not an active attribute of the specified type, an entry in the
+information object is created.  If arrayType, numComponents, or
+numTuples equal to -1, or name=nullptr the value is not changed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>SetActiveAttributeInfo(info</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>vtkInformation, fieldAssociation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetCellLocator">
+<code class="sig-name descname">SetCellLocator</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetCellLocator" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void SetCellLocator(vtkAbstractCellLocator <a href="#id247"><span class="problematic" id="id248">*</span></a>)</p>
+<p>Set / get an instance of vtkAbstractCellLocator which may be used
+when a vtkCellLocatorStrategy is used during a FindCelloperation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetCellOrderAndRationalWeights">
+<code class="sig-name descname">SetCellOrderAndRationalWeights</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetCellOrderAndRationalWeights" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>int,</dt><dd><p>cell:vtkGenericCell) -&gt; None</p>
+</dd>
+<dt>C++: void SetCellOrderAndRationalWeights(vtkIdType cellId,</dt><dd><p>vtkGenericCell <a href="#id249"><span class="problematic" id="id250">*</span></a>cell)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>SetCellOrderAndRationalWeights(self, cellId</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetDebug">
+<code class="sig-name descname">SetDebug</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetDebug" title="Permalink to this definition">¶</a></dt>
+<dd><p>void SetDebug(bool debugFlag)</p>
+<p>Set the value of the debug flag. A true value turns debugging on.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetEditable">
+<code class="sig-name descname">SetEditable</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetEditable" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void SetEditable(bool _arg)</p>
+<p>Specify whether this dataset is editable after creation. Meaning,
+once the points and cells are defined, can the dataset be
+incrementally modified. By default, this dataset is non-editable
+(i.e., “static”) after construction. The reason for this is
+performance: cell links and locators can be built (and destroyed)
+much faster is it is known that the data is static (see
+vtkStaticCellLinks, vtkStaticPointLocator, vtkStaticCellLocator).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetFieldData">
+<code class="sig-name descname">SetFieldData</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetFieldData" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void SetFieldData(vtkFieldData <a href="#id251"><span class="problematic" id="id252">*</span></a>)</p>
+<p>Assign or retrieve a general field data to this data object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetGlobalReleaseDataFlag">
+<code class="sig-name descname">SetGlobalReleaseDataFlag</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetGlobalReleaseDataFlag" title="Permalink to this definition">¶</a></dt>
+<dd><p>static void SetGlobalReleaseDataFlag(int val)</p>
+<p>Turn on/off flag to control whether every object releases its
+data after being used by a filter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetGlobalWarningDisplay">
+<code class="sig-name descname">SetGlobalWarningDisplay</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetGlobalWarningDisplay" title="Permalink to this definition">¶</a></dt>
+<dd><p>static void SetGlobalWarningDisplay(int val)</p>
+<p>This is a global flag that controls whether any debug, warning or
+error messages are displayed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetInformation">
+<code class="sig-name descname">SetInformation</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetInformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void SetInformation(vtkInformation <a href="#id253"><span class="problematic" id="id254">*</span></a>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetLines">
+<code class="sig-name descname">SetLines</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetLines" title="Permalink to this definition">¶</a></dt>
+<dd><p>void SetLines(vtkCellArray <a href="#id255"><span class="problematic" id="id256">*</span></a>l)</p>
+<p>Set the cell array defining lines.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetMemkindDirectory">
+<code class="sig-name descname">SetMemkindDirectory</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetMemkindDirectory" title="Permalink to this definition">¶</a></dt>
+<dd><p>static void SetMemkindDirectory(const char <a href="#id257"><span class="problematic" id="id258">*</span></a>directoryname)</p>
+<p>The name of a directory, ideally mounted -o dax, to memory map an
+extended memory space within. This must be called before any
+objects are constructed in the extended space. It can not be
+changed once setup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetPointDataActiveScalarInfo">
+<code class="sig-name descname">SetPointDataActiveScalarInfo</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetPointDataActiveScalarInfo" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>int,</dt><dd><p>numComponents:int) -&gt; None</p>
+</dd>
+<dt>C++: static void SetPointDataActiveScalarInfo(</dt><dd><p>vtkInformation <a href="#id259"><span class="problematic" id="id260">*</span></a>info, int arrayType, int numComponents)</p>
+</dd>
+</dl>
+<p>Convenience version of previous method for use (primarily) by the
+Imaging filters. If arrayType or numComponents == -1, the value
+is not changed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>SetPointDataActiveScalarInfo(info</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>vtkInformation, arrayType</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetPointLocator">
+<code class="sig-name descname">SetPointLocator</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetPointLocator" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void SetPointLocator(vtkAbstractPointLocator <a href="#id261"><span class="problematic" id="id262">*</span></a>)</p>
+<p>Set / get an instance of vtkAbstractPointLocator which is used to
+support the FindPoint() and FindCell() methods. By default a
+vtkStaticPointLocator is used, unless the class is set as
+Editable, in which case a vtkPointLocator is used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetPoints">
+<code class="sig-name descname">SetPoints</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetPoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void SetPoints(vtkPoints <a href="#id263"><span class="problematic" id="id264">*</span></a>)</p>
+<p>Specify point array to define point coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetPolys">
+<code class="sig-name descname">SetPolys</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetPolys" title="Permalink to this definition">¶</a></dt>
+<dd><p>void SetPolys(vtkCellArray <a href="#id265"><span class="problematic" id="id266">*</span></a>p)</p>
+<p>Set the cell array defining polygons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetReferenceCount">
+<code class="sig-name descname">SetReferenceCount</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetReferenceCount" title="Permalink to this definition">¶</a></dt>
+<dd><p>void SetReferenceCount(int)</p>
+<p>Sets the reference count. (This is very dangerous, use with
+care.)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetStrips">
+<code class="sig-name descname">SetStrips</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetStrips" title="Permalink to this definition">¶</a></dt>
+<dd><p>void SetStrips(vtkCellArray <a href="#id267"><span class="problematic" id="id268">*</span></a>s)</p>
+<p>Set the cell array defining triangle strips.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.SetVerts">
+<code class="sig-name descname">SetVerts</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.SetVerts" title="Permalink to this definition">¶</a></dt>
+<dd><p>void SetVerts(vtkCellArray <a href="#id269"><span class="problematic" id="id270">*</span></a>v)</p>
+<p>Set the cell array defining vertices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.ShallowCopy">
+<code class="sig-name descname">ShallowCopy</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.ShallowCopy" title="Permalink to this definition">¶</a></dt>
+<dd><p>void ShallowCopy(vtkDataObject <a href="#id271"><span class="problematic" id="id272">*</span></a>src) override;</p>
+<p>Shallow and Deep copy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.Squeeze">
+<code class="sig-name descname">Squeeze</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.Squeeze" title="Permalink to this definition">¶</a></dt>
+<dd><p>void Squeeze() override;</p>
+<p>Recover extra allocated memory when creating data whose initial
+size is unknown. Examples include using the InsertNextCell()
+method, or when using the CellArray::EstimateSize() method to
+create vertices, lines, polygons, or triangle strips.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.UnRegister">
+<code class="sig-name descname">UnRegister</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.UnRegister" title="Permalink to this definition">¶</a></dt>
+<dd><p>virtual void UnRegister(vtkObjectBase* o)</p>
+<p>Decrease the reference count (release by another object). This
+has the same effect as invoking Delete() (i.e., it reduces the
+reference count by 1).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.UpdateCellGhostArrayCache">
+<code class="sig-name descname">UpdateCellGhostArrayCache</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.UpdateCellGhostArrayCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>void UpdateCellGhostArrayCache()</p>
+<p>Updates the pointer to the cell ghost array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.UpdatePointGhostArrayCache">
+<code class="sig-name descname">UpdatePointGhostArrayCache</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.UpdatePointGhostArrayCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>void UpdatePointGhostArrayCache()</p>
+<p>Updates the pointer to the point ghost array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.VERTEX">
+<code class="sig-name descname">VERTEX</code><em class="property"> = 4</em><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.VERTEX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="ladybug_vtk.polydata.PolyData.VERTEX_DATA_VECTOR">
+<code class="sig-name descname">VERTEX_DATA_VECTOR</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.VERTEX_DATA_VECTOR" title="Permalink to this definition">¶</a></dt>
+<dd><p>static vtkInformationInformationVectorKey <a href="#id273"><span class="problematic" id="id274">*</span></a>VERTEX_DATA_VECTOR(
+)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>C++</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ladybug_vtk.polydata.PolyData.data_fields">
+<em class="property">property </em><code class="sig-name descname">data_fields</code><a class="headerlink" href="#ladybug_vtk.polydata.PolyData.data_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get data fields for this Polydata.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Ladybug Tools.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.3.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
