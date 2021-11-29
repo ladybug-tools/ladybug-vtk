@@ -14,10 +14,10 @@ ladybug-vtk
 =======
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 4
 
-.. include:: modules.rst
+   
+   modules
 
 
 Indices and tables
