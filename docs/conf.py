@@ -619,4 +619,4 @@ def setup(app):
     """
 
     # Add bootstrap theme custom stylesheet
-    app.add_stylesheet("custom.css")
+    app.add_css_file("custom.css")
