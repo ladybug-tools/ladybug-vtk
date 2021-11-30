@@ -1,15 +1,14 @@
 Welcome to ladybug-vtk's documentation!
 ===================================
 
-.. image:: http://www.ladybug.tools/assets/img/ladybug.png
+.. image:: https://raw.githubusercontent.com/devngc/honeybee-vtk/master/images/vtk.png
 
-Provides methods for translating ladybug-geometry objects to VTK PolyData.
-
+Ladybug extension for translating ladybug-geometry objects to VTK PolyData.
 
 Installation
 ============
 
-``pip install ladybug-vtk``
+``pip install -U ladybug-vtk``
 
 
 ladybug-vtk
