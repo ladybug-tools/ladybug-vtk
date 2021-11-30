@@ -10,10 +10,6 @@ Installation
 
 ``pip install -U ladybug-vtk``
 
-
-ladybug-vtk
-=======
-
 .. toctree::
    :maxdepth: 4
    :caption: Contents:
