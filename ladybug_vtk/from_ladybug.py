@@ -1,5 +1,6 @@
 """Functions to create VTK Polydata from Ladybug Objects."""
 import vtk
+import math
 from ladybug_geometry.geometry3d.face import Face3D
 from ladybug_geometry.geometry3d.polyface import Polyface3D
 from typing import List
@@ -85,24 +86,33 @@ def from_polyline(polyline: Polyline3D) -> PolyData:
     return from_points(polyline.vertices, join=True)
 
 
-def from_arc(arc: Arc3D, divisions: int = 50,
-             interpolated: bool = True) -> PolyData:
+def from_arc(arc3d: Arc3D, resolution: int = 25) -> PolyData:
     """Create Polydata from a Ladybug Arc3D object.
 
     Args:
-        arc: A Ladybug Arc3D object.
-        divisions: The number of segments into which the arc will be divided.
-            Defaults to 50.
-        interpolated: Boolean to note whether the polyline should be interpolated
-            between the input vertices when it is translated to other interfaces.
-            This property has no effect on the geometric calculations performed by
-            this library and is only present in order to assist with
-            display/translation. Defaults to True.
+        arc3d: A Ladybug Arc3D object.
+        resolution: The number of segments into which the arc will be divided.
+            Defaults to 25.
 
     Returns:
-        Polydata containing a Polyline representation of an arc.
+        Polydata containing an arc.
     """
-    return from_polyline(arc.to_polyline(divisions, interpolated))
+    arc = vtk.vtkArcSource()
+    arc.UseNormalAndAngleOn()
+    arc.SetCenter(tuple(arc3d.c))
+    polar_vector = LineSegment3D.from_end_points(arc3d.c, arc3d.p1).v
+    arc.SetPolarVector(round(polar_vector.x, 2), round(
+        polar_vector.y, 2), round(polar_vector.z, 2))
+    normal = arc3d.plane.n
+    arc.SetNormal(round(normal.x, 2), round(normal.y, 2), round(normal.z, 2))
+    arc.SetAngle(math.degrees(arc3d.angle))
+    arc.SetResolution(resolution)
+    arc.Update()
+
+    polydata = PolyData()
+    polydata.ShallowCopy(arc.GetOutput())
+
+    return polydata
 
 
 def from_mesh(mesh: Mesh3D) -> PolyData:
