@@ -1,4 +1,5 @@
-"""Functions to create VTK Polydata from Ladybug Objects."""
+"""Functions to translate Ladybug Objects to Polydata."""
+
 import vtk
 import math
 from ladybug_geometry.geometry3d.face import Face3D
@@ -10,7 +11,14 @@ from .polydata import PolyData
 
 
 def from_point(point: Point3D) -> PolyData:
-    """Create Polydata from a ladybug Point."""
+    """Create Polydata from a Ladybug Point3D object.
+
+    Args:
+        point: A ladybug Point object.
+
+    Returns:
+        Polydata containing a single point.
+    """
     vtk_point = vtk.vtkPoints()
     vtk_vertice = vtk.vtkCellArray()
 
@@ -26,7 +34,14 @@ def from_point(point: Point3D) -> PolyData:
 
 
 def _polyline_from_points(points: List[Point3D]) -> PolyData:
-    """Create Polydata from a list of Ladybug Point3D objects."""
+    """Create Polydata from a list of Ladybug Point3D objects.
+
+    Args:
+        points: A list of Ladybug Point3D objects.
+
+    Returns:
+        Polydata containing a polyline created by joining the points.
+    """
 
     pts = vtk.vtkPoints()
     for pt in points:
@@ -77,12 +92,26 @@ def from_points(points: List[Point3D], join: bool = False) -> PolyData:
 
 
 def from_line(line: LineSegment3D) -> PolyData:
-    """Create Polydata from a Ladybug LineSegment3D object."""
+    """Create Polydata from a Ladybug LineSegment3D object.
+
+    Args:
+        line: A Ladybug LineSegment3D object.
+
+    Returns:
+        Polydata containing a line.
+    """
     return from_points(line.vertices, join=True)
 
 
 def from_polyline(polyline: Polyline3D) -> PolyData:
-    """Create Polydata from a Ladybug Polyline3D object."""
+    """Create Polydata from a Ladybug Polyline3D object.
+
+    Args:
+        polyline: A Ladybug Polyline3D object.
+
+    Returns:
+        Polydata containing a polyline.
+    """
     return from_points(polyline.vertices, join=True)
 
 
@@ -116,7 +145,14 @@ def from_arc(arc3d: Arc3D, resolution: int = 25) -> PolyData:
 
 
 def from_mesh(mesh: Mesh3D) -> PolyData:
-    """Create Polydata from a Ladybug mesh."""
+    """Create Polydata from a Ladybug mesh.
+
+    Args:
+        mesh: A Ladybug Mesh3D object.
+
+    Returns:
+        Polydata containing face and points of a mesh.
+    """
     points = vtk.vtkPoints()
     polygon = vtk.vtkPolygon()
     cells = vtk.vtkCellArray()
@@ -138,7 +174,14 @@ def from_mesh(mesh: Mesh3D) -> PolyData:
 
 
 def from_face(face: Face3D) -> PolyData:
-    """Create Polydata from a Ladybug face."""
+    """Create Polydata from a Ladybug face.
+
+    Args:
+        face: A Ladybug Face3D object.
+
+    Returns:
+        Polydata containing face and points of a face.
+    """
 
     if face.has_holes or not face.is_convex:
         return from_mesh(face.triangulated_mesh3d)
@@ -163,7 +206,14 @@ def from_face(face: Face3D) -> PolyData:
 
 
 def from_polyface(polyface: Polyface3D) -> List[PolyData]:
-    """Create Polydata from a Ladybug Polyface."""
+    """Create Polydata from a Ladybug Polyface.
+
+    Args:
+        polyface: A Ladybug Polyface3D object.
+
+    Returns:
+        A list of Polydata. Each polydata contains a face and points of a face of Polyface.
+    """
     return [from_face(face) for face in polyface.faces]
 
 
@@ -202,7 +252,16 @@ def from_cone(cone: Cone, resolution: int = 2, cap: bool = True) -> PolyData:
 
 
 def from_sphere(sphere: Sphere, resolution: int = 25) -> PolyData:
-    """Create Polydata from a Ladybug Sphere."""
+    """Create Polydata from a Ladybug Sphere.
+
+    Args:
+        sphere: A Ladybug Sphere object.
+        resolution: The number of segments into which the sphere will be divided.
+            Defaults to 25.
+
+    Returns:
+        Polydata containing a sphere.
+    """
 
     sphere_source = vtk.vtkSphereSource()
     sphere_source.SetCenter(tuple(sphere.center))
@@ -218,7 +277,18 @@ def from_sphere(sphere: Sphere, resolution: int = 25) -> PolyData:
 
 
 def from_cylinder(cylinder: Cylinder, resolution: int = 25, cap: bool = True) -> PolyData:
-    """Create Polydata from a Ladybug Cylinder."""
+    """Create Polydata from a Ladybug Cylinder.
+
+    Args:
+        cylinder: A Ladybug Cylinder object.
+        resolution: The number of segments into which the cylinder will be divided.
+            Defaults to 25.
+        cap: Boolean to indicate whether the cylinder should capped or not.
+            Default to True.
+
+    Returns:
+        Polydata containing a cylinder.
+    """
 
     cylinder_source = vtk.vtkCylinderSource()
     cylinder_source.SetCenter(tuple(cylinder.center))
