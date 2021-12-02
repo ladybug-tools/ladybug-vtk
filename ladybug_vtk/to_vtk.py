@@ -15,7 +15,7 @@ def to_circle(center: Point3D, radius: int = 100, sides: int = 100) -> PolyData:
         sides: The number of sides of the circle. Defaults to 100.
 
     Returns:
-        VTK Polydata containing a circle.
+        A Polydata object containing a circle.
     """
     polygonSource = vtk.vtkRegularPolygonSource()
     polygonSource.GeneratePolygonOff()
