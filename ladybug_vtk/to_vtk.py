@@ -27,3 +27,29 @@ def to_circle(center: Point3D, radius: int = 100, sides: int = 100) -> PolyData:
     polydata = PolyData()
     polydata.ShallowCopy(polygonSource.GetOutput())
     return polydata
+
+
+def to_text(text: str, point: Point3D) -> PolyData:
+    """Create a VTK text object from a text string and a ladybug Point3D.
+
+    Args:
+        text: A text string.
+        point: A ladybug Point3D object. This is the location in 3D space of the text.
+
+    Returns:
+        A Polydata object containing the text.
+    """
+    source = vtk.vtkVectorText()
+    source.SetText(text)
+
+    translation = vtk.vtkTransform()
+    translation.Translate(point.x, point.y, point.z)
+
+    transformFilter = vtk.vtkTransformPolyDataFilter()
+    transformFilter.SetInputConnection(source.GetOutputPort())
+    transformFilter.SetTransform(translation)
+    transformFilter.Update()
+
+    polydata = PolyData()
+    polydata.ShallowCopy(transformFilter.GetOutput())
+    return polydata
