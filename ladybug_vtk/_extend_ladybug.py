@@ -88,7 +88,9 @@ def sunpath_to_vtkjs(self, output_folder: str, name: str = 'sunpath', radius: in
         for sun in suns:
             pts.append(origin.move(sun.sun_vector.reverse() * radius))
             hours.append(sun.hoy)
+
     sun_positions = from_points3d(pts)
+    sun_dataset = ModelDataSet(name='Suns', data=[sun_positions])
 
     # Load data if provided
     if data:
@@ -97,13 +99,9 @@ def sunpath_to_vtkjs(self, output_folder: str, name: str = 'sunpath', radius: in
                 f' Ladybug HourlyContinuousCollection object. Instead got {type(dt)}'
             filtered_data = dt.filter_by_hoys(hours)
             name = filtered_data.header.data_type.name
-            sun_positions.add_data(filtered_data.values, name=name, cell=False)
-
-        # use the last data set for color by
-        sun_positions.color_by(name, cell=False)
-        sun_dataset = ModelDataSet(name='Suns', data=[sun_positions])
+            sun_dataset.add_data_fields([filtered_data], name, per_face=False)
+            sun_dataset.color_by = name
         datasets.append(sun_dataset)
-
     else:
         sun_dataset = ModelDataSet(
             name='Suns', data=[sun_positions], color=Color(255, 255, 0))
