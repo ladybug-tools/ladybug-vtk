@@ -1,4 +1,4 @@
-"""Functions to translate Ladybug Objects to Polydata."""
+"""Functions to translate Ladybug3D Objects to Polydata."""
 
 import vtk
 import math
@@ -10,7 +10,7 @@ from ladybug_geometry.geometry3d import Point3D, Polyline3D, Arc3D, LineSegment3
 from .polydata import PolyData
 
 
-def from_point(point: Point3D) -> PolyData:
+def from_point3d(point: Point3D) -> PolyData:
     """Create Polydata from a Ladybug Point3D object.
 
     Args:
@@ -33,7 +33,7 @@ def from_point(point: Point3D) -> PolyData:
     return polydata
 
 
-def _polyline_from_points(points: List[Point3D]) -> PolyData:
+def _polyline_from_points3d(points: List[Point3D]) -> PolyData:
     """Create Polydata from a list of Ladybug Point3D objects.
 
     Args:
@@ -42,7 +42,6 @@ def _polyline_from_points(points: List[Point3D]) -> PolyData:
     Returns:
         Polydata containing a polyline created by joining the points.
     """
-
     pts = vtk.vtkPoints()
     for pt in points:
         pts.InsertNextPoint(tuple(pt))
@@ -62,7 +61,7 @@ def _polyline_from_points(points: List[Point3D]) -> PolyData:
     return polydata
 
 
-def from_points(points: List[Point3D], join: bool = False) -> PolyData:
+def from_points3d(points: List[Point3D], join: bool = False) -> PolyData:
     """Create Polydata from a list of Ladybug Point3D objects.
 
     Args:
@@ -73,7 +72,7 @@ def from_points(points: List[Point3D], join: bool = False) -> PolyData:
         Polydata containing all points or a polyline.
     """
     if join:
-        return _polyline_from_points(points)
+        return _polyline_from_points3d(points)
 
     vtk_points = vtk.vtkPoints()
     vtk_vertices = vtk.vtkCellArray()
@@ -91,7 +90,7 @@ def from_points(points: List[Point3D], join: bool = False) -> PolyData:
     return polydata
 
 
-def from_line(line: LineSegment3D) -> PolyData:
+def from_line3d(line: LineSegment3D) -> PolyData:
     """Create Polydata from a Ladybug LineSegment3D object.
 
     Args:
@@ -100,10 +99,10 @@ def from_line(line: LineSegment3D) -> PolyData:
     Returns:
         Polydata containing a line.
     """
-    return from_points(line.vertices, join=True)
+    return from_points3d(line.vertices, join=True)
 
 
-def from_polyline(polyline: Polyline3D) -> PolyData:
+def from_polyline3d(polyline: Polyline3D) -> PolyData:
     """Create Polydata from a Ladybug Polyline3D object.
 
     Args:
@@ -112,10 +111,10 @@ def from_polyline(polyline: Polyline3D) -> PolyData:
     Returns:
         Polydata containing a polyline.
     """
-    return from_points(polyline.vertices, join=True)
+    return from_points3d(polyline.vertices, join=True)
 
 
-def from_arc(arc3d: Arc3D, resolution: int = 25) -> PolyData:
+def from_arc3d(arc3d: Arc3D, resolution: int = 25) -> PolyData:
     """Create Polydata from a Ladybug Arc3D object.
 
     Args:
@@ -128,7 +127,7 @@ def from_arc(arc3d: Arc3D, resolution: int = 25) -> PolyData:
     """
     arc = vtk.vtkArcSource()
     arc.UseNormalAndAngleOn()
-    arc.SetCenter(tuple(arc3d.c))
+    arc.SetCenter(arc3d.c.x, arc3d.c.y, arc3d.c.z)
     polar_vector = LineSegment3D.from_end_points(arc3d.c, arc3d.p1).v
     arc.SetPolarVector(round(polar_vector.x, 2), round(
         polar_vector.y, 2), round(polar_vector.z, 2))
@@ -144,7 +143,7 @@ def from_arc(arc3d: Arc3D, resolution: int = 25) -> PolyData:
     return polydata
 
 
-def from_mesh(mesh: Mesh3D) -> PolyData:
+def from_mesh3d(mesh: Mesh3D) -> PolyData:
     """Create Polydata from a Ladybug mesh.
 
     Args:
@@ -173,7 +172,7 @@ def from_mesh(mesh: Mesh3D) -> PolyData:
     return polydata
 
 
-def from_face(face: Face3D) -> PolyData:
+def from_face3d(face: Face3D) -> PolyData:
     """Create Polydata from a Ladybug face.
 
     Args:
@@ -184,7 +183,7 @@ def from_face(face: Face3D) -> PolyData:
     """
 
     if face.has_holes or not face.is_convex:
-        return from_mesh(face.triangulated_mesh3d)
+        return from_mesh3d(face.triangulated_mesh3d)
 
     points = vtk.vtkPoints()
     polygon = vtk.vtkPolygon()
@@ -205,7 +204,7 @@ def from_face(face: Face3D) -> PolyData:
     return polydata
 
 
-def from_polyface(polyface: Polyface3D) -> List[PolyData]:
+def from_polyface3d(polyface: Polyface3D) -> List[PolyData]:
     """Create Polydata from a Ladybug Polyface.
 
     Args:
@@ -214,7 +213,7 @@ def from_polyface(polyface: Polyface3D) -> List[PolyData]:
     Returns:
         A list of Polydata. Each polydata contains a face and points of a face of Polyface.
     """
-    return [from_face(face) for face in polyface.faces]
+    return [from_face3d(face) for face in polyface.faces]
 
 
 def from_cone(cone: Cone, resolution: int = 2, cap: bool = True) -> PolyData:
