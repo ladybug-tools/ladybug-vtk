@@ -2,99 +2,100 @@
 
 from ladybug_geometry.geometry3d import Point3D, Polyline3D, Arc3D, Vector3D, Mesh3D,\
     Face3D, Plane, LineSegment3D, Polyface3D, Cone, Sphere, Cylinder
-from ladybug_vtk.from_ladybug import from_point, from_points, from_line, from_polyline,\
-    from_arc, from_mesh, from_face, from_polyface, from_cone, from_sphere, from_cylinder
+from ladybug_vtk.from_ladybug3d import from_point3d, from_points3d, from_line3d,\
+    from_polyline3d, from_arc3d, from_mesh3d, from_face3d, from_polyface3d, from_cone,\
+    from_sphere, from_cylinder
 
 
 def test_from_point():
     """Test point to Polydata conversion."""
     point = Point3D(5, 6, 7)
-    polydata = from_point(point)
+    polydata = from_point3d(point)
     assert polydata.GetNumberOfPoints() == 1
     assert polydata.GetNumberOfCells() == 1
     assert polydata.GetBounds() == (5.0, 5.0, 6.0, 6.0, 7.0, 7.0)
 
 
-def test_from_points():
+def test_from_points3d():
     """Test a list of points to Polydata conversion."""
     points = [Point3D(5, 6, 7), Point3D(8, 9, 10)]
-    polydata = from_points(points)
+    polydata = from_points3d(points)
     assert polydata.GetNumberOfPoints() == 2
     assert polydata.GetNumberOfCells() == 1
     assert polydata.GetBounds() == (5.0, 8.0, 6.0, 9.0, 7.0, 10.0)
 
 
-def test_polyline_from_points():
+def test_polyline_from_points3d():
     """Test a list of points to Polydata conversion as a joined polyline."""
     points = [Point3D(5, 6, 7), Point3D(8, 9, 10), Point3D(11, 12, 13)]
-    polydata = from_points(points, join=True)
+    polydata = from_points3d(points, join=True)
     assert polydata.GetNumberOfPoints() == 3
     assert polydata.GetNumberOfCells() == 1
     assert polydata.GetNumberOfLines() == 1
     assert polydata.GetBounds() == (5.0, 11.0, 6.0, 12.0, 7.0, 13.0)
 
 
-def test_from_line():
+def test_from_line3d():
     """Test line to Polydata conversion."""
     line = LineSegment3D.from_end_points(Point3D(0, 0, 2), Point3D(2, 0, 2))
-    polydata = from_line(line)
+    polydata = from_line3d(line)
     assert polydata.GetNumberOfPoints() == 2
     assert polydata.GetNumberOfCells() == 1
     assert polydata.GetNumberOfLines() == 1
     assert polydata.GetBounds() == (0.0, 2.0, 0.0, 0.0, 2.0, 2.0)
 
 
-def test_from_polyline():
+def test_from_polyline3d():
     """Test polyline to Polydata conversion."""
     polyline = Polyline3D([Point3D(5, 6, 7), Point3D(8, 9, 10), Point3D(11, 12, 13)])
-    polydata = from_polyline(polyline)
+    polydata = from_polyline3d(polyline)
     assert polydata.GetNumberOfPoints() == 3
     assert polydata.GetNumberOfCells() == 1
     assert polydata.GetNumberOfLines() == 1
     assert polydata.GetBounds() == (5.0, 11.0, 6.0, 12.0, 7.0, 13.0)
 
 
-def test_from_arc():
+def test_from_arc3d():
     """Test arc to Polydata conversion."""
     arc = Arc3D.from_start_mid_end(
         Point3D(0, 0, 0), Point3D(5, 0, 20), Point3D(10, 0, 0))
-    polydata = from_arc(arc, 10)
+    polydata = from_arc3d(arc, 10)
     assert polydata.GetNumberOfPoints() == 11
     assert polydata.GetNumberOfCells() == 1
     assert polydata.GetNumberOfLines() == 1
 
 
-def test_from_mesh():
+def test_from_mesh3d():
     """Test mesh to Polydata conversion."""
     pts = (Point3D(0, 0, 2), Point3D(0, 2, 2), Point3D(2, 2, 2), Point3D(2, 0, 2))
     mesh = Mesh3D(pts, [(0, 1, 2, 3)])
-    polydata = from_mesh(mesh)
+    polydata = from_mesh3d(mesh)
     assert polydata.GetNumberOfPoints() == 4
     assert polydata.GetNumberOfCells() == 1
     assert polydata.GetNumberOfPolys() == 1
     assert polydata.GetBounds() == (0.0, 2.0, 0.0, 2.0, 2.0, 2.0)
 
 
-def test_from_face():
+def test_from_face3d():
     """Test face to Polydata conversion."""
     pts = (Point3D(0, 0, 2), Point3D(0, 2, 2), Point3D(2, 2, 2), Point3D(2, 0, 2))
     plane = Plane(Vector3D(0, 0, 1), Point3D(0, 0, 2))
     face = Face3D(pts, plane)
-    polydata = from_face(face)
+    polydata = from_face3d(face)
     assert polydata.GetNumberOfPoints() == 4
     assert polydata.GetNumberOfCells() == 1
     assert polydata.GetNumberOfPolys() == 1
     assert polydata.GetBounds() == (0.0, 2.0, 0.0, 2.0, 2.0, 2.0)
 
 
-def test_from_polyface():
+def test_from_polyface3d():
     """Test polyface to Polydata conversion."""
     pts = [Point3D(0, 0, 0), Point3D(0, 2, 0), Point3D(2, 2, 0), Point3D(2, 0, 0),
            Point3D(0, 0, 2), Point3D(0, 2, 2), Point3D(2, 2, 2), Point3D(2, 0, 2)]
     face_indices = [[(0, 1, 2, 3)], [(0, 4, 5, 1)], [(0, 3, 7, 4)],
                     [(2, 1, 5, 6)], [(2, 3, 7, 6)], [(4, 5, 6, 7)]]
     polyface = Polyface3D(pts, face_indices)
-    polydata = from_polyface(polyface)
+    polydata = from_polyface3d(polyface)
     assert polydata[0].GetNumberOfPoints() == 4
     assert polydata[0].GetNumberOfCells() == 1
     assert polydata[0].GetNumberOfPolys() == 1
