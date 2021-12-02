@@ -1,6 +1,7 @@
 *.pyc
 *.vtp
 *.vtkjs
+*.gh
 test.py
 .pytest_cache
 *__pycache__
