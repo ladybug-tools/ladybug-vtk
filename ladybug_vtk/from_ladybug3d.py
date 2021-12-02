@@ -140,6 +140,8 @@ def from_arc3d(arc3d: Arc3D, resolution: int = 25) -> PolyData:
     polydata = PolyData()
     polydata.ShallowCopy(arc.GetOutput())
 
+    # delete the array named 'Texture Coordinates' that's generated automatically for some reason
+    polydata.GetPointData().RemoveArray('Texture Coordinates')
     return polydata
 
 
