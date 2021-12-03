@@ -1,13 +1,12 @@
 """Extend Ladybug Core functionalities."""
 
-import math
 from pathlib import Path
 
 from typing import List
 from ladybug.color import Color
 from ladybug_geometry.geometry3d import Point3D
 from ladybug_geometry.geometry2d import Vector2D
-from ladybug.sunpath import Sunpath, Point3D
+from ladybug.sunpath import Sunpath
 from ladybug.compass import Compass
 from ladybug.datacollection import HourlyContinuousCollection
 
@@ -37,20 +36,21 @@ def sunpath_to_vtkjs(self, output_folder: str, name: str = 'sunpath', radius: in
     data = data or []
     origin = Point3D()
 
-    polylines = self.hourly_analemma_polyline3d(
-        origin=origin, daytime_only=True, radius=radius)
+    polylines = self.hourly_analemma_polyline3d(radius=radius)
     sp_polydata = [from_polyline3d(pl) for pl in polylines]
     sp_dataset = ModelDataSet(name='Hourly_Analemmas', data=sp_polydata, color=Color())
     datasets.append(sp_dataset)
 
     # monthly arcs
-    arcs = self.monthly_day_arc3d()
+    arcs = self.monthly_day_arc3d(radius=radius)
     arc_polydata = [from_arc3d(arc, 100) for arc in arcs]
     arc_dataset = ModelDataSet(name='Monthly_Arcs', data=arc_polydata, color=Color())
     datasets.append(arc_dataset)
 
     # compass circles
-    rads = [radius, radius + 1.5, radius + 4.5]
+    offset_1 = (radius*1.5)/100
+    offset_2 = (radius*4.5)/100
+    rads = [radius, radius+offset_1, radius+offset_2]
     base_polydata = [to_circle(origin, radius) for radius in rads]
 
     # compass ticks
@@ -64,20 +64,23 @@ def sunpath_to_vtkjs(self, output_folder: str, name: str = 'sunpath', radius: in
 
     # Since vtkVectorText starts from left bottom we need to move the labels to the left
     # and down by a certain amount.
-    left_vector = Vector2D(-1, 0)*3
-    down_vector = Vector2D(0, -1)*3
+    moving_factor = (radius*3)/100
+    left_vector = Vector2D(-1, 0)*moving_factor
+    down_vector = Vector2D(0, -1)*moving_factor
 
     # compass minor labels
+    minor_scale = (radius*2)/100
     minor_text_polydata = [to_text(text, compass.minor_azimuth_points[count].
-                                   move(left_vector).move(down_vector))
+                                   move(left_vector).move(down_vector), minor_scale)
                            for count, text in enumerate(compass.MINOR_TEXT)]
     minor_label_dataset = ModelDataSet(
         name='Minor_Labels', data=minor_text_polydata, color=Color())
     datasets.append(minor_label_dataset)
 
     # compass major labels
+    major_scale = (radius*5)/100
     major_text_polydata = [to_text(text, compass.major_azimuth_points[count].
-                                   move(left_vector).move(down_vector), scale=5) for
+                                   move(left_vector).move(down_vector), scale=major_scale) for
                            count, text in enumerate(compass.MAJOR_TEXT)]
     major_label_dataset = ModelDataSet(
         name='Major_Labels', data=major_text_polydata, color=Color())
