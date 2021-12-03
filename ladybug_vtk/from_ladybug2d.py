@@ -75,7 +75,7 @@ def from_points2d(points: List[Point2D], join: bool = False) -> PolyData:
     vtk_vertices = vtk.vtkCellArray()
 
     for point in points:
-        vtk_points.InsertNextPoint(tuple(point))
+        vtk_points.InsertNextPoint(point.x, point.y, 0)
 
     vtk_vertices.InsertNextCell(len(points), list(range(len(points))))
 
