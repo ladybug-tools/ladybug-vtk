@@ -3,16 +3,16 @@
 import math
 from pathlib import Path
 
-from typing import List, Union, Tuple, Optional
+from typing import List
 from ladybug.color import Color
-from ladybug_geometry.geometry3d import Plane, Arc3D, Vector3D, LineSegment3D, Point3D
+from ladybug_geometry.geometry3d import Point3D
 from ladybug_geometry.geometry2d import Vector2D
-from ladybug.sunpath import Sunpath, Point3D, Vector3D
+from ladybug.sunpath import Sunpath, Point3D
 from ladybug.compass import Compass
 from ladybug.datacollection import HourlyContinuousCollection
 
-from .from_ladybug3d import from_points3d, from_polyline3d, from_arc3d, from_line3d
-from .from_ladybug2d import from_line2d, from_point2d
+from .from_ladybug3d import from_points3d, from_polyline3d, from_arc3d
+from .from_ladybug2d import from_line2d
 from .to_vtk import to_circle, to_text
 from .model_dataset import ModelDataSet
 from .model import Model
@@ -52,6 +52,7 @@ def sunpath_to_vtkjs(self, output_folder: str, name: str = 'sunpath', radius: in
     # compass circles
     rads = [radius, radius + 1.5, radius + 4.5]
     base_polydata = [to_circle(origin, radius) for radius in rads]
+
     # compass ticks
     compass = Compass(radius=radius, north_angle=self.north_angle)
     ticks_major = compass.ticks_from_angles(angles=compass.MAJOR_AZIMUTHS, factor=0.55)
@@ -61,8 +62,11 @@ def sunpath_to_vtkjs(self, output_folder: str, name: str = 'sunpath', radius: in
     base_dataset = ModelDataSet(name='Base_Circle', data=base_polydata, color=Color())
     datasets.append(base_dataset)
 
+    # Since vtkVectorText starts from left bottom we need to move the labels to the left
+    # and down by a certain amount.
     left_vector = Vector2D(-1, 0)*3
     down_vector = Vector2D(0, -1)*3
+
     # compass minor labels
     minor_text_polydata = [to_text(text, compass.minor_azimuth_points[count].
                                    move(left_vector).move(down_vector))
