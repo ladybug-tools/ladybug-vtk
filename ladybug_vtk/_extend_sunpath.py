@@ -18,7 +18,7 @@ from .model import Model
 
 
 def sunpath_to_vtkjs(self, output_folder: str, name: str = 'sunpath', radius: int = 100,
-                     data: List[HourlyContinuousCollection] = None):
+                     data: List[HourlyContinuousCollection] = None) -> Path:
     """Export sunpath as a vtkjs file.
 
     Args:
