@@ -2,8 +2,7 @@ from pathlib import Path
 from ladybug.hourlyplot import HourlyPlot
 from ladybug_geometry.geometry3d import Vector3D
 from ladybug.color import Color
-from .from_ladybug3d import from_line3d, from_polyline3d, from_mesh3d
-from .to_vtk import to_text
+from .fromgeometry import from_line3d, from_polyline3d, from_mesh3d, to_text
 from .model_dataset import ModelDataSet
 from .model import Model
 

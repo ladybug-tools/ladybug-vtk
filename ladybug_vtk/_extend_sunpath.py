@@ -10,9 +10,8 @@ from ladybug.sunpath import Sunpath
 from ladybug.compass import Compass
 from ladybug.datacollection import HourlyContinuousCollection
 
-from .from_ladybug3d import from_points3d, from_polyline3d, from_arc3d
-from .from_ladybug2d import from_line2d
-from .to_vtk import to_circle, to_text
+from .fromgeometry import from_points3d, from_polyline3d, from_arc3d, from_line2d,\
+    to_circle, to_text
 from .model_dataset import ModelDataSet
 from .model import Model
 
