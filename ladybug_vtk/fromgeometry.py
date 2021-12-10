@@ -1,13 +1,105 @@
-"""Functions to translate Ladybug3D Objects to Polydata."""
+"""Functions to translate ladybug geometry objects into VTK polydata objects."""
+
 
 import vtk
 import math
-from ladybug_geometry.geometry3d.face import Face3D
-from ladybug_geometry.geometry3d.polyface import Polyface3D
-from typing import List
+from typing import List, Union
+from ladybug_geometry.geometry2d import Point2D, LineSegment2D
 from ladybug_geometry.geometry3d import Point3D, Polyline3D, Arc3D, LineSegment3D,\
-    Mesh3D, Polyface3D, Cone, Cylinder, Sphere
+    Mesh3D, Polyface3D, Cone, Cylinder, Sphere, Face3D
 from .polydata import PolyData
+
+
+def from_point2d(point: Point2D) -> PolyData:
+    """Create Polydata from a Ladybug Point2D object.
+
+    Args:
+        point: A ladybug Point object.
+
+    Returns:
+        Polydata containing a single point.
+    """
+    vtk_point = vtk.vtkPoints()
+    vtk_vertice = vtk.vtkCellArray()
+
+    vtk_point.InsertNextPoint(point.x, point.y, 0)
+    vtk_vertice.InsertNextCell(1, [1])
+
+    polydata = PolyData()
+    polydata.SetPoints(vtk_point)
+    polydata.SetVerts(vtk_vertice)
+    polydata.Modified()
+
+    return polydata
+
+
+def _polyline_from_points(points: List[Point2D]) -> PolyData:
+    """Create Polydata from a list of Ladybug Point2D objects.
+
+    Args:
+        points: A list of Ladybug Point2D objects.
+
+    Returns:
+        Polydata containing a polyline created by joining the points.
+    """
+    pts = vtk.vtkPoints()
+    for point in points:
+        pts.InsertNextPoint(point.x, point.y, 0)
+
+    polyline = vtk.vtkPolyLine()
+    polyline.GetPointIds().SetNumberOfIds(len(points))
+    for i in range(len(points)):
+        polyline.GetPointIds().SetId(i, i)
+
+    cells = vtk.vtkCellArray()
+    cells.InsertNextCell(polyline)
+
+    polydata = PolyData()
+    polydata.SetPoints(pts)
+    polydata.SetLines(cells)
+
+    return polydata
+
+
+def from_points2d(points: List[Point2D], join: bool = False) -> PolyData:
+    """Create Polydata from a list of Ladybug Point2D objects.
+
+    Args:
+        points: A list of Ladybug Point2D objects.
+        join: Boolean to indicate whether the points should be joined into a polyline.
+
+    Returns:
+        Polydata containing all points or a polyline.
+    """
+    if join:
+        return _polyline_from_points(points)
+
+    vtk_points = vtk.vtkPoints()
+    vtk_vertices = vtk.vtkCellArray()
+
+    for point in points:
+        vtk_points.InsertNextPoint(point.x, point.y, 0)
+
+    vtk_vertices.InsertNextCell(len(points), list(range(len(points))))
+
+    polydata = PolyData()
+    polydata.SetPoints(vtk_points)
+    polydata.SetVerts(vtk_vertices)
+    polydata.Modified()
+
+    return polydata
+
+
+def from_line2d(line: LineSegment2D) -> PolyData:
+    """Create Polydata from a Ladybug LineSegment3D object.
+
+    Args:
+        line: A Ladybug LineSegment3D object.
+
+    Returns:
+        Polydata containing a line.
+    """
+    return from_points2d(line.vertices, join=True)
 
 
 def from_point3d(point: Point3D) -> PolyData:
@@ -303,4 +395,59 @@ def from_cylinder(cylinder: Cylinder, resolution: int = 25, cap: bool = True) ->
     polydata = PolyData()
     polydata.ShallowCopy(cylinder_source.GetOutput())
 
+    return polydata
+
+
+def to_circle(center: Point3D, radius: int = 100, sides: int = 100) -> PolyData:
+    """Create a VTK circle from a ladybug Point3D and radius.
+
+    Args:
+        center: A ladybug Point3D object.
+        radius: The radius of the circle. Defaults to 100 meters.
+        sides: The number of sides of the circle. Defaults to 100.
+
+    Returns:
+        A Polydata object containing a circle.
+    """
+    polygonSource = vtk.vtkRegularPolygonSource()
+    polygonSource.GeneratePolygonOff()
+    polygonSource.SetNumberOfSides(sides)
+    polygonSource.SetRadius(radius)
+    polygonSource.SetCenter(center.x, center.y, center.z)
+    polygonSource.Update()
+
+    polydata = PolyData()
+    polydata.ShallowCopy(polygonSource.GetOutput())
+    return polydata
+
+
+def to_text(text: str, point: Union[Point3D, Point2D], scale: float = 2) -> PolyData:
+    """Create a VTK text object from a text string and a ladybug Point3D.
+
+    Args:
+        text: A text string.
+        point: A ladybug Point3D or Point2D object. This is the location in 3D 
+            space of the text.
+        scale: The scale of the text. Defaults to 2.
+
+    Returns:
+        A Polydata object containing the text.
+    """
+    source = vtk.vtkVectorText()
+    source.SetText(text)
+
+    translation = vtk.vtkTransform()
+    if isinstance(point, Point3D):
+        translation.Translate(point.x, point.y, point.z)
+    else:
+        translation.Translate(point.x, point.y, 0)
+    translation.Scale(scale, scale, scale)
+
+    transformFilter = vtk.vtkTransformPolyDataFilter()
+    transformFilter.SetInputConnection(source.GetOutputPort())
+    transformFilter.SetTransform(translation)
+    transformFilter.Update()
+
+    polydata = PolyData()
+    polydata.ShallowCopy(transformFilter.GetOutput())
     return polydata
