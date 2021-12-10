@@ -1,13 +1,53 @@
-"""Testing to_vtk functions."""
+"""testing functions in fromgeometry module."""
 
+from ladybug_geometry.geometry2d import Point2D, LineSegment2D
 from ladybug_geometry.geometry3d import Point3D, Polyline3D, Arc3D, Vector3D, Mesh3D,\
     Face3D, Plane, LineSegment3D, Polyface3D, Cone, Sphere, Cylinder
-from ladybug_vtk.from_ladybug3d import from_point3d, from_points3d, from_line3d,\
-    from_polyline3d, from_arc3d, from_mesh3d, from_face3d, from_polyface3d, from_cone,\
-    from_sphere, from_cylinder
+from ladybug_vtk.fromgeometry import from_point2d, from_points2d, from_line2d, \
+    from_point3d, from_points3d, from_line3d, from_polyline3d, from_arc3d, from_mesh3d,\
+    from_face3d, from_polyface3d, from_cone, from_sphere, from_cylinder, to_circle,\
+    to_text
 
 
-def test_from_point():
+def test_from_point2d():
+    """Test point to Polydata conversion."""
+    point = Point2D(5, 6)
+    polydata = from_point2d(point)
+    assert polydata.GetNumberOfPoints() == 1
+    assert polydata.GetNumberOfCells() == 1
+    assert polydata.GetBounds() == (5.0, 5.0, 6.0, 6.0, 0.0, 0.0)
+
+
+def test_from_points2d():
+    """Test a list of points to Polydata conversion."""
+    points = [Point2D(5, 6), Point2D(8, 9)]
+    polydata = from_points2d(points)
+    assert polydata.GetNumberOfPoints() == 2
+    assert polydata.GetNumberOfCells() == 1
+    assert polydata.GetBounds() == (5.0, 8.0, 6.0, 9.0, 0.0, 0.0)
+
+
+def test_polyline_from_points2d():
+    """Test a list of points to Polydata conversion as a joined polyline."""
+    points = [Point2D(5, 6), Point2D(8, 9), Point2D(11, 12)]
+    polydata = from_points2d(points, join=True)
+    assert polydata.GetNumberOfPoints() == 3
+    assert polydata.GetNumberOfCells() == 1
+    assert polydata.GetNumberOfLines() == 1
+    assert polydata.GetBounds() == (5.0, 11.0, 6.0, 12.0, 0.0, 0.0)
+
+
+def test_from_line2d():
+    """Test line to Polydata conversion."""
+    line = LineSegment2D.from_end_points(Point2D(0, 0), Point2D(2, 0))
+    polydata = from_line2d(line)
+    assert polydata.GetNumberOfPoints() == 2
+    assert polydata.GetNumberOfCells() == 1
+    assert polydata.GetNumberOfLines() == 1
+    assert polydata.GetBounds() == (0.0, 2.0, 0.0, 0.0, 0.0, 0.0)
+
+
+def test_from_point3d():
     """Test point to Polydata conversion."""
     point = Point3D(5, 6, 7)
     polydata = from_point3d(point)
@@ -139,3 +179,19 @@ def test_from_cylinder():
     assert polydata.GetNumberOfPolys() == 27
     polydata = from_cylinder(cylinder, cap=False)
     assert polydata.GetNumberOfPolys() == 25
+
+
+def test_to_vtk_circle():
+    """Test to_vtk_circle function."""
+    polydata = to_circle(Point3D(0, 0, 0), 5, 10)
+    assert polydata.GetNumberOfPoints() == 10
+    assert polydata.GetNumberOfCells() == 1
+    assert polydata.GetNumberOfLines() == 1
+
+
+def test_to_text():
+    """Test to_text function."""
+    text_polydata = to_text('Hello World!', Point3D(5, 5, 5))
+    assert round(text_polydata.GetBounds()[0], 2) == 5.54
+    assert round(text_polydata.GetBounds()[2], 2) == 4.82
+    assert round(text_polydata.GetBounds()[4], 2) == 5.0
