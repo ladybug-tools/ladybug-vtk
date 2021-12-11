@@ -23,16 +23,16 @@ def hourly_plot_to_vtkjs(self, output_folder: str, file_name: str = 'hourly plot
 
     lines = []
     # hour lines
-    hour_lines3d_polydata = [from_line3d(
-        line) for line in self.custom_hour_lines3d(hour_labels=[0, 6, 12, 18, 24])]
+    hour_lines3d_polydata = [line.to_polydata() for line in self.custom_hour_lines3d(
+        hour_labels=[0, 6, 12, 18, 24])]
     lines.extend(hour_lines3d_polydata)
 
     # month lines
-    month_lines3d_polydata = [from_line3d(line) for line in self.month_lines3d]
+    month_lines3d_polydata = [line.to_polydata() for line in self.month_lines3d]
     lines.extend(month_lines3d_polydata)
 
     # border polyline
-    border_polydata = from_polyline3d(self.chart_border3d)
+    border_polydata = self.chart_border3d.to_polydata()
     lines.append(border_polydata)
     datasets.append(ModelDataSet('lines', lines, color=Color()))
 
@@ -63,7 +63,7 @@ def hourly_plot_to_vtkjs(self, output_folder: str, file_name: str = 'hourly plot
     datasets.append(ModelDataSet('labels', labels, color=Color()))
 
     # data
-    mesh_polydata = from_mesh3d(self.colored_mesh3d)
+    mesh_polydata = self.colored_mesh3d.to_polydata()
     mesh_dataset = ModelDataSet('data', [mesh_polydata])
     name = self.data_collection.header.data_type.name
     mesh_dataset.add_data_fields([self.data_collection], name)
