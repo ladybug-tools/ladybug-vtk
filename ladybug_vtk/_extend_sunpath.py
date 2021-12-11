@@ -36,13 +36,13 @@ def sunpath_to_vtkjs(self, output_folder: str, file_name: str = 'sunpath', radiu
     origin = Point3D()
 
     polylines = self.hourly_analemma_polyline3d(radius=radius)
-    sp_polydata = [from_polyline3d(pl) for pl in polylines]
+    sp_polydata = [pl.to_polydata() for pl in polylines]
     sp_dataset = ModelDataSet(name='hourly_analemmas', data=sp_polydata, color=Color())
     datasets.append(sp_dataset)
 
     # monthly arcs
     arcs = self.monthly_day_arc3d(radius=radius)
-    arc_polydata = [from_arc3d(arc, 100) for arc in arcs]
+    arc_polydata = [arc.to_polydata(resolution=100) for arc in arcs]
     arc_dataset = ModelDataSet(name='monthly_arcs', data=arc_polydata, color=Color())
     datasets.append(arc_dataset)
 
@@ -56,7 +56,7 @@ def sunpath_to_vtkjs(self, output_folder: str, file_name: str = 'sunpath', radiu
     compass = Compass(radius=radius, north_angle=self.north_angle)
     ticks_major = compass.ticks_from_angles(angles=compass.MAJOR_AZIMUTHS, factor=0.55)
     ticks_minor = compass.ticks_from_angles(angles=compass.MINOR_AZIMUTHS)
-    ticks_polydata = [from_line2d(tick) for tick in ticks_major+ticks_minor]
+    ticks_polydata = [tick.to_polydata() for tick in ticks_major+ticks_minor]
     base_polydata.extend(ticks_polydata)
     base_dataset = ModelDataSet(name='base_circle', data=base_polydata, color=Color())
     datasets.append(base_dataset)
