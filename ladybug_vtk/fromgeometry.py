@@ -4,7 +4,7 @@
 import vtk
 import math
 from typing import List, Union
-from ladybug_geometry.geometry2d import Point2D, LineSegment2D
+from ladybug_geometry.geometry2d import Point2D, LineSegment2D, Polyline2D
 from ladybug_geometry.geometry3d import Point3D, Polyline3D, Arc3D, LineSegment3D,\
     Mesh3D, Polyface3D, Cone, Cylinder, Sphere, Face3D
 from .polydata import PolyData
@@ -100,6 +100,18 @@ def from_line2d(line: LineSegment2D) -> PolyData:
         Polydata containing a line.
     """
     return from_points2d(line.vertices, join=True)
+
+
+def from_polyline2d(polyline: Polyline2D) -> PolyData:
+    """Create Polydata from a Ladybug Polyline3D object.
+
+    Args:
+        polyline: A Ladybug Polyline3D object.
+
+    Returns:
+        Polydata containing a polyline.
+    """
+    return from_points2d(polyline.vertices, join=True)
 
 
 def from_point3d(point: Point3D) -> PolyData:
