@@ -15,15 +15,19 @@ from .model_dataset import ModelDataSet
 from .model import Model
 
 
-def sunpath_to_vtkjs(self, output_folder: str, file_name: str = 'sunpath', radius: int = 100,
-                     data: List[HourlyContinuousCollection] = None, make_2d: bool = False) -> Path:
+def sunpath_to_vtkjs(self, output_folder: str = '.', file_name: str = 'sunpath', radius: int = 100,
+                     data: List[HourlyContinuousCollection] = None,
+                     sun_color: Color = Color(252, 177, 3), make_2d: bool = False) -> Path:
     """Export sunpath as a vtkjs file.
 
     Args:
-        output_folder: Path to the target folder to write the vtkjs file.
+        output_folder: Path to the target folder to write the vtkjs file. Defaults to
+            current working directory.
         file_name: Output file name. Defaults to Sunpath.
         radius: Radius of the sunpath. Defaults to 100.
         data: A list of Ladybug continuous hourly collection objects. Defaults to None.
+        sun_color: A Ladybug Color object to color the suns.
+            Defaults to Color(235, 33, 38).
         make_2d: Boolean to indicate whether to make the sunpath 2D. Defaults to False.
 
     Returns:
@@ -125,7 +129,7 @@ def sunpath_to_vtkjs(self, output_folder: str, file_name: str = 'sunpath', radiu
         datasets.append(sun_dataset)
     else:
         sun_dataset = ModelDataSet(
-            name='suns', data=[sun_positions], color=Color(255, 255, 0))
+            name='suns', data=[sun_positions], color=sun_color)
         datasets.append(sun_dataset)
 
     # join polylines into a single polydata
