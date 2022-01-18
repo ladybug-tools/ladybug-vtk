@@ -5,19 +5,18 @@ from pathlib import Path
 from typing import List
 from ladybug.color import Color
 from ladybug_geometry.geometry3d import Point3D
-from ladybug_geometry.geometry2d import Vector2D
+from ladybug_geometry.geometry2d import Vector2D, Point2D
 from ladybug.sunpath import Sunpath
 from ladybug.compass import Compass
 from ladybug.datacollection import HourlyContinuousCollection
 
-from .fromgeometry import from_points3d, from_polyline3d, from_arc3d, from_line2d,\
-    to_circle, to_text
+from .fromgeometry import from_points3d, to_circle, to_text, from_points2d
 from .model_dataset import ModelDataSet
 from .model import Model
 
 
 def sunpath_to_vtkjs(self, output_folder: str, file_name: str = 'sunpath', radius: int = 100,
-                     data: List[HourlyContinuousCollection] = None) -> Path:
+                     data: List[HourlyContinuousCollection] = None, make_2d: bool = False) -> Path:
     """Export sunpath as a vtkjs file.
 
     Args:
@@ -25,6 +24,7 @@ def sunpath_to_vtkjs(self, output_folder: str, file_name: str = 'sunpath', radiu
         file_name: Output file name. Defaults to Sunpath.
         radius: Radius of the sunpath. Defaults to 100.
         data: A list of Ladybug continuous hourly collection objects. Defaults to None.
+        make_2d: Boolean to indicate whether to make the sunpath 2D. Defaults to False.
 
     Returns:
         A pathlib Path object to the vtkjs file.
@@ -35,15 +35,23 @@ def sunpath_to_vtkjs(self, output_folder: str, file_name: str = 'sunpath', radiu
     data = data or []
     origin = Point3D()
 
-    polylines = self.hourly_analemma_polyline3d(radius=radius)
-    sp_polydata = [pl.to_polydata() for pl in polylines]
+    if not make_2d:
+        polylines = self.hourly_analemma_polyline3d(radius=radius)
+        sp_polydata = [pl.to_polydata() for pl in polylines]
+    else:
+        polylines = self.hourly_analemma_polyline2d(radius=radius)
+        sp_polydata = [pl.to_polydata() for pl in polylines]
     sp_dataset = ModelDataSet(name='hourly_analemmas', data=sp_polydata, color=Color())
     datasets.append(sp_dataset)
 
     # monthly arcs
-    arcs = self.monthly_day_arc3d(radius=radius)
-    arc_polydata = [arc.to_polydata(resolution=100) for arc in arcs]
-    arc_dataset = ModelDataSet(name='monthly_arcs', data=arc_polydata, color=Color())
+    if not make_2d:
+        arcs = self.monthly_day_arc3d(radius=radius)
+        monthly_polydata = [arc.to_polydata(resolution=100) for arc in arcs]
+    else:
+        polylines = self.monthly_day_polyline2d(radius=radius)
+        monthly_polydata = [polyline.to_polydata() for polyline in polylines]
+    arc_dataset = ModelDataSet(name='monthly_arcs', data=monthly_polydata, color=Color())
     datasets.append(arc_dataset)
 
     # compass circles
@@ -87,15 +95,22 @@ def sunpath_to_vtkjs(self, output_folder: str, file_name: str = 'sunpath', radiu
 
     # add suns
     day = self.hourly_analemma_suns(daytime_only=True)
+
     # calculate sun positions from sun vector
     pts = []
     hours = []
     for suns in day:
         for sun in suns:
-            pts.append(origin.move(sun.sun_vector.reverse() * radius))
+            if not make_2d:
+                pts.append(origin.move(sun.sun_vector.reverse() * radius))
+            else:
+                pts.append(origin.move(sun.sun_vector.reverse() * radius))
             hours.append(sun.hoy)
 
-    sun_positions = from_points3d(pts)
+    if not make_2d:
+        sun_positions = from_points3d(pts)
+    else:
+        sun_positions = from_points2d(pts)
     sun_dataset = ModelDataSet(name='suns', data=[sun_positions])
 
     # Load data if provided
