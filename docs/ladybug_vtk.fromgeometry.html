@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>ladybug_vtk.fromgeometry module &#8212; ladybug-vtk  documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ladybug_vtk.joined_polydata module" href="ladybug_vtk.joined_polydata.html" />
+    <link rel="prev" title="ladybug_vtk.data_field_info module" href="ladybug_vtk.data_field_info.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          ladybug-vtk</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="ladybug_vtk.html">ladybug_vtk package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ladybug_vtk.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.vtkjs.html">ladybug_vtk.vtkjs package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ladybug_vtk.vtkjs.html#submodules">Submodules</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="ladybug_vtk.vtkjs.helper.html">ladybug_vtk.vtkjs.helper module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="ladybug_vtk.vtkjs.schema.html">ladybug_vtk.vtkjs.schema module</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="ladybug_vtk.vtkjs.html#module-ladybug_vtk.vtkjs">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="ladybug_vtk.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.data_field_info.html">ladybug_vtk.data_field_info module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ladybug_vtk.fromgeometry module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.joined_polydata.html">ladybug_vtk.joined_polydata module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.legend_parameter.html">ladybug_vtk.legend_parameter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.model.html">ladybug_vtk.model module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.model_dataset.html">ladybug_vtk.model_dataset module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.polydata.html">ladybug_vtk.polydata module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.writer.html">ladybug_vtk.writer module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ladybug_vtk.html#module-ladybug_vtk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="ladybug_vtk.html">ladybug_vtk package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ladybug_vtk.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="ladybug_vtk.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.data_field_info.html">ladybug_vtk.data_field_info module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ladybug_vtk.fromgeometry module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.joined_polydata.html">ladybug_vtk.joined_polydata module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.legend_parameter.html">ladybug_vtk.legend_parameter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.model.html">ladybug_vtk.model module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.model_dataset.html">ladybug_vtk.model_dataset module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.polydata.html">ladybug_vtk.polydata module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.writer.html">ladybug_vtk.writer module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ladybug_vtk.html#module-ladybug_vtk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="ladybug_vtk.data_field_info.html" title="Previous Chapter: ladybug_vtk.data_field_info module"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; ladybug_vtk.d...</span>
+    </a>
+  </li>
+  <li>
+    <a href="ladybug_vtk.joined_polydata.html" title="Next Chapter: ladybug_vtk.joined_polydata module"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">ladybug_vtk.j... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/ladybug_vtk.fromgeometry.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="ladybug_vtk.html">ladybug_vtk package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ladybug_vtk.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="ladybug_vtk.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.data_field_info.html">ladybug_vtk.data_field_info module</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">ladybug_vtk.fromgeometry module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.joined_polydata.html">ladybug_vtk.joined_polydata module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.legend_parameter.html">ladybug_vtk.legend_parameter module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.model.html">ladybug_vtk.model module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.model_dataset.html">ladybug_vtk.model_dataset module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.polydata.html">ladybug_vtk.polydata module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ladybug_vtk.writer.html">ladybug_vtk.writer module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ladybug_vtk.html#module-ladybug_vtk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-8 content" role="main">
+      
+  <section id="module-ladybug_vtk.fromgeometry">
+<span id="ladybug-vtk-fromgeometry-module"></span><h1>ladybug_vtk.fromgeometry module<a class="headerlink" href="#module-ladybug_vtk.fromgeometry" title="Permalink to this headline">¶</a></h1>
+<p>Functions to translate ladybug geometry objects into VTK polydata objects.</p>
+<dl class="py function">
+<dt id="ladybug_vtk.fromgeometry.from_arc3d">
+<code class="sig-prename descclassname">ladybug_vtk.fromgeometry.</code><code class="sig-name descname">from_arc3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arc3d</span><span class="p">:</span> <span class="n">ladybug_geometry.geometry3d.arc.Arc3D</span></em>, <em class="sig-param"><span class="n">resolution</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">25</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="ladybug_vtk.polydata.html#ladybug_vtk.polydata.PolyData" title="ladybug_vtk.polydata.PolyData">ladybug_vtk.polydata.PolyData</a><a class="reference internal" href="_modules/ladybug_vtk/fromgeometry.html#from_arc3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.fromgeometry.from_arc3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Polydata from a Ladybug Arc3D object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arc3d</strong> – A Ladybug Arc3D object.</p></li>
+<li><p><strong>resolution</strong> – The number of segments into which the arc will be divided.
+Defaults to 25.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Polydata containing an arc.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ladybug_vtk.fromgeometry.from_cone">
+<code class="sig-prename descclassname">ladybug_vtk.fromgeometry.</code><code class="sig-name descname">from_cone</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cone</span><span class="p">:</span> <span class="n">ladybug_geometry.geometry3d.cone.Cone</span></em>, <em class="sig-param"><span class="n">resolution</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">2</span></em>, <em class="sig-param"><span class="n">cap</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="ladybug_vtk.polydata.html#ladybug_vtk.polydata.PolyData" title="ladybug_vtk.polydata.PolyData">ladybug_vtk.polydata.PolyData</a><a class="reference internal" href="_modules/ladybug_vtk/fromgeometry.html#from_cone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.fromgeometry.from_cone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Polydata from a Ladybug Cone.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cone</strong> – A Ladybug Cone object.</p></li>
+<li><p><strong>resolution</strong> – The number of segments into which the cone will be divided.
+If set to 0, a line will be created.
+If set to 1, a single triangle will be created.
+If set to 2, two crossed triangles will be created.
+If set to greater than 2, a 3D cone with the number of sides equal to
+the resolution will be created. Defaults to 2.</p></li>
+<li><p><strong>cap</strong> – Boolean to indicate whether the cone should capped or not. Default to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Polydata containing a cone.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ladybug_vtk.fromgeometry.from_cylinder">
+<code class="sig-prename descclassname">ladybug_vtk.fromgeometry.</code><code class="sig-name descname">from_cylinder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cylinder</span><span class="p">:</span> <span class="n">ladybug_geometry.geometry3d.cylinder.Cylinder</span></em>, <em class="sig-param"><span class="n">resolution</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">25</span></em>, <em class="sig-param"><span class="n">cap</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="ladybug_vtk.polydata.html#ladybug_vtk.polydata.PolyData" title="ladybug_vtk.polydata.PolyData">ladybug_vtk.polydata.PolyData</a><a class="reference internal" href="_modules/ladybug_vtk/fromgeometry.html#from_cylinder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.fromgeometry.from_cylinder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Polydata from a Ladybug Cylinder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cylinder</strong> – A Ladybug Cylinder object.</p></li>
+<li><p><strong>resolution</strong> – The number of segments into which the cylinder will be divided.
+Defaults to 25.</p></li>
+<li><p><strong>cap</strong> – Boolean to indicate whether the cylinder should capped or not.
+Default to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Polydata containing a cylinder.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ladybug_vtk.fromgeometry.from_face3d">
+<code class="sig-prename descclassname">ladybug_vtk.fromgeometry.</code><code class="sig-name descname">from_face3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">face</span><span class="p">:</span> <span class="n">ladybug_geometry.geometry3d.face.Face3D</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="ladybug_vtk.polydata.html#ladybug_vtk.polydata.PolyData" title="ladybug_vtk.polydata.PolyData">ladybug_vtk.polydata.PolyData</a><a class="reference internal" href="_modules/ladybug_vtk/fromgeometry.html#from_face3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.fromgeometry.from_face3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Polydata from a Ladybug face.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>face</strong> – A Ladybug Face3D object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Polydata containing face and points of a face.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ladybug_vtk.fromgeometry.from_line2d">
+<code class="sig-prename descclassname">ladybug_vtk.fromgeometry.</code><code class="sig-name descname">from_line2d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span><span class="p">:</span> <span class="n">ladybug_geometry.geometry2d.line.LineSegment2D</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="ladybug_vtk.polydata.html#ladybug_vtk.polydata.PolyData" title="ladybug_vtk.polydata.PolyData">ladybug_vtk.polydata.PolyData</a><a class="reference internal" href="_modules/ladybug_vtk/fromgeometry.html#from_line2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.fromgeometry.from_line2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Polydata from a Ladybug LineSegment3D object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>line</strong> – A Ladybug LineSegment3D object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Polydata containing a line.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ladybug_vtk.fromgeometry.from_line3d">
+<code class="sig-prename descclassname">ladybug_vtk.fromgeometry.</code><code class="sig-name descname">from_line3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">line</span><span class="p">:</span> <span class="n">ladybug_geometry.geometry3d.line.LineSegment3D</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="ladybug_vtk.polydata.html#ladybug_vtk.polydata.PolyData" title="ladybug_vtk.polydata.PolyData">ladybug_vtk.polydata.PolyData</a><a class="reference internal" href="_modules/ladybug_vtk/fromgeometry.html#from_line3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.fromgeometry.from_line3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Polydata from a Ladybug LineSegment3D object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>line</strong> – A Ladybug LineSegment3D object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Polydata containing a line.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ladybug_vtk.fromgeometry.from_mesh3d">
+<code class="sig-prename descclassname">ladybug_vtk.fromgeometry.</code><code class="sig-name descname">from_mesh3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mesh</span><span class="p">:</span> <span class="n">ladybug_geometry.geometry3d.mesh.Mesh3D</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="ladybug_vtk.polydata.html#ladybug_vtk.polydata.PolyData" title="ladybug_vtk.polydata.PolyData">ladybug_vtk.polydata.PolyData</a><a class="reference internal" href="_modules/ladybug_vtk/fromgeometry.html#from_mesh3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.fromgeometry.from_mesh3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Polydata from a Ladybug mesh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mesh</strong> – A Ladybug Mesh3D object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Polydata containing face and points of a mesh.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ladybug_vtk.fromgeometry.from_point2d">
+<code class="sig-prename descclassname">ladybug_vtk.fromgeometry.</code><code class="sig-name descname">from_point2d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">point</span><span class="p">:</span> <span class="n">ladybug_geometry.geometry2d.pointvector.Point2D</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="ladybug_vtk.polydata.html#ladybug_vtk.polydata.PolyData" title="ladybug_vtk.polydata.PolyData">ladybug_vtk.polydata.PolyData</a><a class="reference internal" href="_modules/ladybug_vtk/fromgeometry.html#from_point2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.fromgeometry.from_point2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Polydata from a Ladybug Point2D object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>point</strong> – A ladybug Point object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Polydata containing a single point.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ladybug_vtk.fromgeometry.from_point3d">
+<code class="sig-prename descclassname">ladybug_vtk.fromgeometry.</code><code class="sig-name descname">from_point3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">point</span><span class="p">:</span> <span class="n">ladybug_geometry.geometry3d.pointvector.Point3D</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="ladybug_vtk.polydata.html#ladybug_vtk.polydata.PolyData" title="ladybug_vtk.polydata.PolyData">ladybug_vtk.polydata.PolyData</a><a class="reference internal" href="_modules/ladybug_vtk/fromgeometry.html#from_point3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.fromgeometry.from_point3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Polydata from a Ladybug Point3D object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>point</strong> – A ladybug Point object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Polydata containing a single point.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ladybug_vtk.fromgeometry.from_points2d">
+<code class="sig-prename descclassname">ladybug_vtk.fromgeometry.</code><code class="sig-name descname">from_points2d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">points</span><span class="p">:</span> <span class="n">List<span class="p">[</span>ladybug_geometry.geometry2d.pointvector.Point2D<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">join</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="ladybug_vtk.polydata.html#ladybug_vtk.polydata.PolyData" title="ladybug_vtk.polydata.PolyData">ladybug_vtk.polydata.PolyData</a><a class="reference internal" href="_modules/ladybug_vtk/fromgeometry.html#from_points2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.fromgeometry.from_points2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Polydata from a list of Ladybug Point2D objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>points</strong> – A list of Ladybug Point2D objects.</p></li>
+<li><p><strong>join</strong> – Boolean to indicate whether the points should be joined into a polyline.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Polydata containing all points or a polyline.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ladybug_vtk.fromgeometry.from_points3d">
+<code class="sig-prename descclassname">ladybug_vtk.fromgeometry.</code><code class="sig-name descname">from_points3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">points</span><span class="p">:</span> <span class="n">List<span class="p">[</span>ladybug_geometry.geometry3d.pointvector.Point3D<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">join</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="ladybug_vtk.polydata.html#ladybug_vtk.polydata.PolyData" title="ladybug_vtk.polydata.PolyData">ladybug_vtk.polydata.PolyData</a><a class="reference internal" href="_modules/ladybug_vtk/fromgeometry.html#from_points3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.fromgeometry.from_points3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Polydata from a list of Ladybug Point3D objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>points</strong> – A list of Ladybug Point3D objects.</p></li>
+<li><p><strong>join</strong> – Boolean to indicate whether the points should be joined into a polyline.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Polydata containing all points or a polyline.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ladybug_vtk.fromgeometry.from_polyface3d">
+<code class="sig-prename descclassname">ladybug_vtk.fromgeometry.</code><code class="sig-name descname">from_polyface3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">polyface</span><span class="p">:</span> <span class="n">ladybug_geometry.geometry3d.polyface.Polyface3D</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="ladybug_vtk.polydata.html#ladybug_vtk.polydata.PolyData" title="ladybug_vtk.polydata.PolyData">ladybug_vtk.polydata.PolyData</a><span class="p">]</span><a class="reference internal" href="_modules/ladybug_vtk/fromgeometry.html#from_polyface3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.fromgeometry.from_polyface3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Polydata from a Ladybug Polyface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>polyface</strong> – A Ladybug Polyface3D object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of Polydata. Each polydata contains a face and points of a face of Polyface.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ladybug_vtk.fromgeometry.from_polyline2d">
+<code class="sig-prename descclassname">ladybug_vtk.fromgeometry.</code><code class="sig-name descname">from_polyline2d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">polyline</span><span class="p">:</span> <span class="n">ladybug_geometry.geometry2d.polyline.Polyline2D</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="ladybug_vtk.polydata.html#ladybug_vtk.polydata.PolyData" title="ladybug_vtk.polydata.PolyData">ladybug_vtk.polydata.PolyData</a><a class="reference internal" href="_modules/ladybug_vtk/fromgeometry.html#from_polyline2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.fromgeometry.from_polyline2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Polydata from a Ladybug Polyline3D object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>polyline</strong> – A Ladybug Polyline3D object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Polydata containing a polyline.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ladybug_vtk.fromgeometry.from_polyline3d">
+<code class="sig-prename descclassname">ladybug_vtk.fromgeometry.</code><code class="sig-name descname">from_polyline3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">polyline</span><span class="p">:</span> <span class="n">ladybug_geometry.geometry3d.polyline.Polyline3D</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="ladybug_vtk.polydata.html#ladybug_vtk.polydata.PolyData" title="ladybug_vtk.polydata.PolyData">ladybug_vtk.polydata.PolyData</a><a class="reference internal" href="_modules/ladybug_vtk/fromgeometry.html#from_polyline3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.fromgeometry.from_polyline3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Polydata from a Ladybug Polyline3D object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>polyline</strong> – A Ladybug Polyline3D object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Polydata containing a polyline.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ladybug_vtk.fromgeometry.from_sphere">
+<code class="sig-prename descclassname">ladybug_vtk.fromgeometry.</code><code class="sig-name descname">from_sphere</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sphere</span><span class="p">:</span> <span class="n">ladybug_geometry.geometry3d.sphere.Sphere</span></em>, <em class="sig-param"><span class="n">resolution</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">25</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="ladybug_vtk.polydata.html#ladybug_vtk.polydata.PolyData" title="ladybug_vtk.polydata.PolyData">ladybug_vtk.polydata.PolyData</a><a class="reference internal" href="_modules/ladybug_vtk/fromgeometry.html#from_sphere"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.fromgeometry.from_sphere" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Polydata from a Ladybug Sphere.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sphere</strong> – A Ladybug Sphere object.</p></li>
+<li><p><strong>resolution</strong> – The number of segments into which the sphere will be divided.
+Defaults to 25.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Polydata containing a sphere.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ladybug_vtk.fromgeometry.to_circle">
+<code class="sig-prename descclassname">ladybug_vtk.fromgeometry.</code><code class="sig-name descname">to_circle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">center</span><span class="p">:</span> <span class="n">ladybug_geometry.geometry3d.pointvector.Point3D</span></em>, <em class="sig-param"><span class="n">radius</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">100</span></em>, <em class="sig-param"><span class="n">sides</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">100</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="ladybug_vtk.polydata.html#ladybug_vtk.polydata.PolyData" title="ladybug_vtk.polydata.PolyData">ladybug_vtk.polydata.PolyData</a><a class="reference internal" href="_modules/ladybug_vtk/fromgeometry.html#to_circle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.fromgeometry.to_circle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a VTK circle from a ladybug Point3D and radius.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>center</strong> – A ladybug Point3D object.</p></li>
+<li><p><strong>radius</strong> – The radius of the circle. Defaults to 100 meters.</p></li>
+<li><p><strong>sides</strong> – The number of sides of the circle. Defaults to 100.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Polydata object containing a circle.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="ladybug_vtk.fromgeometry.to_text">
+<code class="sig-prename descclassname">ladybug_vtk.fromgeometry.</code><code class="sig-name descname">to_text</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">point</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>ladybug_geometry.geometry3d.pointvector.Point3D<span class="p">, </span>ladybug_geometry.geometry2d.pointvector.Point2D<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">scale</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">2</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="ladybug_vtk.polydata.html#ladybug_vtk.polydata.PolyData" title="ladybug_vtk.polydata.PolyData">ladybug_vtk.polydata.PolyData</a><a class="reference internal" href="_modules/ladybug_vtk/fromgeometry.html#to_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ladybug_vtk.fromgeometry.to_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a VTK text object from a text string and a ladybug Point3D.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> – A text string.</p></li>
+<li><p><strong>point</strong> – A ladybug Point3D or Point2D object. This is the location in 3D
+space of the text.</p></li>
+<li><p><strong>scale</strong> – The scale of the text. Defaults to 2.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Polydata object containing the text.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2022, Ladybug Tools.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.3.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
