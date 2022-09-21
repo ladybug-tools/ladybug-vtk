@@ -48,7 +48,10 @@ def write_to_folder(polydata: Union[vtk.vtkPolyData, vtk.vtkAppendPolyData],
     writer = vtk.vtkJSONDataSetWriter()
     folder = pathlib.Path(target_folder)
     folder.mkdir(parents=True, exist_ok=True)
-    writer.SetFileName(folder.as_posix())
+    try:
+        writer.SetFileName(folder.as_posix())
+    except:
+        writer.SetArchiveName(folder.as_posix())
 
     if isinstance(polydata, vtk.vtkPolyData):
         writer.SetInputData(polydata)
