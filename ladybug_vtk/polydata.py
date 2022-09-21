@@ -3,6 +3,7 @@
 import vtk
 import warnings
 from typing import Dict, List, Tuple, Union
+
 from .data_field_info import DataFieldInfo
 from .writer import write_to_folder, write_to_file
 from .legend_parameter import ColorSets
@@ -11,7 +12,11 @@ from .legend_parameter import ColorSets
 class PolyData(vtk.vtkPolyData):
     """A thin wrapper around vtk.vtkPolyData.
 
-    PolyData has additional fields for metadata information.
+    See here for more information: https://vtk.org/doc/nightly/html/classvtkPolyData.html#details
+
+    Refer to ``from_geometry`` module for examples of creating a PolyData object. Use the
+    ``add_data`` to add numeric data to PolyData.
+
     """
 
     def __init__(self) -> None:
@@ -19,6 +24,7 @@ class PolyData(vtk.vtkPolyData):
         self.identifier = None
         self.name = None
         self.type = None
+        # Note: Not sure if any of these properties are really used at this point
         self.boundary = None
         self.construction = None
         self.modifier = None
@@ -40,8 +46,10 @@ class PolyData(vtk.vtkPolyData):
         """Get data fields for this Polydata."""
         return self._fields
 
-    def add_data(self, data: List, name, *, cell=True, colors=None,
-                 data_range=None):
+    def add_data(
+            self, data: List, name: str, *, cell: bool = True,
+            colors: ColorSets = ColorSets.ecotect, data_range: List = None
+        ):
         """Add a list of data to a vtkPolyData.
 
         Data can be added to cells or points. By default the data will be added to cells.
@@ -53,7 +61,7 @@ class PolyData(vtk.vtkPolyData):
             cell: A Boolean to indicate if the data is per cell or per point. In
                 most cases except for sensor points that are loaded as sensors the data
                 are provided per cell.
-            colors: A Colors object that defines colors for the legend.
+            colors: A Colorset object. Default is set to Ecotect Colorset.
             data_range: A list with two values for minimum and maximum values for legend
                 parameters.
         """
