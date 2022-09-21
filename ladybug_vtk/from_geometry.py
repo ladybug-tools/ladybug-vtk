@@ -355,11 +355,23 @@ def from_polyface3d(polyface: Polyface3D) -> PolyData:
     for ver in polyface.vertices:
         points.InsertNextPoint(*ver)
 
-    for face in polyface.face_indices:
-        polygon.GetPointIds().SetNumberOfIds(len(face))
-        for count, i in enumerate(face):
-            polygon.GetPointIds().SetId(count, i)
-        cells.InsertNextCell(polygon)
+    for face, face_geo in zip(polyface.face_indices, polyface.faces):
+        if face_geo.has_holes or not face_geo.is_convex:
+            meshed_face = face_geo.triangulated_mesh3d
+            for ver in meshed_face.vertices:
+                if ver not in polyface.vertices:
+                    points.InsertNextPoint(*ver)
+            for face in meshed_face.faces:
+                polygon.GetPointIds().SetNumberOfIds(len(face))
+                for count, i in enumerate(face):
+                    polygon.GetPointIds().SetId(count, i)
+                cells.InsertNextCell(polygon)
+        else:
+            face = face[0]
+            polygon.GetPointIds().SetNumberOfIds(len(face))
+            for count, i in enumerate(face):
+                polygon.GetPointIds().SetId(count, i)
+            cells.InsertNextCell(polygon)
 
     polydata = PolyData()
     polydata.SetPoints(points)
