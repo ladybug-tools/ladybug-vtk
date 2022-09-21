@@ -1,9 +1,9 @@
-"""testing functions in fromgeometry module."""
+"""testing functions in from_geometry module."""
 
 from ladybug_geometry.geometry2d import Point2D, LineSegment2D
 from ladybug_geometry.geometry3d import Point3D, Polyline3D, Arc3D, Vector3D, Mesh3D,\
     Face3D, Plane, LineSegment3D, Polyface3D, Cone, Sphere, Cylinder
-from ladybug_vtk.fromgeometry import from_point2d, from_points2d, from_line2d, \
+from ladybug_vtk.from_geometry import from_point2d, from_points2d, from_line2d, \
     from_point3d, from_points3d, from_line3d, from_polyline3d, from_arc3d, from_mesh3d,\
     from_face3d, from_polyface3d, from_cone, from_sphere, from_cylinder, to_circle,\
     to_text
