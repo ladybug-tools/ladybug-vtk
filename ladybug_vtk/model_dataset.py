@@ -10,11 +10,15 @@ from .joined_polydata import JoinedPolyData
 
 
 class ModelDataSet:
-    """A dataset object in honeybee VTK model.
+    """A Ladybug VTK dataset object.
 
-    This data set holds the PolyData objects as well as representation information
-    for those PolyData. All the objects in ModelDataSet will have the same
-    representation.
+    This object includes 3 different information:
+
+        1. Geometry: The geometry data is extracted from the Polydata object.
+        2. Data:The data for the geometry. This data is also part of the Polydata input.
+        3. Display attributes: The display attributes are color and display mode. All the
+            objects in ModelDataSet will have the same representation.
+
     """
 
     def __init__(self, name, data: List[PolyData] = None, color: Color = None) -> None:
@@ -199,7 +203,7 @@ class ModelDataSet:
 
         # Getting legend information for each data added to the ModelDataSet object.
         legends = []
-        if self.name == 'Grid' and self.fields_info:
+        if self.fields_info:
             for field_info in self.fields_info.values():
                 legends.append(field_info.legend_parameter._to_dict())
 

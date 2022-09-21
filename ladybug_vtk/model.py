@@ -36,7 +36,7 @@ class Model:
         """Write a vtkjs file.
 
         Write your honeybee-vtk model to a vtkjs file that you can open in
-        Paraview-Glance.
+        Pollination Viewer.
 
         Args:
             folder: A valid text string representing the location of folder where
@@ -74,8 +74,9 @@ class Model:
         index_json.to_json(temp_folder)
 
         # zip as vtkjs
-        temp_vtkjs_file = convert_directory_to_zip_file(temp_folder, extension='vtkjs',
-                                                        move=False)
+        temp_vtkjs_file = convert_directory_to_zip_file(
+            temp_folder, extension='vtkjs', move=False
+        )
 
         # Move the generated vtkjs to target folder
         shutil.move(temp_vtkjs_file, target_vtkjs_file)

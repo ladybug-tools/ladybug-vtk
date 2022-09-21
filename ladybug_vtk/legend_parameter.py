@@ -2,7 +2,7 @@
 
 import vtk
 from ladybug.color import Colorset
-from enum import Enum, auto
+from enum import Enum
 from typing import Tuple, Union
 from ._helper import validate_input
 

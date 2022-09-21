@@ -1,7 +1,7 @@
 """Schema for VTKJS objects."""
 import json
 import pathlib
-from typing import Dict, List, Tuple
+from typing import Dict, List
 import enum
 
 from pydantic import BaseModel, Field, validator
