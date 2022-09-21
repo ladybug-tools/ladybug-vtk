@@ -4,7 +4,7 @@
 import vtk
 import math
 from typing import List, Union
-from ladybug_geometry.geometry2d import Point2D, LineSegment2D, Polyline2D
+from ladybug_geometry.geometry2d import Point2D, LineSegment2D, Polyline2D, Mesh2D
 from ladybug_geometry.geometry3d import Point3D, Polyline3D, Arc3D, LineSegment3D,\
     Mesh3D, Polyface3D, Cone, Cylinder, Sphere, Face3D
 from .polydata import PolyData
@@ -278,6 +278,35 @@ def from_mesh3d(mesh: Mesh3D) -> PolyData:
     return polydata
 
 
+def from_mesh2d(mesh: Mesh2D) -> PolyData:
+    """Create Polydata from a Ladybug mesh 2D.
+
+    Args:
+        mesh: A Ladybug Mesh2D object.
+
+    Returns:
+        Polydata containing face and points of a mesh.
+    """
+    points = vtk.vtkPoints()
+    polygon = vtk.vtkPolygon()
+    cells = vtk.vtkCellArray()
+
+    for ver in mesh.vertices:
+        points.InsertNextPoint(ver[0], ver[1], 0)
+
+    for face in mesh.faces:
+        polygon.GetPointIds().SetNumberOfIds(len(face))
+        for count, i in enumerate(face):
+            polygon.GetPointIds().SetId(count, i)
+        cells.InsertNextCell(polygon)
+
+    polydata = PolyData()
+    polydata.SetPoints(points)
+    polydata.SetPolys(cells)
+
+    return polydata
+
+
 def from_face3d(face: Face3D) -> PolyData:
     """Create Polydata from a Ladybug face.
 
@@ -310,7 +339,7 @@ def from_face3d(face: Face3D) -> PolyData:
     return polydata
 
 
-def from_polyface3d(polyface: Polyface3D) -> List[PolyData]:
+def from_polyface3d(polyface: Polyface3D) -> PolyData:
     """Create Polydata from a Ladybug Polyface.
 
     Args:
@@ -319,7 +348,24 @@ def from_polyface3d(polyface: Polyface3D) -> List[PolyData]:
     Returns:
         A list of Polydata. Each polydata contains a face and points of a face of Polyface.
     """
-    return [from_face3d(face) for face in polyface.faces]
+    points = vtk.vtkPoints()
+    polygon = vtk.vtkPolygon()
+    cells = vtk.vtkCellArray()
+
+    for ver in polyface.vertices:
+        points.InsertNextPoint(*ver)
+
+    for face in polyface.face_indices:
+        polygon.GetPointIds().SetNumberOfIds(len(face))
+        for count, i in enumerate(face):
+            polygon.GetPointIds().SetId(count, i)
+        cells.InsertNextCell(polygon)
+
+    polydata = PolyData()
+    polydata.SetPoints(points)
+    polydata.SetPolys(cells)
+
+    return polydata
 
 
 def from_cone(cone: Cone, resolution: int = 2, cap: bool = True) -> PolyData:
