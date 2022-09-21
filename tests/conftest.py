@@ -14,3 +14,8 @@ def temp_folder():
 @pytest.fixture()
 def epw():
     return EPW('./tests/assets/weather/boston.epw')
+
+
+@pytest.fixture()
+def visualization_set():
+    return Path('./tests/assets/visualization.json')
