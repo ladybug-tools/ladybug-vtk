@@ -10,7 +10,7 @@ from ladybug.sunpath import Sunpath
 from ladybug.compass import Compass
 from ladybug.datacollection import HourlyContinuousCollection
 
-from .fromgeometry import from_points3d, to_circle, to_text, from_points2d
+from .from_geometry import from_points3d, to_circle, to_text, from_points2d
 from .model_dataset import ModelDataSet
 from .model import Model
 

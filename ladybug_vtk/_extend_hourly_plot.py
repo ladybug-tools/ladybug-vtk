@@ -2,7 +2,7 @@ from pathlib import Path
 from ladybug.hourlyplot import HourlyPlot
 from ladybug_geometry.geometry3d import Vector3D
 from ladybug.color import Color
-from .fromgeometry import from_line3d, from_polyline3d, from_mesh3d, to_text
+from .from_geometry import from_line3d, from_polyline3d, from_mesh3d, to_text
 from .model_dataset import ModelDataSet
 from .model import Model
 
@@ -36,7 +36,7 @@ def hourly_plot_to_vtkjs(self, output_folder: str, file_name: str = 'hourly plot
     lines.append(border_polydata)
     datasets.append(ModelDataSet('lines', lines, color=Color()))
 
-    # lalbels
+    # labels
     labels = []
     left_vector = Vector3D(-1, 0, 0)*5
     down_vector = Vector3D(0, -1, 0)*3
