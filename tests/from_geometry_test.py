@@ -136,10 +136,10 @@ def test_from_polyface3d():
                     [(2, 1, 5, 6)], [(2, 3, 7, 6)], [(4, 5, 6, 7)]]
     polyface = Polyface3D(pts, face_indices)
     polydata = from_polyface3d(polyface)
-    assert polydata[0].GetNumberOfPoints() == 4
-    assert polydata[0].GetNumberOfCells() == 1
-    assert polydata[0].GetNumberOfPolys() == 1
-    assert polydata[0].GetBounds() == (0.0, 2.0, 0.0, 2.0, 0.0, 0.0)
+    assert polydata.GetNumberOfPoints() == 8
+    assert polydata.GetNumberOfCells() == 6
+    assert polydata.GetNumberOfPolys() == 6
+    assert polydata.GetBounds() == (0.0, 2.0, 0.0, 2.0, 0.0, 2.0)
 
 
 def test_from_cone():

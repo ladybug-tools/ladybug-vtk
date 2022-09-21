@@ -5,7 +5,7 @@ import warnings
 from typing import Dict, List, Tuple, Union
 
 from .data_field_info import DataFieldInfo
-from .writer import write_to_folder, write_to_file
+from .writer import write_to_folder, write_to_file, VTKWriters
 from .legend_parameter import ColorSets
 
 
@@ -122,7 +122,7 @@ class PolyData(vtk.vtkPolyData):
 
         self.Modified()
 
-    def to_vtk(self, target_folder, name, writer):
+    def to_vtk(self, target_folder, name, writer: VTKWriters = VTKWriters.binary):
         """Write to a VTK file.
 
         The file extension will be set to vtk for ASCII format and vtp for binary format.
