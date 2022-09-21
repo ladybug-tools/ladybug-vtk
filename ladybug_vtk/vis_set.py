@@ -4,7 +4,7 @@ from typing import List
 from .model import Model
 from .model_dataset import ModelDataSet, DisplayMode
 from .polydata import PolyData
-from ladybug_display.visualization import AnalysisGeometry, VisualizationSet
+from ladybug_display_schema.visualization import AnalysisGeometry, VisualizationSet
 
 from enum import Enum
 
