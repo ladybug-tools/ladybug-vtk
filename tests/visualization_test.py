@@ -1,9 +1,12 @@
-from ladybug_display_schema.visualization import VisualizationSet
-from ladybug_vtk.vis_set import from_visualization_set
+from ladybug_display.visualization import VisualizationSet
+from ladybug_vtk.visualization_set import from_visualization_set
 import pathlib
+import json
+
 
 def test_vs(temp_folder, visualization_set):
-    vs = VisualizationSet.parse_file(visualization_set)
+    data = json.loads(pathlib.Path(visualization_set).read_text())
+    vs = VisualizationSet.from_dict(data)
     model = from_visualization_set(vs)
     path = model.to_vtkjs(folder=temp_folder, name='vs-model')
     path = pathlib.Path(path)
