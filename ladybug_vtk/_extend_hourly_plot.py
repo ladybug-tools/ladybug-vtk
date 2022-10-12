@@ -6,7 +6,7 @@ from ladybug.color import Color
 from ladybug_vtk.vtkjs.schema import DisplayMode
 from .from_geometry import to_text
 from .display_polydata import DisplayPolyData
-from .visualization_set import VTKVisualizationSet
+from .visualization_set import VisualizationSet
 
 
 def hourly_plot_to_vtkjs(self, output_folder: str, file_name: str = 'hourly plot') -> Path:
@@ -81,7 +81,7 @@ def hourly_plot_to_vtkjs(self, output_folder: str, file_name: str = 'hourly plot
     datasets.append(mesh_dataset)
 
     # write all datasets to a vtkjs file
-    hourly_plot = VTKVisualizationSet(datasets=datasets)
+    hourly_plot = VisualizationSet(datasets=datasets)
 
     return Path(hourly_plot.to_vtkjs(output_folder, file_name))
 

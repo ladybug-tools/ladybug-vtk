@@ -12,7 +12,7 @@ from ladybug.datacollection import HourlyContinuousCollection
 
 from .from_geometry import from_points3d, to_circle, to_text, from_points2d
 from .display_polydata import DisplayPolyData
-from .visualization_set import VTKVisualizationSet
+from .visualization_set import VisualizationSet
 
 
 def sunpath_to_vtkjs(
@@ -155,7 +155,7 @@ def sunpath_to_vtkjs(
         datasets.append(sun_dataset)
 
     # join polylines into a single polydata
-    sunpath = VTKVisualizationSet(datasets=datasets)
+    sunpath = VisualizationSet(datasets=datasets)
     return Path(sunpath.to_vtkjs(output_folder, file_name))
 
 
