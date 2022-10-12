@@ -1,7 +1,11 @@
 import pytest
+import json
+
 from tempfile import TemporaryDirectory
 from pathlib import Path
+
 from ladybug.epw import EPW
+from ladybug_display.visualization import VisualizationSet
 
 
 @pytest.fixture(scope='session')
@@ -18,4 +22,6 @@ def epw():
 
 @pytest.fixture()
 def visualization_set():
-    return Path('./tests/assets/visualization.json')
+    data = json.loads(Path('./tests/assets/visualization.json').read_text())
+    vs = VisualizationSet.from_dict(data)
+    return vs
