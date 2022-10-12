@@ -2,9 +2,11 @@ from pathlib import Path
 from ladybug.hourlyplot import HourlyPlot
 from ladybug_geometry.geometry3d import Vector3D
 from ladybug.color import Color
-from .from_geometry import from_line3d, from_polyline3d, from_mesh3d, to_text
-from .model_dataset import ModelDataSet
-from .model import Model
+
+from ladybug_vtk.vtkjs.schema import DisplayMode
+from .from_geometry import to_text
+from .display_polydata import DisplayPolyData
+from .visualization_set import VTKVisualizationSet
 
 
 def hourly_plot_to_vtkjs(self, output_folder: str, file_name: str = 'hourly plot') -> Path:
@@ -34,12 +36,12 @@ def hourly_plot_to_vtkjs(self, output_folder: str, file_name: str = 'hourly plot
     # border polyline
     border_polydata = self.chart_border3d.to_polydata()
     lines.append(border_polydata)
-    datasets.append(ModelDataSet('lines', lines, color=Color()))
+    datasets.append(DisplayPolyData('Hourly Plot::Lines', 'lines', polydata=lines, color=Color()))
 
     # labels
     labels = []
-    left_vector = Vector3D(-1, 0, 0)*5
-    down_vector = Vector3D(0, -1, 0)*3
+    left_vector = Vector3D(-1, 0, 0) * 5
+    down_vector = Vector3D(0, -1, 0) * 3
 
     # month labels
     month_labels_polydata = [
@@ -49,7 +51,7 @@ def hourly_plot_to_vtkjs(self, output_folder: str, file_name: str = 'hourly plot
     labels.extend(month_labels_polydata)
 
     # hour labels
-    hour_left_vector = Vector3D(-1, 0, 0)*15
+    hour_left_vector = Vector3D(-1, 0, 0) * 15
     hour_labels_polydata = [
         to_text(label, self.hour_label_points3d[count].
                 move(hour_left_vector).move(down_vector), scale=4)
@@ -60,18 +62,26 @@ def hourly_plot_to_vtkjs(self, output_folder: str, file_name: str = 'hourly plot
     title_polydata = to_text(self.title_text, self.lower_title_location.o.move(
         left_vector).move(down_vector), scale=4)
     labels.append(title_polydata)
-    datasets.append(ModelDataSet('labels', labels, color=Color()))
+    datasets.append(DisplayPolyData('Hourly Plot::Labels', 'labels', polydata=labels, color=Color()))
 
     # data
     mesh_polydata = self.colored_mesh3d.to_polydata()
-    mesh_dataset = ModelDataSet('data', [mesh_polydata])
     name = self.data_collection.header.data_type.name
-    mesh_dataset.add_data_fields([self.data_collection], name)
+    mesh_polydata.add_data(
+        self.data_collection.values, name=name, per_face=True,
+        data_type=self.data_collection.header.data_type,
+        unit=self.data_collection.header.unit
+    )
+
+    mesh_dataset = DisplayPolyData(
+        name='Data', identifier='data', polydata=[mesh_polydata],
+        display_mode=DisplayMode.SurfaceWithEdges
+    )
     mesh_dataset.color_by = name
     datasets.append(mesh_dataset)
 
     # write all datasets to a vtkjs file
-    hourly_plot = Model(datasets=datasets)
+    hourly_plot = VTKVisualizationSet(datasets=datasets)
 
     return Path(hourly_plot.to_vtkjs(output_folder, file_name))
 
