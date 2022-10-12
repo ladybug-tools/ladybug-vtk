@@ -1,12 +1,13 @@
 """A VTK Polydata object with additional methods."""
 
 import vtk
-import warnings
-from typing import Dict, List, Tuple, Union
+from typing import Dict, List, Tuple
 
-from .data_field_info import DataFieldInfo
+from ladybug_display.visualization import VisualizationData, \
+    LegendParameters, DataTypeBase
+
+from .metadata import PolyDataMetaData
 from .writer import write_to_folder, write_to_file, VTKWriters
-from .legend_parameter import ColorSets
 
 
 class PolyData(vtk.vtkPolyData):
@@ -14,41 +15,54 @@ class PolyData(vtk.vtkPolyData):
 
     See here for more information: https://vtk.org/doc/nightly/html/classvtkPolyData.html#details
 
-    Refer to ``from_geometry`` module for examples of creating a PolyData object. Use the
-    ``add_data`` to add numeric data to PolyData.
+    A PolyData object holds the geometry information in addition to several layers of
+    data. All these data are aligned with the geometry. For instance, you can use a
+    PolyData to represent a sensor grid and then add data for irradiance and daylight
+    factor values to it.
+
+    A PolyData can be exported to a VTK object directly but in most cases you should use
+    the DisplayPolyData object to group the PolyData and set their display attributes.
 
     """
 
     def __init__(self) -> None:
         super().__init__()
-        self.identifier = None
-        self.name = None
-        self.type = None
-        # Note: Not sure if any of these properties are really used at this point
-        self.boundary = None
-        self.construction = None
-        self.modifier = None
-        self._fields = {}  # keep track of information for each data field.
-
-    @ staticmethod
-    def _resolve_array_type(data):
-        if isinstance(data, float):
-            return vtk.vtkFloatArray()
-        elif isinstance(data, int):
-            return vtk.vtkIntArray()
-        elif isinstance(data, str):
-            return vtk.vtkStringArray()
-        else:
-            raise ValueError(f'Unsupported input data type: {type(data)}')
+        self._data: Dict[str, PolyDataMetaData] = {}
+        self._color_by = ''
 
     @ property
-    def data_fields(self) -> Dict[str, DataFieldInfo]:
-        """Get data fields for this Polydata."""
-        return self._fields
+    def data(self) -> Dict[str, PolyDataMetaData]:
+        """Get data for this Polydata.
+
+        The keys are the name for each data and the values are the visualization
+        metadata.
+        """
+        return self._data
+
+    def add_visualization_data(
+            self, data: VisualizationData, matching_method: str = 'faces'
+        ):
+        """Add visualization data to this polyData.
+
+        Args:
+            data: A visualization data object.
+            matching_method: Either faces or vertices. Use faces if one value is
+                assigned per each face and vertices if one value is assigned per each
+                vertex. Default is faces.
+
+        """
+        per_face = True if matching_method == 'faces' else False
+        name = 'generic_data' if not data.data_type else  data.data_type.name
+        return self.add_data(
+            data.values, name, per_face=per_face,
+            legend_parameters=data.legend_parameters,
+            unit=data.unit, data_type=data.data_type
+        )
 
     def add_data(
-            self, data: List, name: str, *, cell: bool = True,
-            colors: ColorSets = ColorSets.ecotect, data_range: List = None
+            self, data: List, name: str, *, per_face: bool = True,
+            legend_parameters: LegendParameters = None,
+            data_type: DataTypeBase = None, unit: str = None
         ):
         """Add a list of data to a vtkPolyData.
 
@@ -58,15 +72,23 @@ class PolyData(vtk.vtkPolyData):
             data: A list of values. The length of the data should match the length of
                 DataCells or DataPoints in Polydata.
             name: Name of data (e.g. Useful Daylight Autonomy.)
-            cell: A Boolean to indicate if the data is per cell or per point. In
+            per_face: A Boolean to indicate if the data is per cell or per point. In
                 most cases except for sensor points that are loaded as sensors the data
                 are provided per cell.
-            colors: A Colorset object. Default is set to Ecotect Colorset.
-            data_range: A list with two values for minimum and maximum values for legend
-                parameters.
+            legend_parameters: An Optional LegendParameters object to override default
+                parameters of the legend. None indicates that default legend parameters
+                will be used. (Default: None).
+            data_type: Optional DataType from the ladybug datatype subpackage (ie.
+                Temperature()) , which will be used to assign default legend properties.
+                If None, the legend associated with this object will contain no units
+                unless a unit below is specified. (Default: None).
+            unit: Optional text string for the units of the values. (ie. "C"). If None
+                or empty, the default units of the data_type will be used. If no data
+                type is specified in this case, this will simply be an empty
+                string. (Default: None).
         """
-        assert name not in self._fields, \
-            f'A data filed by name "{name}" already exist. Try a different name.'
+        assert name not in self._data, \
+            f'A data by name "{name}" already exist. Try a different name.'
 
         if isinstance(data[0], (list, tuple)):
             values = self._resolve_array_type(data[0][0])
@@ -81,39 +103,33 @@ class PolyData(vtk.vtkPolyData):
             values.SetName(name)
 
         if iterator:
-            # NOTE: This is my (mostapha's) understanding from the original code for
-            # tuple data. This needs to be tested.
             for d in data:
                 values.InsertNextValue(*d)
         else:
             for d in data:
                 values.InsertNextValue(d)
 
-        if cell:
+        if per_face:
             self.GetCellData().AddArray(values)
         else:
             self.GetPointData().AddArray(values)
 
         self.Modified()
 
-        # set data range
-        data_range = self._get_data_range(name, data_range, values)
+        self._data[name] = PolyDataMetaData(legend_parameters, data_type, unit, per_face)
 
-        # set colors
-        if not colors:
-            colors = ColorSets.ecotect
+    @property
+    def color_by(self) -> str:
+        return self._color_by
 
-        self._fields[name] = DataFieldInfo(name, data_range, colors, cell)
-
-        # if it's a string array don't publish the legend
-        if isinstance(values, vtk.vtkStringArray):
-            self._fields[name].legend_parameter.hide_legend = True
-
-    def color_by(self, name: str, cell=True) -> None:
+    @color_by.setter
+    def color_by(self, name: str) -> None:
         """Set the name for active data that should be used to color PolyData."""
-        assert name in self._fields, \
-            f'{name} is not a valid data field for this PolyData. Available ' \
-            f'data fields are: {list(self._fields)}'
+        assert name in self._data, \
+            f'{name} is not a valid data for this PolyData. Available ' \
+            f'data are: {list(self._data.keys())}'
+
+        cell = self._data[name].per_face
 
         if cell:
             self.GetCellData().SetActiveScalars(name)
@@ -121,6 +137,18 @@ class PolyData(vtk.vtkPolyData):
             self.GetPointData().SetActiveScalars(name)
 
         self.Modified()
+        self._color_by = name
+
+    @ staticmethod
+    def _resolve_array_type(data):
+        if isinstance(data, float):
+            return vtk.vtkFloatArray()
+        elif isinstance(data, int):
+            return vtk.vtkIntArray()
+        elif isinstance(data, str):
+            return vtk.vtkStringArray()
+        else:
+            raise ValueError(f'Unsupported input data type: {type(data)}')
 
     def to_vtk(self, target_folder, name, writer: VTKWriters = VTKWriters.binary):
         """Write to a VTK file.
@@ -145,84 +173,4 @@ class PolyData(vtk.vtkPolyData):
         return write_to_folder(self, target_folder)
 
     def __repr__(self) -> Tuple[str]:
-        return (
-            f'Name: {self.name} |'
-            f' Boundary: {self.boundary} |'
-            f' Construction: {self.construction} |'
-            f' Modifier: {self.modifier}'
-        )
-
-    @staticmethod
-    def _get_data_range(
-            name: str,
-            data_range: List[Union[float, int]],
-            array: Union[vtk.vtkFloatArray, vtk.vtkIntArray]) -> List[Union[float, int]]:
-        """Calculate data range for data based on data array and user provided legend range.
-
-        Args:
-            name: Name of data (e.g. Useful Daylight Autonomy.)
-            data_range: A list of numbers.
-            array: A vtk float array or a vtk int array.
-
-        Returns:
-            A list of min and max values to be used as a range for the data.
-        """
-
-        # calculate range based on the data
-        if not isinstance(array, vtk.vtkStringArray):
-
-            auto_range = array.GetRange()
-
-            if not data_range:
-                warnings.warn(
-                    f'In data {name.capitalize()}, since min and max'
-                    ' values of legend are not provided, those values will be auto'
-                    ' calculated based on data. \n'
-                )
-                return tuple(auto_range)
-
-            min, max = data_range
-            if min == None and max == None:
-                warnings.warn(
-                    f'In data {name.capitalize()}, since min and max'
-                    ' values of legend are not provided, those values will be auto'
-                    ' calculated based on data. \n'
-                )
-                return tuple(auto_range)
-
-            elif min == None and max:
-                warnings.warn(
-                    f'In data {name.capitalize()}, since min'
-                    ' value of the legend is not provided, that value will be auto'
-                    ' calculated based on data. \n'
-                )
-                return (auto_range[0], max)
-
-            elif min and max == None:
-                warnings.warn(
-                    f'In data {name.capitalize()}, since max'
-                    ' value of the legend is not provided, that value will be auto'
-                    ' calculated based on data. \n'
-                )
-                return (min, auto_range[1])
-
-            elif min == 0 and max == 0:
-                raise ValueError(
-                    f'In data {name.capitalize()}, min and max values'
-                    ' of legend cannot be both 0. \n'
-                )
-
-            elif isinstance(min, (float, int)) and isinstance(max, (float, int)):
-                if min >= max:
-                    raise ValueError(
-                        f'In data {name.capitalize()} Min value cannot be greater'
-                        ' than the max value.')
-                if min == max:
-                    raise ValueError(
-                        f'In data {name.capitalize()} Min and max values cannot'
-                        ' be the same.')
-                else:
-                    return (min, max)
-
-        else:
-            return tuple(data_range)
+        return (f'PolyData: #{len(self.data)}')

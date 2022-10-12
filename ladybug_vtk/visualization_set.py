@@ -1,102 +1,103 @@
-"""A module to support exporting a visualization set object to VTK."""
-from typing import List
+"""A Model object to collect all other DisplayPolyData objcts."""
 
-from .model import Model
-from .model_dataset import ModelDataSet, DisplayMode
-from .polydata import PolyData
-from ladybug_display.visualization import AnalysisGeometry, VisualizationSet
-
-
-def from_visualization_set(vis_set: VisualizationSet) -> Model:
-    # translate analysis geometry
-    data_sets = [
-        from_analysis_geometry(ag, f'analysis_geometry_{count}')
-        for count, ag in enumerate(vis_set.analysis_geometry)
-    ]
-    # translate context geometry
-    context_data_sets = from_context_geometry(vis_set.context_geometry)
-    data_sets.extend(context_data_sets)
-    model = Model(datasets=data_sets)
-    return model
+from __future__ import annotations
+import shutil
+import tempfile
+import os
 
 
-def from_analysis_geometry(analysis_geo: AnalysisGeometry, name='Analysis_Geometry') -> List[ModelDataSet]:
-    """Convert analysis geometry to a list of VTK ModelDataSets.
+from typing import List, Union
+from ladybug_display.visualization import VisualizationSet
 
-    Args:
-        analysis_geo: An analysis geometry.
-        name: An optional name for this dataset.
-    """
+from .vtkjs.schema import IndexJSON
+from .vtkjs.helper import convert_directory_to_zip_file
+from .display_polydata import DisplayPolyData
 
-    # translate geometry
-    poly_datas: List[PolyData] = [
-        geometry.to_polydata() for geometry in analysis_geo.geometry
-    ]
-    mappings = analysis_geo.matching_method
 
-    for count, (data_set, mapping) in enumerate(zip(analysis_geo.data_sets, mappings)):
-        # try to get the name for dataset
-        if data_set.data_type:
-            ds_name = data_set.data_type.name
+class VTKVisualizationSet:
+
+    def __init__(self, datasets: Union[DisplayPolyData, List[DisplayPolyData]] = None) -> None:
+        self.datasets = self._validate_datasets(datasets)
+
+    @classmethod
+    def from_visualization_set(
+            cls, visualization_set: VisualizationSet) -> VTKVisualizationSet:
+        """Create a VTKVisualizationSet from a Ladybug Display VisualizationSet."""
+        # translate analysis geometry
+        data_sets = [
+            DisplayPolyData.from_visualization_geometry(geometry)
+            for geometry in visualization_set.geometry
+        ]
+
+        return cls(data_sets)
+
+    @staticmethod
+    def _validate_datasets(datasets: Union[DisplayPolyData, List[DisplayPolyData]]):
+        if isinstance(datasets, DisplayPolyData):
+            return [datasets]
+        elif isinstance(datasets, list):
+            return datasets
         else:
-            ds_name = 'untitled'
+            raise TypeError(
+                'datasets should be a DisplayPolyData or a list of DisplayPolyData.'
+                f' Instead got {type(datasets)}.')
 
-        if mapping == 'geometry':
-            # TODO: support per object coloring
-            # to support this case we need to get the number of faces/cells in PolyData
-            # and duplicate the values to match the number of cells. PolyData should have
-            # a method that returns the number of cells. We just need to expose it.
-            raise NotImplementedError(
-                'Mapping data per object is not currently supported.'
-            )
-        # add this dataset to polydatas
-        is_cell_data = True if mapping != 'vertices' else False
-        for poly_data in poly_datas:
-            poly_data.add_data(
-                data_set.values, name=ds_name, cell=is_cell_data,
-                # we have the same challenge here as the Revit plugin. It expects a 
-                # color-set instead of a length of colors. We can change that in
-                # ladybug-vtk and pollination viewer
-                # colors=data_set.legend_parameters.colors,
-                data_range=(
-                    data_set.legend_parameters.min, data_set.legend_parameters.max
-                )
-            )
-        if count == analysis_geo.active_data:
-            color_by = ds_name
+    def add_datasets(self, datasets: Union[DisplayPolyData, List[DisplayPolyData]]) -> None:
+        datasets = self._validate_datasets(datasets)
+        self.datasets.extend(datasets)
 
-    vtk_data_set = ModelDataSet(name=name, data=poly_datas)
-    vtk_data_set.color_by = color_by
-    vtk_data_set.display_mode = DisplayMode.SurfaceWithEdges
+    def to_vtkjs(self, folder: str = '.', name: str = None) -> str:
+        """Write a vtkjs file.
 
-    return vtk_data_set
+        Write your honeybee-vtk model to a vtkjs file that you can open in
+        Pollination Viewer.
 
+        Args:
+            folder: A valid text string representing the location of folder where
+                you'd want to write the vtkjs file. Defaults to current working
+                directory.
+            name : Name for the vtkjs file. File name will be Model.vtkjs if not
+                provided.
 
-def from_context_geometry(context_geometry) -> List[ModelDataSet]:
-    """Convert context geometry to a list of VTK ModelDataSets."""
+        Returns:
+            A text string representing the file path to the vtkjs file.
+        """
 
-    # translate geometry
-    context_display = {
-        'Shaded': [], 'Surface': [], 'SurfaceWithEdges': [], 'Wireframe': []
-    }
+        # name of the vtkjs file
+        file_name = name or 'visualization_set'
+        # create a temp folder
+        temp_folder = tempfile.mkdtemp()
+        # The folder set by the user is the target folder
+        target_folder = os.path.abspath(folder)
+        # Set a file path to move the .zip file to the target folder
+        target_vtkjs_file = os.path.join(target_folder, file_name + '.vtkjs')
 
-    display_mode_mapper = {
-        'Shaded': DisplayMode.Shaded,
-        'Surface': DisplayMode.Surface,
-        'SurfaceWithEdges': DisplayMode.SurfaceWithEdges,
-        'Wireframe': DisplayMode.Wireframe
-    }
-    
-    for geometry in context_geometry:
-        poly_data = geometry.to_polydata()
-        context_display[geometry.display_mode].append(poly_data)
+        # write every dataset
+        scene = []
 
-    for display_mode, poly_data in context_display.items():
-        if not poly_data:
-            continue
-        vtk_data_set = ModelDataSet(
-            name=f'Context_Geometry_{display_mode}', data=poly_data
+        for data in self.datasets:
+            path = data.to_folder(temp_folder)
+            if not path:
+                # empty dataset
+                continue
+            scene.append(data.to_vtk_dataset())
+
+        # write index.json
+        index_json = IndexJSON()
+        index_json.scene = scene
+        index_json.to_json(temp_folder)
+
+        # zip as vtkjs
+        temp_vtkjs_file = convert_directory_to_zip_file(
+            temp_folder, extension='vtkjs', move=False
         )
-        vtk_data_set.display_mode = display_mode_mapper[display_mode]
 
-        yield vtk_data_set
+        # Move the generated vtkjs to target folder
+        shutil.move(temp_vtkjs_file, target_vtkjs_file)
+
+        try:
+            shutil.rmtree(temp_folder)
+        except Exception:
+            pass
+
+        return target_vtkjs_file

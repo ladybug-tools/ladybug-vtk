@@ -11,13 +11,14 @@ from ladybug.compass import Compass
 from ladybug.datacollection import HourlyContinuousCollection
 
 from .from_geometry import from_points3d, to_circle, to_text, from_points2d
-from .model_dataset import ModelDataSet
-from .model import Model
+from .display_polydata import DisplayPolyData
+from .visualization_set import VTKVisualizationSet
 
 
-def sunpath_to_vtkjs(self, output_folder: str = '.', file_name: str = 'sunpath', radius: int = 100,
-                     data: List[HourlyContinuousCollection] = None,
-                     sun_color: Color = Color(252, 177, 3), make_2d: bool = False) -> Path:
+def sunpath_to_vtkjs(
+    self, output_folder: str = '.', file_name: str = 'sunpath', radius: int = 100,
+    data: List[HourlyContinuousCollection] = None, sun_color: Color = Color(252, 177, 3),
+        make_2d: bool = False) -> Path:
     """Export sunpath as a vtkjs file.
 
     Args:
@@ -45,7 +46,10 @@ def sunpath_to_vtkjs(self, output_folder: str = '.', file_name: str = 'sunpath',
     else:
         polylines = self.hourly_analemma_polyline2d(radius=radius)
         sp_polydata = [pl.to_polydata() for pl in polylines]
-    sp_dataset = ModelDataSet(name='hourly_analemmas', data=sp_polydata, color=Color())
+    sp_dataset = DisplayPolyData(
+        name='Sun path::Hourly Analemmas', identifier='hourly_analemmas',
+        polydata=sp_polydata, color=Color()
+    )
     datasets.append(sp_dataset)
 
     # monthly arcs
@@ -55,7 +59,10 @@ def sunpath_to_vtkjs(self, output_folder: str = '.', file_name: str = 'sunpath',
     else:
         polylines = self.monthly_day_polyline2d(radius=radius)
         monthly_polydata = [polyline.to_polydata() for polyline in polylines]
-    arc_dataset = ModelDataSet(name='monthly_arcs', data=monthly_polydata, color=Color())
+    arc_dataset = DisplayPolyData(
+        name='Sun path::Monthly Arcs', identifier='monthly_arcs',
+        polydata=monthly_polydata, color=Color()
+    )
     datasets.append(arc_dataset)
 
     # compass circles
@@ -70,7 +77,10 @@ def sunpath_to_vtkjs(self, output_folder: str = '.', file_name: str = 'sunpath',
     ticks_minor = compass.ticks_from_angles(angles=compass.MINOR_AZIMUTHS)
     ticks_polydata = [tick.to_polydata() for tick in ticks_major+ticks_minor]
     base_polydata.extend(ticks_polydata)
-    base_dataset = ModelDataSet(name='base_circle', data=base_polydata, color=Color())
+    base_dataset = DisplayPolyData(
+        name='Sun path::Base Circle', identifier='base_circle',
+        polydata=base_polydata, color=Color()
+    )
     datasets.append(base_dataset)
 
     # Since vtkVectorText starts from left bottom we need to move the labels to the left
@@ -84,8 +94,10 @@ def sunpath_to_vtkjs(self, output_folder: str = '.', file_name: str = 'sunpath',
     minor_text_polydata = [to_text(text, compass.minor_azimuth_points[count].
                                    move(left_vector).move(down_vector), minor_scale)
                            for count, text in enumerate(compass.MINOR_TEXT)]
-    minor_label_dataset = ModelDataSet(
-        name='minor_labels', data=minor_text_polydata, color=Color())
+    minor_label_dataset = DisplayPolyData(
+        name='Sun path::Minor Labels', identifier='minor_labels',
+        polydata=minor_text_polydata, color=Color()
+    )
     datasets.append(minor_label_dataset)
 
     # compass major labels
@@ -93,8 +105,10 @@ def sunpath_to_vtkjs(self, output_folder: str = '.', file_name: str = 'sunpath',
     major_text_polydata = [to_text(text, compass.major_azimuth_points[count].
                                    move(left_vector).move(down_vector), scale=major_scale) for
                            count, text in enumerate(compass.MAJOR_TEXT)]
-    major_label_dataset = ModelDataSet(
-        name='major_labels', data=major_text_polydata, color=Color())
+    major_label_dataset = DisplayPolyData(
+        name='Sun path::Major Labels', identifier='major_labels',
+        polydata=major_text_polydata, color=Color()
+    )
     datasets.append(major_label_dataset)
 
     # add suns
@@ -115,7 +129,9 @@ def sunpath_to_vtkjs(self, output_folder: str = '.', file_name: str = 'sunpath',
         sun_positions = from_points3d(pts)
     else:
         sun_positions = from_points2d(pts)
-    sun_dataset = ModelDataSet(name='suns', data=[sun_positions])
+    sun_dataset = DisplayPolyData(
+        name='data', identifier='data', polydata=[sun_positions]
+    )
 
     # Load data if provided
     if data:
@@ -124,16 +140,22 @@ def sunpath_to_vtkjs(self, output_folder: str = '.', file_name: str = 'sunpath',
                 f' Ladybug HourlyContinuousCollection object. Instead got {type(dt)}'
             filtered_data = dt.filter_by_hoys(hours)
             name = filtered_data.header.data_type.name
-            sun_dataset.add_data_fields([filtered_data], name, per_face=False)
+            for data in sun_dataset.polydata:
+                data.add_data(
+                    filtered_data.values, name=name, per_face=False,
+                    data_type=filtered_data.header.data_type,
+                    unit=filtered_data.header.unit
+                )
             sun_dataset.color_by = name
         datasets.append(sun_dataset)
     else:
-        sun_dataset = ModelDataSet(
-            name='suns', data=[sun_positions], color=sun_color)
+        sun_dataset = DisplayPolyData(
+            name='Suns', identifier='suns',
+            polydata=[sun_positions], color=sun_color)
         datasets.append(sun_dataset)
 
     # join polylines into a single polydata
-    sunpath = Model(datasets=datasets)
+    sunpath = VTKVisualizationSet(datasets=datasets)
     return Path(sunpath.to_vtkjs(output_folder, file_name))
 
 

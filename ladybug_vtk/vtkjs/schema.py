@@ -1,26 +1,18 @@
 """Schema for VTKJS objects."""
 import json
 import pathlib
-from typing import Dict, List
+from typing import Dict, List, Union
 import enum
 
 from pydantic import BaseModel, Field, validator
-
+from ladybug_display_schema.visualization import LegendParameters, DataType, GenericDataType
 
 class DisplayMode(enum.Enum):
     """Display mode."""
-    Shaded = 2
     Surface = 2
     SurfaceWithEdges = 3
     Wireframe = 1
     Points = 0
-
-
-class SensorGridOptions(enum.Enum):
-    """Settings for loading sensor grids."""
-    Ignore = 0  # no loading
-    Sensors = 1  # load them as sensor points
-    Mesh = 2  # load them as mesh
 
 
 class Camera(BaseModel):
@@ -70,6 +62,15 @@ class DataSetProperty(BaseModel):
     opacity: float = Field(1)
 
 
+class DataSetMetaData(BaseModel):
+    legend_parameters: LegendParameters = Field(None, description='Legend Parameters.')
+    unit: str = Field('', description='Unit as a string')
+    data_type: Union[DataType, GenericDataType] = Field(
+        GenericDataType(name='', base_unit=''),
+        description='Data type for data set.'
+    )
+
+
 class DataSet(BaseModel):
     """A VTKJS dataset."""
     name: str = Field(..., description='DataSet name.')
@@ -83,9 +84,12 @@ class DataSet(BaseModel):
     mapper: DataSetMapper = Field(DataSetMapper())
     property: DataSetProperty = Field(DataSetProperty())
     legends: List[dict] = Field(
+        [], deprecated=True,
+        description='This field is deprecated. Use the metadata field instead.'
+    )
+    metadata: List[DataSetMetaData] = Field(
         [],
-        description='A list of dictionaries representing legend information for the'
-        ' data added to the Dataset object.'
+        description='List of metadata objects for each dataset.'
     )
 
 
