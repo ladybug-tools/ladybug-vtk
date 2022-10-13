@@ -78,7 +78,7 @@ def sunpath_to_vtkjs(
     ticks_polydata = [tick.to_polydata() for tick in ticks_major+ticks_minor]
     base_polydata.extend(ticks_polydata)
     base_dataset = DisplayPolyData(
-        name='Sun path::Base Circle', identifier='base_circle',
+        name='Sun path::Compass', identifier='base_circle',
         polydata=base_polydata, color=Color()
     )
     datasets.append(base_dataset)
