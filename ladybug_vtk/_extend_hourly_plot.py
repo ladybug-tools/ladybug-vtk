@@ -45,22 +45,22 @@ def hourly_plot_to_vtkjs(self, output_folder: str, file_name: str = 'hourly plot
 
     # month labels
     month_labels_polydata = [
-        to_text(label, self.month_label_points3d[count].
-                move(left_vector).move(down_vector), scale=4)
+        to_text(label, plane=self.month_label_points3d[count].
+                move(left_vector).move(down_vector), height=4)
         for count, label in enumerate(self.month_labels)]
     labels.extend(month_labels_polydata)
 
     # hour labels
     hour_left_vector = Vector3D(-1, 0, 0) * 15
     hour_labels_polydata = [
-        to_text(label, self.hour_label_points3d[count].
-                move(hour_left_vector).move(down_vector), scale=4)
+        to_text(label, plane=self.hour_label_points3d[count].
+                move(hour_left_vector).move(down_vector), height=4)
         for count, label in enumerate(self.hour_labels)]
     labels.extend(hour_labels_polydata)
 
     # title text
-    title_polydata = to_text(self.title_text, self.lower_title_location.o.move(
-        left_vector).move(down_vector), scale=4)
+    title_polydata = to_text(self.title_text, plane=self.lower_title_location.o.move(
+        left_vector).move(down_vector), height=4)
     labels.append(title_polydata)
     datasets.append(DisplayPolyData('Hourly Plot::Labels', 'labels', polydata=labels, color=Color()))
 

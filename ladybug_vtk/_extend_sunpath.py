@@ -66,14 +66,15 @@ def sunpath_to_vtkjs(
     datasets.append(arc_dataset)
 
     # compass circles
-    offset_1 = (radius*1.5)/100
-    offset_2 = (radius*4.5)/100
+    offset_1 = (radius * 1.5) / 100
+    offset_2 = (radius * 4.5) / 100
     rads = [radius, radius+offset_1, radius+offset_2]
     base_polydata = [to_circle(origin, radius) for radius in rads]
 
     # compass ticks
     compass = Compass(radius=radius, north_angle=self.north_angle)
-    ticks_major = compass.ticks_from_angles(angles=compass.MAJOR_AZIMUTHS, factor=0.55)
+    ticks_major = compass.ticks_from_angles(
+        angles=compass.MAJOR_AZIMUTHS, factor=0.55)
     ticks_minor = compass.ticks_from_angles(angles=compass.MINOR_AZIMUTHS)
     ticks_polydata = [tick.to_polydata() for tick in ticks_major+ticks_minor]
     base_polydata.extend(ticks_polydata)
@@ -85,14 +86,14 @@ def sunpath_to_vtkjs(
 
     # Since vtkVectorText starts from left bottom we need to move the labels to the left
     # and down by a certain amount.
-    moving_factor = (radius*3)/100
-    left_vector = Vector2D(-1, 0)*moving_factor
-    down_vector = Vector2D(0, -1)*moving_factor
+    moving_factor = (radius*3) / 100
+    left_vector = Vector2D(-1, 0) * moving_factor
+    down_vector = Vector2D(0, -1) * moving_factor
 
     # compass minor labels
-    minor_scale = (radius*2)/100
-    minor_text_polydata = [to_text(text, compass.minor_azimuth_points[count].
-                                   move(left_vector).move(down_vector), minor_scale)
+    minor_scale = (radius * 2) / 100
+    minor_text_polydata = [to_text(text, plane=compass.minor_azimuth_points[count].
+                                   move(left_vector).move(down_vector), height=minor_scale)
                            for count, text in enumerate(compass.MINOR_TEXT)]
     minor_label_dataset = DisplayPolyData(
         name='Sun path::Minor Labels', identifier='minor_labels',
@@ -101,9 +102,9 @@ def sunpath_to_vtkjs(
     datasets.append(minor_label_dataset)
 
     # compass major labels
-    major_scale = (radius*5)/100
-    major_text_polydata = [to_text(text, compass.major_azimuth_points[count].
-                                   move(left_vector).move(down_vector), scale=major_scale) for
+    major_scale = (radius * 5) / 100
+    major_text_polydata = [to_text(text, plane=compass.major_azimuth_points[count].
+                                   move(left_vector).move(down_vector), height=major_scale) for
                            count, text in enumerate(compass.MAJOR_TEXT)]
     major_label_dataset = DisplayPolyData(
         name='Sun path::Major Labels', identifier='major_labels',

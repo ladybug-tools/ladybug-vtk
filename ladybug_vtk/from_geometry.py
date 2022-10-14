@@ -6,7 +6,7 @@ import math
 from typing import List, Union
 from ladybug_geometry.geometry2d import Point2D, LineSegment2D, Polyline2D, Mesh2D
 from ladybug_geometry.geometry3d import Point3D, Polyline3D, Arc3D, LineSegment3D,\
-    Mesh3D, Polyface3D, Cone, Cylinder, Sphere, Face3D
+    Mesh3D, Polyface3D, Cone, Cylinder, Sphere, Face3D, Plane, Vector3D
 from .polydata import PolyData
 
 
@@ -491,33 +491,95 @@ def to_circle(center: Point3D, radius: int = 100, sides: int = 100) -> PolyData:
     return polydata
 
 
-def to_text(text: str, point: Union[Point3D, Point2D], scale: float = 2) -> PolyData:
+def to_text(
+    text: str, *, plane: Union[Point3D, Point2D, Plane], height: float = 2,
+    horizontal_alignment : int = 0, vertical_alignment: int = 0
+        ) -> PolyData:
     """Create a VTK text object from a text string and a ladybug Point3D.
 
     Args:
         text: A text string.
-        point: A ladybug Point3D or Point2D object. This is the location in 3D 
-            space of the text.
-        scale: The scale of the text. Defaults to 2.
+        plane: A ladybug Plane, Point3D or Point2D object to locate and orient the text
+            in the VTK scene.
+        height: A number for the height of the text in the scene. Defaults is set to 2.
+        horizontal_alignment: An optional integer to specify the horizontal alignment
+            of the text. Choose from: (0 = Left, 1 = Center, 2 = Right).
+        vertical_alignment: An optional integer to specify the vertical alignment of
+            the text. Choose from: (0 = Top, 1 = Middle, 2 = Bottom)
 
     Returns:
         A Polydata object containing the text.
     """
+    # TODO: ensure the logic works for non XY planes.
+    def _apply_transformation(
+        source: vtk.vtkVectorText, plane: Plane, height
+            ) -> vtk.vtkTransformPolyDataFilter:
+        transform = vtk.vtkTransform()
+        transform.Scale(height, height, height)
+        t_vector = Vector3D(plane.o.x, plane.o.y, plane.o.z)
+        # create a plane at origin with the normal of the input plane
+        plane = Plane(plane.n.normalize(), o=Point3D(0, 0, 0), x=plane.x)
+        plane_xy = Plane()
+        if plane != plane_xy:
+            angle = plane_xy.n.angle(plane.n)
+            vector = plane_xy.n.cross(plane.n)
+            if plane.n.angle(Vector3D(0, 0, -1)) < 0.01:
+                # the case for 0, 0, -1 plane
+                vector = Vector3D(1, 0, 0)
+            transform.RotateWXYZ(-math.degrees(angle), vector.x, vector.y, vector.z)
+        transform.Translate(
+            t_vector.x / height, t_vector.y / height, t_vector.z / height
+        )
+
+        transformFilter = vtk.vtkTransformPolyDataFilter()
+        transformFilter.SetInputConnection(source.GetOutputPort())
+        transformFilter.SetTransform(transform)
+        transformFilter.Update()
+        tf = transformFilter.GetOutput()
+        return tf
+
+    if isinstance(plane, Point3D):
+        plane = Plane(o=plane)
+    elif isinstance(plane, Point2D):
+        plane = Plane(o=Point3D(plane.x, plane.y, 0))
+
+    assert isinstance(plane, Plane), 'The plan for text must be from a Ladybug Plane.'
     source = vtk.vtkVectorText()
     source.SetText(text)
+    transform_filter = _apply_transformation(source, plane, height)
+    bounds = list(transform_filter.GetBounds())
+    llc = Point3D(bounds[0], bounds[2], bounds[4])
+    # this vector is the difference between the llc and text insertion point
+    # before making any of the translations
+    offset_vector = plane.o - llc
+    # make adjustments for text justification
+    if horizontal_alignment  + vertical_alignment != 0:
+        bounds = list(transform_filter.GetBounds())
+        bottom_left = Point3D(bounds[0], bounds[2], bounds[4])
+        top_right = Point3D(bounds[1], bounds[3], bounds[5])
+        bottom_left_2d = plane.xyz_to_xy(bottom_left)
+        top_right_2d = plane.xyz_to_xy(top_right)
 
-    translation = vtk.vtkTransform()
-    if isinstance(point, Point3D):
-        translation.Translate(point.x, point.y, point.z)
-    else:
-        translation.Translate(point.x, point.y, 0)
-    translation.Scale(scale, scale, scale)
+        x_dist = top_right_2d.x - bottom_left_2d.x
+        y_dist = top_right_2d.y - bottom_left_2d.y
+        if horizontal_alignment == 0:
+            x_dist = 0
+        elif horizontal_alignment == 1:
+            x_dist = x_dist / 2
+        if vertical_alignment == 0:
+            y_dist = 0
+        elif vertical_alignment == 1:
+            y_dist = y_dist / 2
 
-    transformFilter = vtk.vtkTransformPolyDataFilter()
-    transformFilter.SetInputConnection(source.GetOutputPort())
-    transformFilter.SetTransform(translation)
-    transformFilter.Update()
+        x_vector = plane.x * -1 * x_dist
+        y_vector = plane.y * -1 * y_dist
+        move_vector = x_vector + y_vector
+
+        plane = plane.move(moving_vec=move_vector)
+
+    plane = plane.move(offset_vector)
+    transform_filter = _apply_transformation(source, plane, height)
 
     polydata = PolyData()
-    polydata.ShallowCopy(transformFilter.GetOutput())
+    polydata.ShallowCopy(transform_filter)
     return polydata

@@ -191,7 +191,7 @@ def test_to_vtk_circle():
 
 def test_to_text():
     """Test to_text function."""
-    text_polydata = to_text('Hello World!', Point3D(5, 5, 5))
-    assert round(text_polydata.GetBounds()[0], 2) == 5.54
-    assert round(text_polydata.GetBounds()[2], 2) == 4.82
+    text_polydata = to_text('Hello World!', plane=Point3D(5, 5, 5))
+    assert round(text_polydata.GetBounds()[0], 2) == 5.0
+    assert round(text_polydata.GetBounds()[2], 2) == 5.0
     assert round(text_polydata.GetBounds()[4], 2) == 5.0
