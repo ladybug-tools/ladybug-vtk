@@ -40,12 +40,15 @@ class DisplayPolyData:
     """
 
     def __init__(
-        self, name: str, identifier: str, * , polydata: List[PolyData] = None,
-        color: Color = None, display_mode: DisplayMode =  DisplayMode.Surface
+        self, name: str, identifier: str, *, polydata: List[PolyData] = None,
+        color: Color = None, display_mode: DisplayMode = DisplayMode.Surface
             ) -> None:
         self.name = name
         self.identifier = identifier or str(uuid.uuid4())
-        self.polydata = polydata or []
+        polydata = polydata or []
+        self.polydata = [pd for pd in polydata if pd]  # remove None values
+        if len(self.polydata) != len(polydata):
+            print(f'{self.name} includes invalid Polydata.')
         self.color = color or Color(204, 204, 204, 255)
         self.display_mode = display_mode
 
@@ -209,7 +212,7 @@ class DisplayPolyData:
         ds_prop = DataSetProperty.parse_obj(prop)
 
         mapper = DataSetMapper()
-        if self.color_by is not None:
+        if self.color_by:
             mapper.colorByArrayName = self.color_by
 
         # Collect meta data for each data attached to polydata. Since all the polydata
