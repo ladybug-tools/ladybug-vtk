@@ -9,12 +9,13 @@ from ladybug_display.geometry2d import DisplayPoint2D, DisplayLineSegment2D, \
     DisplayPolyline2D, DisplayMesh2D
 from ladybug_display.geometry3d import DisplayPoint3D, DisplayPolyline3D, DisplayArc3D, \
     DisplayLineSegment3D, DisplayMesh3D, DisplayPolyface3D, DisplayCone, \
-    DisplayCylinder, DisplaySphere, DisplayFace3D
+    DisplayCylinder, DisplaySphere, DisplayFace3D, DisplayText3D
 
 from .from_geometry import from_arc3d, from_cone, from_cylinder, from_face3d, \
     from_line2d, from_line3d, from_mesh2d, from_mesh3d, from_point2d, from_point3d, \
     from_points2d, from_points3d, from_polyface3d, from_polyline2d, from_polyline3d, \
-    from_sphere
+    from_sphere, from_text
+
 
 from .polydata import PolyData
 
@@ -177,6 +178,18 @@ def from_displaypolyface3d(polyface: DisplayPolyface3D) -> PolyData:
         A list of Polydata. Each polydata contains a face and points of a face of Polyface.
     """
     return from_polyface3d(polyface=polyface.geometry)
+
+
+def from_displaytext3d(text: DisplayText3D) -> PolyData:
+    
+    HORIZONTAL_ALIGN = ['Left', 'Center', 'Right']
+    VERTICAL_ALIGN = ['Top', 'Middle', 'Bottom']
+
+    return from_text(
+        text.text, plane=text.plane, height=text.height,
+        horizontal_alignment=HORIZONTAL_ALIGN.index(text.horizontal_alignment),
+        vertical_alignment=VERTICAL_ALIGN.index(text.vertical_alignment)
+    )
 
 
 def from_displaycone(cone: DisplayCone, resolution: int = 2, cap: bool = True) -> PolyData:
