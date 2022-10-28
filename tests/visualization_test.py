@@ -10,6 +10,14 @@ def test_vs(temp_folder, visualization_set):
     assert path.name == 'vs-model.vtkjs'
 
 
+def test_vs(temp_folder, visualization_set_detailed):
+    vs = VisualizationSet.from_visualization_set(visualization_set_detailed)
+    path = vs.to_vtkjs(folder=temp_folder, name='vs-model-detailed')
+    path = pathlib.Path(path)
+    assert path.is_file()
+    assert path.name == 'vs-model-detailed.vtkjs'
+
+
 def test_extension(temp_folder, visualization_set):
     path = visualization_set.to_vtkjs(output_folder=temp_folder, file_name='vs-model-2')
     assert path.is_file()
