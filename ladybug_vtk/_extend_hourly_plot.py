@@ -4,7 +4,7 @@ from ladybug_geometry.geometry3d import Vector3D
 from ladybug.color import Color
 
 from ladybug_vtk.vtkjs.schema import DisplayMode
-from .from_geometry import to_text
+from .from_geometry import from_text
 from .display_polydata import DisplayPolyData
 from .visualization_set import VisualizationSet
 
@@ -48,7 +48,7 @@ def hourly_plot_to_vtkjs(
 
     # month labels
     month_labels_polydata = [
-        to_text(label, plane=self.month_label_points3d[count].
+        from_text(label, plane=self.month_label_points3d[count].
                 move(left_vector).move(down_vector), height=4)
         for count, label in enumerate(self.month_labels)]
     labels.extend(month_labels_polydata)
@@ -56,13 +56,13 @@ def hourly_plot_to_vtkjs(
     # hour labels
     hour_left_vector = Vector3D(-1, 0, 0) * 15
     hour_labels_polydata = [
-        to_text(label, plane=self.hour_label_points3d[count].
+        from_text(label, plane=self.hour_label_points3d[count].
                 move(hour_left_vector).move(down_vector), height=4)
         for count, label in enumerate(self.hour_labels)]
     labels.extend(hour_labels_polydata)
 
     # title text
-    title_polydata = to_text(self.title_text, plane=self.lower_title_location.o.move(
+    title_polydata = from_text(self.title_text, plane=self.lower_title_location.o.move(
         left_vector).move(down_vector), height=4)
     labels.append(title_polydata)
     datasets.append(
