@@ -10,7 +10,7 @@ from ladybug.sunpath import Sunpath
 from ladybug.compass import Compass
 from ladybug.datacollection import HourlyContinuousCollection
 
-from .from_geometry import from_points3d, to_circle, to_text, from_points2d
+from .from_geometry import from_points3d, to_circle, from_text, from_points2d
 from .display_polydata import DisplayPolyData
 from .visualization_set import VisualizationSet
 
@@ -92,7 +92,7 @@ def sunpath_to_vtkjs(
 
     # compass minor labels
     minor_scale = (radius * 2) / 100
-    minor_text_polydata = [to_text(text, plane=compass.minor_azimuth_points[count].
+    minor_text_polydata = [from_text(text, plane=compass.minor_azimuth_points[count].
                                    move(left_vector).move(down_vector), height=minor_scale)
                            for count, text in enumerate(compass.MINOR_TEXT)]
     minor_label_dataset = DisplayPolyData(
@@ -103,7 +103,7 @@ def sunpath_to_vtkjs(
 
     # compass major labels
     major_scale = (radius * 5) / 100
-    major_text_polydata = [to_text(text, plane=compass.major_azimuth_points[count].
+    major_text_polydata = [from_text(text, plane=compass.major_azimuth_points[count].
                                    move(left_vector).move(down_vector), height=major_scale) for
                            count, text in enumerate(compass.MAJOR_TEXT)]
     major_label_dataset = DisplayPolyData(

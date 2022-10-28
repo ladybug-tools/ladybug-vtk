@@ -6,7 +6,7 @@ from ladybug_geometry.geometry3d import Point3D, Polyline3D, Arc3D, Vector3D, Me
 from ladybug_vtk.from_geometry import from_point2d, from_points2d, from_line2d, \
     from_point3d, from_points3d, from_line3d, from_polyline3d, from_arc3d, from_mesh3d,\
     from_face3d, from_polyface3d, from_cone, from_sphere, from_cylinder, to_circle,\
-    to_text
+    from_text
 
 
 def test_from_point2d():
@@ -190,8 +190,8 @@ def test_to_vtk_circle():
 
 
 def test_to_text():
-    """Test to_text function."""
-    text_polydata = to_text('Hello World!', plane=Point3D(5, 5, 5))
+    """Test from_text function."""
+    text_polydata = from_text('Hello World!', plane=Point3D(5, 5, 5))
     assert round(text_polydata.GetBounds()[0], 2) == 5.0
     assert round(text_polydata.GetBounds()[2], 2) == 5.0
     assert round(text_polydata.GetBounds()[4], 2) == 5.0
