@@ -9,9 +9,9 @@ from .visualization_set import VisualizationSet as VTKVisualizationSet, DisplayP
 
 
 def vs_to_vtkjs(
-        self: LBVisualizationSet, output_folder: str,
-        file_name: str = 'visualization_set'
-    ):
+    self: LBVisualizationSet, output_folder: str,
+    file_name: str = 'visualization_set'
+):
     """
     Export Visualization set to a vtkjs file.
 
@@ -23,9 +23,9 @@ def vs_to_vtkjs(
         A pathlib Path object to the vtkjs file.
     """
     data_sets = [
-            DisplayPolyData.from_visualization_geometry(geometry)
-            for geometry in self.geometry
-        ]
+        DisplayPolyData.from_visualization_geometry(geometry)
+        for geometry in self.geometry
+    ]
     vs = VTKVisualizationSet(datasets=data_sets)
     path = vs.to_vtkjs(folder=output_folder, name=file_name)
     return Path(path)

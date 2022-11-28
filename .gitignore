@@ -15,3 +15,4 @@ tox.ini
 /.vscode
 .eggs
 *.code-workspace
+/build
