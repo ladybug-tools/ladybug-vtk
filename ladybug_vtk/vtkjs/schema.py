@@ -7,6 +7,7 @@ import enum
 from pydantic import BaseModel, Field, validator
 from ladybug_display_schema.visualization import LegendParameters, DataType, GenericDataType
 
+
 class DisplayMode(enum.Enum):
     """Display mode."""
     Surface = 2

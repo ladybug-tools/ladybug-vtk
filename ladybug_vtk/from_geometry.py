@@ -4,7 +4,8 @@
 import vtk
 import math
 from typing import List, Union
-from ladybug_geometry.geometry2d import Point2D, LineSegment2D, Polyline2D, Mesh2D
+from ladybug_geometry.geometry2d import Point2D, LineSegment2D, Polyline2D, \
+    Polygon2D, Mesh2D
 from ladybug_geometry.geometry3d import Point3D, Polyline3D, Arc3D, LineSegment3D,\
     Mesh3D, Polyface3D, Cone, Cylinder, Sphere, Face3D, Plane, Vector3D
 from .polydata import PolyData
@@ -91,10 +92,10 @@ def from_points2d(points: List[Point2D], join: bool = False) -> PolyData:
 
 
 def from_line2d(line: LineSegment2D) -> PolyData:
-    """Create Polydata from a Ladybug LineSegment3D object.
+    """Create Polydata from a Ladybug LineSegment2D object.
 
     Args:
-        line: A Ladybug LineSegment3D object.
+        line: A Ladybug LineSegment2D object.
 
     Returns:
         Polydata containing a line.
@@ -103,15 +104,28 @@ def from_line2d(line: LineSegment2D) -> PolyData:
 
 
 def from_polyline2d(polyline: Polyline2D) -> PolyData:
-    """Create Polydata from a Ladybug Polyline3D object.
+    """Create Polydata from a Ladybug Polyline2D object.
 
     Args:
-        polyline: A Ladybug Polyline3D object.
+        polyline: A Ladybug Polyline2D object.
 
     Returns:
         Polydata containing a polyline.
     """
     return from_points2d(polyline.vertices, join=True)
+
+
+def from_polygon2d(polygon: Polygon2D) -> PolyData:
+    """Create Polydata from a Ladybug Polygon2D object.
+
+    Args:
+        polygon: A Ladybug Polygon2D object.
+
+    Returns:
+        Polydata containing a polygon.
+    """
+    verts = polygon.vertices + (polygon[0],)
+    return from_points2d(verts, join=True)
 
 
 def from_point3d(point: Point3D) -> PolyData:
@@ -244,7 +258,8 @@ def from_arc3d(arc3d: Arc3D, resolution: int = 25) -> PolyData:
     polydata = PolyData()
     polydata.ShallowCopy(arc.GetOutput())
 
-    # delete the array named 'Texture Coordinates' that's generated automatically for some reason
+    # delete the array named 'Texture Coordinates'
+    # that's generated automatically for some reason
     polydata.GetPointData().RemoveArray('Texture Coordinates')
     return polydata
 
@@ -346,7 +361,8 @@ def from_polyface3d(polyface: Polyface3D) -> PolyData:
         polyface: A Ladybug Polyface3D object.
 
     Returns:
-        A list of Polydata. Each polydata contains a face and points of a face of Polyface.
+        A list of Polydata. Each polydata contains a face and points of a
+        face of Polyface.
     """
     points = vtk.vtkPoints()
     polygon = vtk.vtkPolygon()
@@ -439,7 +455,9 @@ def from_sphere(sphere: Sphere, resolution: int = 25) -> PolyData:
     return polydata
 
 
-def from_cylinder(cylinder: Cylinder, resolution: int = 25, cap: bool = True) -> PolyData:
+def from_cylinder(
+    cylinder: Cylinder, resolution: int = 25, cap: bool = True
+) -> PolyData:
     """Create Polydata from a Ladybug Cylinder.
 
     Args:
@@ -493,8 +511,8 @@ def to_circle(center: Point3D, radius: int = 100, sides: int = 100) -> PolyData:
 
 def to_text(
     text: str, *, plane: Union[Point3D, Point2D, Plane], height: float = 2,
-    horizontal_alignment : int = 0, vertical_alignment: int = 0
-        ) -> PolyData:
+    horizontal_alignment: int = 0, vertical_alignment: int = 0
+) -> PolyData:
     """Create a VTK text object from a text string and a ladybug Point3D.
 
     Args:
@@ -513,7 +531,7 @@ def to_text(
     # TODO: ensure the logic works for non XY planes.
     def _apply_transformation(
         source: vtk.vtkVectorText, plane: Plane, height
-            ) -> vtk.vtkTransformPolyDataFilter:
+    ) -> vtk.vtkTransformPolyDataFilter:
         transform = vtk.vtkTransform()
         transform.Scale(height, height, height)
         t_vector = Vector3D(plane.o.x, plane.o.y, plane.o.z)
@@ -553,7 +571,7 @@ def to_text(
     # before making any of the translations
     offset_vector = plane.o - llc
     # make adjustments for text justification
-    if horizontal_alignment  + vertical_alignment != 0:
+    if horizontal_alignment + vertical_alignment != 0:
         bounds = list(transform_filter.GetBounds())
         bottom_left = Point3D(bounds[0], bounds[2], bounds[4])
         top_right = Point3D(bounds[1], bounds[3], bounds[5])

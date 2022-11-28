@@ -9,7 +9,9 @@ from .display_polydata import DisplayPolyData
 from .visualization_set import VisualizationSet
 
 
-def hourly_plot_to_vtkjs(self, output_folder: str, file_name: str = 'hourly plot') -> Path:
+def hourly_plot_to_vtkjs(
+    self, output_folder: str, file_name: str = 'hourly plot'
+) -> Path:
     """
     Export the HourlyPlot to a vtkjs file.
 
@@ -36,7 +38,8 @@ def hourly_plot_to_vtkjs(self, output_folder: str, file_name: str = 'hourly plot
     # border polyline
     border_polydata = self.chart_border3d.to_polydata()
     lines.append(border_polydata)
-    datasets.append(DisplayPolyData('Hourly Plot::Lines', 'lines', polydata=lines, color=Color()))
+    datasets.append(
+        DisplayPolyData('Hourly Plot::Lines', 'lines', polydata=lines, color=Color()))
 
     # labels
     labels = []
@@ -62,7 +65,8 @@ def hourly_plot_to_vtkjs(self, output_folder: str, file_name: str = 'hourly plot
     title_polydata = to_text(self.title_text, plane=self.lower_title_location.o.move(
         left_vector).move(down_vector), height=4)
     labels.append(title_polydata)
-    datasets.append(DisplayPolyData('Hourly Plot::Labels', 'labels', polydata=labels, color=Color()))
+    datasets.append(
+        DisplayPolyData('Hourly Plot::Labels', 'labels', polydata=labels, color=Color()))
 
     # data
     mesh_polydata = self.colored_mesh3d.to_polydata()
