@@ -33,9 +33,9 @@ class PolyDataMetaData(VisualizationMetaData):
         default_data_type = GenericDataType(name='', base_unit='')
         data = {
             'legend_parameters': None if not self.legend_parameters
-                else self.legend_parameters.to_dict(),
-            'data_type': default_data_type if not self.data_type \
-                else self.data_type.to_dict(),
+            else self.legend_parameters.to_dict(),
+            'data_type': default_data_type if not self.data_type
+            else self.data_type.to_dict(),
             'unit': self.unit or ''
         }
 

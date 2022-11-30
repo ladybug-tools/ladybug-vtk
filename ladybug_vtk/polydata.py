@@ -41,7 +41,7 @@ class PolyData(vtk.vtkPolyData):
 
     def add_visualization_data(
             self, data: VisualizationData, matching_method: str = 'faces'
-        ):
+    ):
         """Add visualization data to this polyData.
 
         Args:
@@ -52,7 +52,7 @@ class PolyData(vtk.vtkPolyData):
 
         """
         per_face = True if matching_method == 'faces' else False
-        name = 'generic_data' if not data.data_type else  data.data_type.name
+        name = 'generic_data' if not data.data_type else data.data_type.name
         return self.add_data(
             data.values, name, per_face=per_face,
             legend_parameters=data.legend_parameters,
@@ -63,7 +63,7 @@ class PolyData(vtk.vtkPolyData):
             self, data: List, name: str, *, per_face: bool = True,
             legend_parameters: LegendParameters = None,
             data_type: DataTypeBase = None, unit: str = None
-        ):
+    ):
         """Add a list of data to a vtkPolyData.
 
         Data can be added to cells or points. By default the data will be added to cells.
