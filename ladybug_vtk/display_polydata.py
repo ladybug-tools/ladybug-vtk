@@ -5,7 +5,8 @@ import uuid
 from typing import List, Union
 
 from ladybug.color import Color
-from ladybug_display.visualization import AnalysisGeometry, ContextGeometry
+from ladybug_display.visualization import AnalysisGeometry, ContextGeometry, \
+    DisplayMesh3D, Mesh3D
 
 from .polydata import PolyData
 from .joined_polydata import JoinedPolyData
@@ -57,9 +58,31 @@ class DisplayPolyData:
         cls, geometry: Union[AnalysisGeometry, ContextGeometry]
             ) -> 'DisplayPolyData':
 
-        poly_datas: List[PolyData] = [
-            geometry.to_polydata() for geometry in geometry.geometry
-        ]
+        # check if all the geometries are meshes and join them together
+        geometries = geometry.geometry
+        for geo in geometry.geometry:
+            if not isinstance(geo, (DisplayMesh3D, Mesh3D)):
+                break
+        else:
+            # all the geometries are meshes
+            first_mesh = geometries[0]
+            mesh_geometries = [
+                m.geometry if isinstance(m, DisplayMesh3D) else m for m in geometries
+            ]
+            if len(mesh_geometries) > 1:
+                joined_mesh = Mesh3D.join_meshes(mesh_geometries)
+            else:
+                joined_mesh = mesh_geometries[0]
+
+            if isinstance(first_mesh, DisplayMesh3D):
+                first_mesh._geometry = joined_mesh
+            else:
+                first_mesh = joined_mesh
+
+            geometries = [first_mesh]
+
+        poly_datas: List[PolyData] = [geometry.to_polydata() for geometry in geometries]
+
         if isinstance(geometry, AnalysisGeometry):
             mapping = geometry.matching_method
             for count, data_set in enumerate(geometry.data_sets):
@@ -94,7 +117,7 @@ class DisplayPolyData:
             # the assumption is that all the geometries under the same context geometry
             # have the same display mode and color. We pick the first item.
             try:
-                display_mode = geometry.geometry[0].display_mode
+                display_mode = geometries[0].display_mode
             except AttributeError:
                 # not a display geometry
                 display_mode = DisplayMode.Wireframe
@@ -102,7 +125,7 @@ class DisplayPolyData:
                 display_mode = display_mode_mapper[display_mode]
 
             try:
-                color = geometry.geometry[0].color
+                color = geometries[0].color
             except AttributeError:
                 color = None
 
