@@ -1,5 +1,5 @@
 ladybug-core>=0.40.8
-ladybug-display-schema>=0.7.4
-ladybug-display>=0.6.7
+ladybug-display-schema>=0.7.5
+ladybug-display>=0.6.9
 vtk==9.1.0
 pydantic>=1.8.2
