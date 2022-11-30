@@ -95,9 +95,12 @@ class DisplayPolyData:
             # have the same display mode and color. We pick the first item.
             try:
                 display_mode = geometry.geometry[0].display_mode
-                display_mode = display_mode_mapper[geometry.display_mode]
             except AttributeError:
+                # not a display geometry
                 display_mode = DisplayMode.Wireframe
+            else:
+                display_mode = display_mode_mapper[display_mode]
+
             try:
                 color = geometry.geometry[0].color
             except AttributeError:
