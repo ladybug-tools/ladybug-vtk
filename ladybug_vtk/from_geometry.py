@@ -232,13 +232,13 @@ def from_polyline3d(polyline: Polyline3D) -> PolyData:
     return from_points3d(polyline.vertices, join=True)
 
 
-def from_arc3d(arc3d: Arc3D, resolution: int = 25) -> PolyData:
+def from_arc3d(arc3d: Arc3D, resolution: int = 50) -> PolyData:
     """Create Polydata from a Ladybug Arc3D object.
 
     Args:
         arc3d: A Ladybug Arc3D object.
         resolution: The number of segments into which the arc will be divided.
-            Defaults to 25.
+            Defaults to 50.
 
     Returns:
         Polydata containing an arc.
@@ -430,13 +430,13 @@ def from_cone(cone: Cone, resolution: int = 2, cap: bool = True) -> PolyData:
     return polydata
 
 
-def from_sphere(sphere: Sphere, resolution: int = 25) -> PolyData:
+def from_sphere(sphere: Sphere, resolution: int = 50) -> PolyData:
     """Create Polydata from a Ladybug Sphere.
 
     Args:
         sphere: A Ladybug Sphere object.
         resolution: The number of segments into which the sphere will be divided.
-            Defaults to 25.
+            Defaults to 50.
 
     Returns:
         Polydata containing a sphere.
@@ -456,14 +456,14 @@ def from_sphere(sphere: Sphere, resolution: int = 25) -> PolyData:
 
 
 def from_cylinder(
-    cylinder: Cylinder, resolution: int = 25, cap: bool = True
+    cylinder: Cylinder, resolution: int = 50, cap: bool = True
 ) -> PolyData:
     """Create Polydata from a Ladybug Cylinder.
 
     Args:
         cylinder: A Ladybug Cylinder object.
         resolution: The number of segments into which the cylinder will be divided.
-            Defaults to 25.
+            Defaults to 50.
         cap: Boolean to indicate whether the cylinder should capped or not.
             Default to True.
 

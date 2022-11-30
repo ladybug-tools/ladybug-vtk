@@ -6,8 +6,9 @@ from typing import List, Union
 
 from ladybug.color import Color
 from ladybug_display.visualization import AnalysisGeometry, ContextGeometry, \
-    DisplayMesh3D, Mesh3D
+    DisplayMesh3D, Mesh3D, Point3D, DisplayPoint3D
 
+from .from_geometry import from_points3d
 from .polydata import PolyData
 from .joined_polydata import JoinedPolyData
 from .vtkjs.schema import DataSetProperty, DataSet, DisplayMode, DataSetMapper
@@ -82,6 +83,14 @@ class DisplayPolyData:
             geometries = [first_mesh]
 
         poly_datas: List[PolyData] = [geometry.to_polydata() for geometry in geometries]
+
+        # if all the geometries are points put them together in a single polydata
+        for geo in geometries:
+            if not isinstance(geo, (Point3D, DisplayPoint3D)):
+                break
+        else:
+            # all the geometries are Points
+            poly_datas: List[PolyData] = [from_points3d(geometries)]
 
         if isinstance(geometry, AnalysisGeometry):
             mapping = geometry.matching_method

@@ -161,7 +161,7 @@ def test_from_sphere():
     point = Point3D(2, 0, 2)
     radius = 3
     sphere = Sphere(point, radius)
-    polydata = from_sphere(sphere)
+    polydata = from_sphere(sphere, resolution=25)
     assert polydata.GetNumberOfPoints() == 577
     assert polydata.GetNumberOfCells() == 1150
     assert polydata.GetNumberOfPolys() == 1150
@@ -173,12 +173,12 @@ def test_from_cylinder():
     axis = Vector3D(0, 2, 2)
     radius = 0.7
     cylinder = Cylinder(center, axis, radius)
-    polydata = from_cylinder(cylinder)
+    polydata = from_cylinder(cylinder, resolution=25)
     assert polydata.GetNumberOfPoints() == 100
     assert polydata.GetNumberOfCells() == 27
     assert polydata.GetNumberOfPolys() == 27
     polydata = from_cylinder(cylinder, cap=False)
-    assert polydata.GetNumberOfPolys() == 25
+    assert polydata.GetNumberOfPolys() == 50
 
 
 def test_to_vtk_circle():

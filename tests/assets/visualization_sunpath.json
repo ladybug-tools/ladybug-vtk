@@ -7396,7 +7396,7 @@
                     }
                 }
             ], 
-            "display_mode": "Surface", 
+            "display_mode": "Points", 
             "identifier": "Sun_Positions", 
             "display_name": "Sun Positions", 
             "type": "AnalysisGeometry", 

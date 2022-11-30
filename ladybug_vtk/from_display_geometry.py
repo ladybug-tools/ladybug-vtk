@@ -118,7 +118,7 @@ def from_displaypolyline3d(polyline: DisplayPolyline3D) -> PolyData:
     return from_polyline3d(polyline=polyline.geometry)
 
 
-def from_displayarc3d(arc3d: DisplayArc3D, resolution: int = 25) -> PolyData:
+def from_displayarc3d(arc3d: DisplayArc3D, resolution: int = 50) -> PolyData:
     """Create Polydata from a Ladybug DisplayArc3D object.
 
     Args:
@@ -129,7 +129,7 @@ def from_displayarc3d(arc3d: DisplayArc3D, resolution: int = 25) -> PolyData:
     Returns:
         Polydata containing an arc.
     """
-    return from_arc3d(arc3d=arc3d, resolution=resolution)
+    return from_arc3d(arc3d=arc3d.geometry, resolution=resolution)
 
 
 def from_displaymesh3d(mesh: DisplayMesh3D) -> PolyData:
@@ -211,7 +211,7 @@ def from_displaycone(cone: DisplayCone, resolution: int = 2, cap: bool = True) -
     return from_cone(cone=cone.geometry, resolution=resolution, cap=cap)
 
 
-def from_displaysphere(sphere: DisplaySphere, resolution: int = 25) -> PolyData:
+def from_displaysphere(sphere: DisplaySphere, resolution: int = 50) -> PolyData:
     """Create Polydata from a Ladybug DisplaySphere.
 
     Args:
@@ -225,7 +225,7 @@ def from_displaysphere(sphere: DisplaySphere, resolution: int = 25) -> PolyData:
     return from_sphere(sphere=sphere.geometry, resolution=resolution)
 
 
-def from_displaycylinder(cylinder: DisplayCylinder, resolution: int = 25, cap: bool = True) -> PolyData:
+def from_displaycylinder(cylinder: DisplayCylinder, resolution: int = 50, cap: bool = True) -> PolyData:
     """Create Polydata from a Ladybug DisplayCylinder.
 
     Args:
