@@ -43,3 +43,23 @@ def test_vs_sunpath_3d(temp_folder):
     path = pathlib.Path(path)
     assert path.is_file()
     assert path.name == 'vs-sunpath-3d.vtkjs'
+
+
+def test_daylight_factor_vs(temp_folder):
+    data = json.loads(pathlib.Path('./tests/assets/daylight_factor.vsf').read_text())
+    vs = LBVisualizationSet.from_dict(data)
+    vs = VisualizationSet.from_visualization_set(vs)
+    path = vs.to_vtkjs(folder=temp_folder, name='daylight_factor')
+    path = pathlib.Path(path)
+    assert path.is_file()
+    assert path.name == 'daylight_factor.vtkjs'
+
+
+def test_comfort_vsf(temp_folder):
+    data = json.loads(pathlib.Path('./tests/assets/comfort.vsf').read_text())
+    vs = LBVisualizationSet.from_dict(data)
+    vs = VisualizationSet.from_visualization_set(vs)
+    path = vs.to_vtkjs(folder=temp_folder, name='vs-comfort')
+    path = pathlib.Path(path)
+    assert path.is_file()
+    assert path.name == 'vs-comfort.vtkjs'
