@@ -38,12 +38,15 @@ class DisplayPolyData:
             there is no data available.
         display_mode: Display model. It can be set to Surface, SurfaceWithEdges,
             Wireframe and Points.
+        hidden: A boolean to note whether the geometry is hidden by default and must be
+            un-hidden to be visible in the 3D scene. Default is False.
 
     """
 
     def __init__(
         self, name: str, identifier: str, *, polydata: List[PolyData] = None,
-        color: Color = None, display_mode: DisplayMode = DisplayMode.Surface
+        color: Color = None, display_mode: DisplayMode = DisplayMode.Surface,
+        hidden: bool = False
             ) -> None:
         self.name = name
         self.identifier = identifier or str(uuid.uuid4())
@@ -53,6 +56,7 @@ class DisplayPolyData:
             print(f'{self.name} includes invalid Polydata.')
         self.color = color or Color(204, 204, 204, 255)
         self.display_mode = display_mode
+        self.hidden = hidden
 
     @classmethod
     def from_visualization_geometry(
@@ -115,10 +119,11 @@ class DisplayPolyData:
                 if count == geometry.active_data:
                     color_by = ds_name
 
-            vtk_data_set = DisplayPolyData(
+            vtk_data_set = cls(
                 name=geometry.display_name, identifier=geometry.identifier,
                 polydata=poly_datas,
-                display_mode=display_mode_mapper[geometry.display_mode]
+                display_mode=display_mode_mapper[geometry.display_mode],
+                hidden=geometry.hidden
             )
             vtk_data_set.color_by = color_by
         else:
@@ -138,10 +143,12 @@ class DisplayPolyData:
             except AttributeError:
                 color = None
 
-            vtk_data_set = DisplayPolyData(
+            vtk_data_set = cls(
                 name=geometry.display_name, identifier=geometry.identifier,
                 polydata=poly_datas,
-                display_mode=display_mode, color=color
+                display_mode=display_mode,
+                color=color,
+                hidden=geometry.hidden
             )
 
         return vtk_data_set
@@ -206,6 +213,19 @@ class DisplayPolyData:
         self._display_mode = mode
 
     @property
+    def hidden(self) -> bool:
+        """Visualization default state on load.
+
+        A boolean to note whether the geometry is hidden by default and must be
+        un-hidden to be visible in the 3D scene.
+        """
+        return self._hidden
+
+    @hidden.setter
+    def hidden(self, value: bool):
+        self._hidden = bool(value)
+
+    @property
     def edge_visibility(self) -> bool:
         """Edge visibility.
 
@@ -262,7 +282,8 @@ class DisplayPolyData:
             'httpDataSetReader': {'url': self.identifier},
             'property': ds_prop.dict(),
             'mapper': mapper.dict(),
-            'metadata': metadata
+            'metadata': metadata,
+            'hidden': self.hidden
         }
 
         return DataSet.parse_obj(data)

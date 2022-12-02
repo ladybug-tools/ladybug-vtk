@@ -92,6 +92,10 @@ class DataSet(BaseModel):
         [],
         description='List of metadata objects for each dataset.'
     )
+    hidden: bool = Field(
+        False, description='A boolean to note whether the geometry is hidden by default '
+        'and must be un-hidden to be visible in the 3D scene.'
+    )
 
 
 class IndexJSON(BaseModel):
