@@ -129,7 +129,7 @@ class DisplayPolyData:
                 display_mode = geometries[0].display_mode
             except AttributeError:
                 # not a display geometry
-                display_mode = DisplayMode.Wireframe
+                display_mode = DisplayMode.Surface
             else:
                 display_mode = display_mode_mapper[display_mode]
 
