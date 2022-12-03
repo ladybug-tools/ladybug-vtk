@@ -100,7 +100,7 @@ def test_from_arc3d():
     arc = Arc3D.from_start_mid_end(
         Point3D(0, 0, 0), Point3D(5, 0, 20), Point3D(10, 0, 0))
     polydata = from_arc3d(arc, 10)
-    assert polydata.GetNumberOfPoints() == 11
+    assert polydata.GetNumberOfPoints() == 31
     assert polydata.GetNumberOfCells() == 1
     assert polydata.GetNumberOfLines() == 1
 

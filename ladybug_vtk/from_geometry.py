@@ -232,13 +232,13 @@ def from_polyline3d(polyline: Polyline3D) -> PolyData:
     return from_points3d(polyline.vertices, join=True)
 
 
-def from_arc3d(arc3d: Arc3D, resolution: int = 50) -> PolyData:
+def from_arc3d(arc3d: Arc3D, resolution: int = 3) -> PolyData:
     """Create Polydata from a Ladybug Arc3D object.
 
     Args:
         arc3d: A Ladybug Arc3D object.
-        resolution: The number of segments into which the arc will be divided.
-            Defaults to 50.
+        resolution: The number of degrees per subdivision. The default is 3 that creates
+            120 segments for an full circle.
 
     Returns:
         Polydata containing an arc.
@@ -252,7 +252,8 @@ def from_arc3d(arc3d: Arc3D, resolution: int = 50) -> PolyData:
     normal = arc3d.plane.n
     arc.SetNormal(round(normal.x, 2), round(normal.y, 2), round(normal.z, 2))
     arc.SetAngle(math.degrees(arc3d.angle))
-    arc.SetResolution(resolution)
+    vtk_resolution = max(int(math.degrees(arc3d.angle) / resolution), 2)
+    arc.SetResolution(vtk_resolution)
     arc.Update()
 
     polydata = PolyData()
