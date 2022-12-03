@@ -118,13 +118,13 @@ def from_displaypolyline3d(polyline: DisplayPolyline3D) -> PolyData:
     return from_polyline3d(polyline=polyline.geometry)
 
 
-def from_displayarc3d(arc3d: DisplayArc3D, resolution: int = 50) -> PolyData:
+def from_displayarc3d(arc3d: DisplayArc3D, resolution: int = 3) -> PolyData:
     """Create Polydata from a Ladybug DisplayArc3D object.
 
     Args:
         arc3d: A Ladybug DisplayArc3D object.
-        resolution: The number of segments into which the arc will be divided.
-            Defaults to 25.
+        resolution: The number of degrees per subdivision. The default is 3 that creates
+            120 segments for an full circle.
 
     Returns:
         Polydata containing an arc.
