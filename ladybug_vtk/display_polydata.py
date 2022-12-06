@@ -2,6 +2,7 @@
 
 import pathlib
 import uuid
+import warnings
 from typing import List, Union
 
 from ladybug.color import Color
@@ -121,8 +122,8 @@ class DisplayPolyData:
                     ds_name = 'untitled'
 
                 if mapping == 'geometries':
-                    raise NotImplementedError(
-                        'Mapping data per object is not currently supported.'
+                    warnings.warn(
+                        message='Mapping data per object is not fully supported.'
                     )
 
                 # add this dataset to polydatas
