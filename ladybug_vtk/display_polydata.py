@@ -65,15 +65,31 @@ class DisplayPolyData:
 
         # check if all the geometries are meshes and join them together
         geometries = geometry.geometry
+        try:
+            mapping = geometry.matching_method
+        except AttributeError:
+            mapping = 'faces'
+
         for geo in geometry.geometry:
             if not isinstance(geo, (DisplayMesh3D, Mesh3D)):
                 break
         else:
             # all the geometries are meshes
             first_mesh = geometries[0]
+            if mapping == 'geometries':
+                # change the mapping to be for every face of the mesh
+                for data_set in geometry.data_sets:
+                    updated_values = []
+                    for value, geo in zip(data_set.values, geometry.geometry):
+                        values = [value] * len(geo.faces)
+                        updated_values.extend(values)
+                    data_set.legend._values = updated_values
+                mapping = 'faces'
+
             mesh_geometries = [
                 m.geometry if isinstance(m, DisplayMesh3D) else m for m in geometries
             ]
+
             if len(mesh_geometries) > 1:
                 joined_mesh = Mesh3D.join_meshes(mesh_geometries)
             else:
@@ -97,7 +113,6 @@ class DisplayPolyData:
             poly_datas: List[PolyData] = [from_points3d(geometries)]
 
         if isinstance(geometry, AnalysisGeometry):
-            mapping = geometry.matching_method
             for count, data_set in enumerate(geometry.data_sets):
                 # try to get the name for dataset
                 if data_set.data_type:
@@ -105,14 +120,11 @@ class DisplayPolyData:
                 else:
                     ds_name = 'untitled'
 
-                if mapping == 'geometry':
-                    # TODO: support per object coloring
-                    # to support this case we need to get the number of faces/cells in PolyData
-                    # and duplicate the values to match the number of cells. PolyData should have
-                    # a method that returns the number of cells. We just need to expose it.
+                if mapping == 'geometries':
                     raise NotImplementedError(
                         'Mapping data per object is not currently supported.'
                     )
+
                 # add this dataset to polydatas
                 for poly_data in poly_datas:
                     poly_data.add_visualization_data(data_set, matching_method=mapping)

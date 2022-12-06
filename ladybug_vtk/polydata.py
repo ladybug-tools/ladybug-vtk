@@ -51,7 +51,7 @@ class PolyData(vtk.vtkPolyData):
                 vertex. Default is faces.
 
         """
-        per_face = True if matching_method == 'faces' else False
+        per_face = False if matching_method == 'vertices' else True
         name = 'generic_data' if not data.data_type else data.data_type.name
         return self.add_data(
             data.values, name, per_face=per_face,
