@@ -2,7 +2,7 @@
 
 import vtk
 from typing import List
-from .writer import write_to_file, write_to_folder
+from .writer import write_to_file, write_to_folder, VTKWriters
 from .polydata import PolyData
 
 
@@ -42,7 +42,9 @@ class JoinedPolyData(vtk.vtkAppendPolyData):
             self.AddInputData(data)
         self.Update()
 
-    def to_vtk(self, target_folder, name, writer):
+    def to_vtk(
+            self, target_folder: str, name: str, writer: VTKWriters = VTKWriters.binary
+    ):
         """Write to a VTK file.
 
         The file extension will be set to vtk for ASCII format and vtp for binary format.

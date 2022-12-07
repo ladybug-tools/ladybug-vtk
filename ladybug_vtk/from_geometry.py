@@ -509,26 +509,48 @@ def from_text(
     Returns:
         A Polydata object containing the text.
     """
-    # TODO: ensure the logic works for non XY planes.
+
     def _apply_transformation(
-        source: vtk.vtkVectorText, plane: Plane, height
+        source: vtk.vtkVectorText,
+        plane: Plane,
+        height: float
     ) -> vtk.vtkTransformPolyDataFilter:
         transform = vtk.vtkTransform()
-        transform.Scale(height, height, height)
-        t_vector = Vector3D(plane.o.x, plane.o.y, plane.o.z)
-        # create a plane at origin with the normal of the input plane
-        plane = Plane(plane.n.normalize(), o=Point3D(0, 0, 0), x=plane.x)
-        plane_xy = Plane()
-        if plane != plane_xy:
-            angle = plane_xy.n.angle(plane.n)
-            vector = plane_xy.n.cross(plane.n)
-            if plane.n.angle(Vector3D(0, 0, -1)) < 0.01:
-                # the case for 0, 0, -1 plane
-                vector = Vector3D(1, 0, 0)
-            transform.RotateWXYZ(-math.degrees(angle), vector.x, vector.y, vector.z)
-        transform.Translate(
-            t_vector.x / height, t_vector.y / height, t_vector.z / height
+        transform.PostMultiply()
+
+        # VTK generates the texts initially on a plane at the origin
+        original_plane = Plane(
+            n=Vector3D(0, 0, 1), o=Point3D(0, 0, 0), x=Vector3D(1, 0, 0)
         )
+        if plane.n == original_plane.n:
+            # text in XY
+            transform.Scale(height, height, height)
+            transform.Translate(*plane.o)
+        else:
+            # match the normal of the two plane
+            angle_rad = original_plane.n.angle(plane.n)
+            angle = math.degrees(angle_rad)
+            if angle > 0.1:
+                vector = original_plane.n.cross(plane.n)
+                if vector == Vector3D(0, 0, 0):
+                    vector = Vector3D(1, 0, 0)
+
+                transform.RotateWXYZ(angle, vector.x, vector.y, vector.z)
+                rotated_plane = original_plane.rotate(vector, angle_rad, original_plane.o)
+            else:
+                rotated_plane = plane
+
+            # now match the x axis
+            angle_rad = rotated_plane.x.angle(plane.x)
+            angle = math.degrees(angle_rad)
+            if angle > 0.1:
+                vector = rotated_plane.n
+                transform.RotateWXYZ(angle, vector.x, vector.y, vector.z)
+                rotated_plane = rotated_plane.rotate(vector, angle_rad, original_plane.o)
+
+            transform.Scale(height, height, height)
+            # add a transformation to move the text to the new plane origin
+            transform.Translate(*plane.o)
 
         transformFilter = vtk.vtkTransformPolyDataFilter()
         transformFilter.SetInputConnection(source.GetOutputPort())
@@ -542,17 +564,23 @@ def from_text(
     elif isinstance(plane, Point2D):
         plane = Plane(o=Point3D(plane.x, plane.y, 0))
 
-    assert isinstance(plane, Plane), 'The plan for text must be from a Ladybug Plane.'
+    assert isinstance(plane, Plane), 'The plane for text must be from a Ladybug Plane.'
     source = vtk.vtkVectorText()
     source.SetText(text)
+    # initial transform to project the text from origin to the target plane
     transform_filter = _apply_transformation(source, plane, height)
+
+    # this vector is the initial difference between the left lower corner og the
+    # generated text and the desired text insertion point. In theory, it should be 0
+    # but VTK doesn't generate the text at the exact 0, 0, 0 - the difference is usually
+    # very small
     bounds = list(transform_filter.GetBounds())
-    llc = Point3D(bounds[0], bounds[2], bounds[4])
-    # this vector is the difference between the llc and text insertion point
-    # before making any of the translations
-    offset_vector = plane.o - llc
+    left_lower_corner = Point3D(bounds[0], bounds[2], bounds[4])
+    offset_vector = plane.o - left_lower_corner
+
     # make adjustments for text justification
     if horizontal_alignment + vertical_alignment != 0:
+        # find the size of the text
         bounds = list(transform_filter.GetBounds())
         bottom_left = Point3D(bounds[0], bounds[2], bounds[4])
         top_right = Point3D(bounds[1], bounds[3], bounds[5])
@@ -561,13 +589,15 @@ def from_text(
 
         x_dist = top_right_2d.x - bottom_left_2d.x
         y_dist = top_right_2d.y - bottom_left_2d.y
-        if horizontal_alignment == 0:
+
+        if horizontal_alignment == 0:  # left alignment
             x_dist = 0
-        elif horizontal_alignment == 1:
+        elif horizontal_alignment == 1:  # center alignment
             x_dist = x_dist / 2
-        if vertical_alignment == 0:
+
+        if vertical_alignment == 2:  # bottom alignment
             y_dist = 0
-        elif vertical_alignment == 1:
+        elif vertical_alignment == 1:  # center alignment
             y_dist = y_dist / 2
 
         x_vector = plane.x * -1 * x_dist
@@ -577,6 +607,7 @@ def from_text(
         plane = plane.move(moving_vec=move_vector)
 
     plane = plane.move(offset_vector)
+
     transform_filter = _apply_transformation(source, plane, height)
 
     polydata = PolyData()
