@@ -52,7 +52,13 @@ class PolyData(vtk.vtkPolyData):
 
         """
         per_face = False if matching_method == 'vertices' else True
-        name = 'generic_data' if not data.data_type else data.data_type.name
+        name = self._get_dataset_name(data)
+        if per_face:
+            assert self.GetNumberOfCells() == len(data.values), \
+                f'The length of input values for "{name}" ({len(data.values)}) does ' \
+                f'not match the number of polydata cells ({self.GetNumberOfCells()}).' \
+                ' Try to match the number of data or use the `add_data` method directly.'
+
         return self.add_data(
             data.values, name, per_face=per_face,
             legend_parameters=data.legend_parameters,
@@ -89,6 +95,15 @@ class PolyData(vtk.vtkPolyData):
         """
         assert name not in self._data, \
             f'A data by name "{name}" already exist. Try a different name.'
+
+        if per_face:
+            assert self.GetNumberOfCells() == len(data), \
+                f'The length of input values for "{name}" ({len(data)}) does ' \
+                f'not match the number of polydata cells ({self.GetNumberOfCells()}).'
+        else:
+            assert self.GetNumberOfPoints() == len(data), \
+                f'The length of input values for "{name}" ({len(data)}) does ' \
+                f'not match the number of polydata points ({self.GetNumberOfPoints()}).'
 
         if isinstance(data[0], (list, tuple)):
             values = self._resolve_array_type(data[0][0])
@@ -149,6 +164,17 @@ class PolyData(vtk.vtkPolyData):
             return vtk.vtkStringArray()
         else:
             raise ValueError(f'Unsupported input data type: {type(data)}')
+
+    @staticmethod
+    def _get_dataset_name(data_set: VisualizationData):
+        if data_set.data_type:
+            ds_name = data_set.data_type.name
+        elif data_set.legend_parameters and data_set.legend_parameters.title:
+            ds_name = data_set.legend_parameters.title
+        else:
+            ds_name = 'generic_data'
+
+        return ds_name
 
     def to_vtk(self, target_folder, name, writer: VTKWriters = VTKWriters.binary):
         """Write to a VTK file.

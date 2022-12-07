@@ -2,12 +2,11 @@
 
 import pathlib
 import uuid
-import warnings
 from typing import List, Union
 
 from ladybug.color import Color
 from ladybug_display.visualization import AnalysisGeometry, ContextGeometry, \
-    DisplayMesh3D, Mesh3D, Point3D, DisplayPoint3D
+    DisplayMesh3D, Mesh3D, Point3D, DisplayPoint3D, Mesh2D, DisplayMesh2D
 
 from .from_geometry import from_points3d
 from .polydata import PolyData
@@ -64,105 +63,123 @@ class DisplayPolyData:
         cls, geometry: Union[AnalysisGeometry, ContextGeometry]
             ) -> 'DisplayPolyData':
 
-        # check if all the geometries are meshes and join them together
-        geometries = geometry.geometry
-        try:
-            mapping = geometry.matching_method
-        except AttributeError:
-            mapping = 'faces'
-
-        for geo in geometry.geometry:
-            if not isinstance(geo, (DisplayMesh3D, Mesh3D)):
-                break
-        else:
-            # all the geometries are meshes
-            first_mesh = geometries[0]
-            if mapping == 'geometries':
-                # change the mapping to be for every face of the mesh
-                for data_set in geometry.data_sets:
-                    updated_values = []
-                    for value, geo in zip(data_set.values, geometry.geometry):
-                        values = [value] * len(geo.faces)
-                        updated_values.extend(values)
-                    data_set.legend._values = updated_values
-                mapping = 'faces'
-
-            mesh_geometries = [
-                m.geometry if isinstance(m, DisplayMesh3D) else m for m in geometries
-            ]
-
-            if len(mesh_geometries) > 1:
-                joined_mesh = Mesh3D.join_meshes(mesh_geometries)
-            else:
-                joined_mesh = mesh_geometries[0]
-
-            if isinstance(first_mesh, DisplayMesh3D):
-                first_mesh._geometry = joined_mesh
-            else:
-                first_mesh = joined_mesh
-
-            geometries = [first_mesh]
-
-        poly_datas: List[PolyData] = [geometry.to_polydata() for geometry in geometries]
-
-        # if all the geometries are points put them together in a single polydata
-        for geo in geometries:
-            if not isinstance(geo, (Point3D, DisplayPoint3D)):
-                break
-        else:
-            # all the geometries are Points
-            poly_datas: List[PolyData] = [from_points3d(geometries)]
-
         if isinstance(geometry, AnalysisGeometry):
-            for count, data_set in enumerate(geometry.data_sets):
-                # try to get the name for dataset
-                if data_set.data_type:
-                    ds_name = data_set.data_type.name
-                else:
-                    ds_name = 'untitled'
-
-                if mapping == 'geometries':
-                    warnings.warn(
-                        message='Mapping data per object is not fully supported.'
-                    )
-
-                # add this dataset to polydatas
-                for poly_data in poly_datas:
-                    poly_data.add_visualization_data(data_set, matching_method=mapping)
-                if count == geometry.active_data:
-                    color_by = ds_name
-
-            vtk_data_set = cls(
-                name=geometry.display_name, identifier=geometry.identifier,
-                polydata=poly_datas,
-                display_mode=display_mode_mapper[geometry.display_mode],
-                hidden=geometry.hidden
-            )
-            vtk_data_set.color_by = color_by
+            return cls.from_analysis_geometry(geometry)
         else:
-            # context geometry
-            # the assumption is that all the geometries under the same context geometry
-            # have the same display mode and color. We pick the first item.
-            try:
-                display_mode = geometries[0].display_mode
-            except AttributeError:
-                # not a display geometry
-                display_mode = DisplayMode.Surface
+            return cls.from_context_geometry(geometry)
+
+    @classmethod
+    def from_analysis_geometry(cls, geometry: AnalysisGeometry) -> 'DisplayPolyData':
+        """Create DisplayPolyData from a ContextGeometry."""
+        geometries = geometry.geometry
+        poly_datas: List[PolyData] = [
+            geometry.to_polydata() for geometry in geometries
+        ]
+        matching_method = geometry.matching_method
+
+        all_mesh = all(
+            isinstance(geo, (DisplayMesh3D, Mesh3D, Mesh2D, DisplayMesh2D))
+            for geo in geometry.geometry
+        )
+        all_points = all(
+            isinstance(geo, (DisplayPoint3D, Point3D)) for geo in geometry.geometry
+        )
+
+        for ds_count, data_set in enumerate(geometry.data_sets):
+            ds_name = PolyData._get_dataset_name(data_set)
+            if matching_method == 'geometries' and not all_points:
+                data_set_values = []
+                # map the data per face of the geometry
+                for value, poly_data in zip(data_set.values, poly_datas):
+                    face_count = poly_data.GetNumberOfCells()
+                    values = [value] * face_count
+                    data_set_values.append(values)
+                matching_method = 'faces'
+            elif all_points:
+                # all the geometries are Points
+                poly_datas = [from_points3d(geometries)]
+                data_set_values = [data_set.values]
+                matching_method = 'vertices'
+            elif all_mesh:
+                # break down the values for each mesh based on the number of faces
+                # or the number of vertices
+                if len(geometries) == 1:
+                    data_set_values = [data_set.values]
+                else:
+                    data_set_values = []
+                    starting_index = 0
+                    for geo in geometries:
+                        if matching_method == 'faces':
+                            count = len(geo.faces)
+                        else:
+                            count = len(geo.vertices)
+                        values = data_set.values[starting_index: starting_index + count]
+                        data_set_values.append(values)
+                        starting_index += count
             else:
-                display_mode = display_mode_mapper[display_mode]
+                print(data_set)
+                for geometry in geometries:
+                    print(type(geometry))
+                assert False, '^ Unknown data mapping combination.'
 
-            try:
-                color = geometries[0].color
-            except AttributeError:
-                color = None
+            # add this dataset to polydatas
+            for count, poly_data in enumerate(poly_datas):
+                values = data_set_values[count]
+                poly_data.add_data(
+                    data=values, name=ds_name,
+                    per_face=not matching_method == 'vertices',
+                    legend_parameters=data_set.legend_parameters,
+                    unit=data_set.unit, data_type=data_set.data_type
+                )
+            if ds_count == geometry.active_data:
+                color_by = ds_name
 
-            vtk_data_set = cls(
-                name=geometry.display_name, identifier=geometry.identifier,
-                polydata=poly_datas,
-                display_mode=display_mode,
-                color=color,
-                hidden=geometry.hidden
-            )
+        vtk_data_set = cls(
+            name=geometry.display_name, identifier=geometry.identifier,
+            polydata=poly_datas,
+            display_mode=display_mode_mapper[geometry.display_mode],
+            hidden=geometry.hidden
+        )
+        vtk_data_set.color_by = color_by
+
+        return vtk_data_set
+
+    @classmethod
+    def from_context_geometry(cls, geometry: ContextGeometry) -> 'DisplayPolyData':
+        """Create DisplayPolyData from a ContextGeometry."""
+        # context geometry
+        # the assumption is that all the geometries under the same context geometry
+        # have the same display mode and color. We pick the first item.
+        first_geometry = geometry.geometry[0]
+        all_points = all(
+            isinstance(geo, (DisplayPoint3D, Point3D)) for geo in geometry.geometry
+        )
+        if all_points:
+            poly_datas = [from_points3d(geometry.geometry)]
+        else:
+            poly_datas = [geometry.to_polydata() for geometry in geometry.geometry]
+
+        try:
+            display_mode = first_geometry.display_mode
+        except AttributeError:
+            # not a display geometry
+            display_mode = DisplayMode.Surface
+        else:
+            display_mode = display_mode_mapper[display_mode]
+
+        try:
+            color = first_geometry.color
+        except AttributeError:
+            color = None
+
+        vtk_data_set = cls(
+            name=geometry.display_name,
+            identifier=geometry.identifier,
+            polydata=poly_datas,
+            display_mode=display_mode,
+            color=color,
+            hidden=geometry.hidden
+        )
 
         return vtk_data_set
 
