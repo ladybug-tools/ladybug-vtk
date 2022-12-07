@@ -22,13 +22,13 @@ def epw():
 
 @pytest.fixture()
 def visualization_set():
-    data = json.loads(Path('./tests/assets/visualization.json').read_text())
+    data = json.loads(Path('./tests/assets/visualization.vsf').read_text())
     vs = VisualizationSet.from_dict(data)
     return vs
 
 
 @pytest.fixture()
 def visualization_set_detailed():
-    data = json.loads(Path('./tests/assets/visualization_detailed.json').read_text())
+    data = json.loads(Path('./tests/assets/visualization_detailed.vsf').read_text())
     vs = VisualizationSet.from_dict(data)
     return vs
