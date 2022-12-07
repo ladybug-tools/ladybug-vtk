@@ -513,7 +513,8 @@ def from_text(
     def _apply_transformation(
         source: vtk.vtkVectorText,
         plane: Plane,
-        height: float
+        height: float,
+        offset_multiline: bool = False
     ) -> vtk.vtkTransformPolyDataFilter:
         transform = vtk.vtkTransform()
         transform.PostMultiply()
@@ -525,7 +526,6 @@ def from_text(
         if plane.n == original_plane.n:
             # text in XY
             transform.Scale(height, height, height)
-            transform.Translate(*plane.o)
         else:
             # match the normal of the two plane
             angle_rad = original_plane.n.angle(plane.n)
@@ -549,7 +549,16 @@ def from_text(
                 rotated_plane = rotated_plane.rotate(vector, angle_rad, original_plane.o)
 
             transform.Scale(height, height, height)
-            # add a transformation to move the text to the new plane origin
+
+        # add a transformation to move the text to the new plane origin
+        if offset_multiline:
+            line_count = len(text.split('\n')) - 1
+            transform.Translate(
+                plane.o.x,
+                plane.o.y - (line_count * 1.5 * height),
+                plane.o.z
+            )
+        else:
             transform.Translate(*plane.o)
 
         transformFilter = vtk.vtkTransformPolyDataFilter()
@@ -608,7 +617,9 @@ def from_text(
 
     plane = plane.move(offset_vector)
 
-    transform_filter = _apply_transformation(source, plane, height)
+    transform_filter = _apply_transformation(
+        source, plane, height, offset_multiline=True
+    )
 
     polydata = PolyData()
     polydata.ShallowCopy(transform_filter)
