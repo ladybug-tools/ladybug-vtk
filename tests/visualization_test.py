@@ -26,7 +26,7 @@ def test_extension(temp_folder, visualization_set):
 
 
 def test_vs_sunpath_2d(temp_folder):
-    data = json.loads(pathlib.Path('./tests/assets/visualization_sunpath2d.json').read_text())
+    data = json.loads(pathlib.Path('./tests/assets/visualization_sunpath2d.vsf').read_text())
     vs = LBVisualizationSet.from_dict(data)
     vs = VisualizationSet.from_visualization_set(vs)
     path = vs.to_vtkjs(folder=temp_folder, name='vs-sunpath-2d')
@@ -36,7 +36,7 @@ def test_vs_sunpath_2d(temp_folder):
 
 
 def test_vs_sunpath_3d(temp_folder):
-    data = json.loads(pathlib.Path('./tests/assets/visualization_sunpath.json').read_text())
+    data = json.loads(pathlib.Path('./tests/assets/visualization_sunpath.vsf').read_text())
     vs = LBVisualizationSet.from_dict(data)
     vs = VisualizationSet.from_visualization_set(vs)
     path = vs.to_vtkjs(folder=temp_folder, name='vs-sunpath-3d')
