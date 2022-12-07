@@ -362,8 +362,8 @@ def from_polyface3d(polyface: Polyface3D) -> PolyData:
         polyface: A Ladybug Polyface3D object.
 
     Returns:
-        A list of Polydata. Each polydata contains a face and points of a
-        face of Polyface.
+        A Polydata representing the PolyFace3D.
+
     """
     points = vtk.vtkPoints()
     polygon = vtk.vtkPolygon()
@@ -372,17 +372,20 @@ def from_polyface3d(polyface: Polyface3D) -> PolyData:
     for ver in polyface.vertices:
         points.InsertNextPoint(*ver)
 
+    # starting number to count for the new vertices that are being added for
+    # triangulated meshes
+    addition = len(polyface.vertices)
     for face, face_geo in zip(polyface.face_indices, polyface.faces):
         if face_geo.has_holes or not face_geo.is_convex:
             meshed_face = face_geo.triangulated_mesh3d
             for ver in meshed_face.vertices:
-                if ver not in polyface.vertices:
-                    points.InsertNextPoint(*ver)
+                points.InsertNextPoint(*ver)
             for face in meshed_face.faces:
                 polygon.GetPointIds().SetNumberOfIds(len(face))
                 for count, i in enumerate(face):
-                    polygon.GetPointIds().SetId(count, i)
+                    polygon.GetPointIds().SetId(count, i + addition)
                 cells.InsertNextCell(polygon)
+            addition += len(meshed_face.vertices)
         else:
             face = face[0]
             polygon.GetPointIds().SetNumberOfIds(len(face))
