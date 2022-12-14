@@ -1,0 +1,820 @@
+{
+    "type": "VisualizationSet",
+    "identifier": "unnamed_cecd206a",
+    "geometry": [
+        {
+            "type": "ContextGeometry",
+            "identifier": "Face_properties.energy.construction.display_name",
+            "geometry": [
+                {
+                    "type": "DisplayText3D",
+                    "text": "Generic Exterior Wall 0",
+                    "plane": {
+                        "type": "Plane",
+                        "n": [
+                            0.0,
+                            -1.0,
+                            0.0
+                        ],
+                        "o": [
+                            5.0,
+                            0.0,
+                            1.4047619047619047
+                        ],
+                        "x": [
+                            1.0,
+                            0.0,
+                            -1.2246467991473532e-16
+                        ]
+                    },
+                    "height": 0.09523809523809523,
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "font": "Arial",
+                    "horizontal_alignment": "Center",
+                    "vertical_alignment": "Middle"
+                },
+                {
+                    "type": "DisplayText3D",
+                    "text": "Generic Exterior Wall 1",
+                    "plane": {
+                        "type": "Plane",
+                        "n": [
+                            1.0,
+                            0.0,
+                            0.0
+                        ],
+                        "o": [
+                            10.0,
+                            5.0,
+                            1.4047619047619047
+                        ],
+                        "x": [
+                            0.0,
+                            1.0,
+                            -1.2246467991473532e-16
+                        ]
+                    },
+                    "height": 0.09523809523809523,
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "font": "Arial",
+                    "horizontal_alignment": "Center",
+                    "vertical_alignment": "Middle"
+                },
+                {
+                    "type": "DisplayText3D",
+                    "text": "Generic Exterior Wall 2",
+                    "plane": {
+                        "type": "Plane",
+                        "n": [
+                            0.0,
+                            1.0,
+                            0.0
+                        ],
+                        "o": [
+                            5.0,
+                            10.0,
+                            1.4047619047619047
+                        ],
+                        "x": [
+                            -1.0,
+                            0.0,
+                            -1.2246467991473532e-16
+                        ]
+                    },
+                    "height": 0.09523809523809523,
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "font": "Arial",
+                    "horizontal_alignment": "Center",
+                    "vertical_alignment": "Middle"
+                },
+                {
+                    "type": "DisplayText3D",
+                    "text": "Generic Exterior Wall 3",
+                    "plane": {
+                        "type": "Plane",
+                        "n": [
+                            -1.0,
+                            0.0,
+                            0.0
+                        ],
+                        "o": [
+                            0.0,
+                            5.0,
+                            1.5952380952380953
+                        ],
+                        "x": [
+                            0.0,
+                            -1.0,
+                            0
+                        ]
+                    },
+                    "height": 0.09523809523809523,
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "font": "Arial",
+                    "horizontal_alignment": "Center",
+                    "vertical_alignment": "Middle"
+                },
+                {
+                    "type": "DisplayText3D",
+                    "text": "Generic Ground Slab",
+                    "plane": {
+                        "type": "Plane",
+                        "n": [
+                            0.0,
+                            0.0,
+                            -1.0
+                        ],
+                        "o": [
+                            5.0,
+                            4.75,
+                            0.0
+                        ],
+                        "x": [
+                            1.0,
+                            0.0,
+                            0.0
+                        ]
+                    },
+                    "height": 0.25,
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "font": "Arial",
+                    "horizontal_alignment": "Center",
+                    "vertical_alignment": "Middle"
+                },
+                {
+                    "type": "DisplayText3D",
+                    "text": "Generic Roof",
+                    "plane": {
+                        "type": "Plane",
+                        "n": [
+                            0.0,
+                            0.0,
+                            1.0
+                        ],
+                        "o": [
+                            5.0,
+                            4.75,
+                            3.0
+                        ],
+                        "x": [
+                            1.0,
+                            0.0,
+                            0.0
+                        ]
+                    },
+                    "height": 0.25,
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "font": "Arial",
+                    "horizontal_alignment": "Center",
+                    "vertical_alignment": "Middle"
+                }
+            ],
+            "hidden": false,
+            "display_name": "Face Construction"
+        },
+        {
+            "type": "ContextGeometry",
+            "identifier": "Wireframe",
+            "geometry": [
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            0.0,
+                            0.0,
+                            3.0
+                        ],
+                        "v": [
+                            0.0,
+                            0.0,
+                            -3.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "v": [
+                            10.0,
+                            0.0,
+                            0.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            10.0,
+                            0.0,
+                            0.0
+                        ],
+                        "v": [
+                            0.0,
+                            0.0,
+                            3.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            10.0,
+                            0.0,
+                            3.0
+                        ],
+                        "v": [
+                            -10.0,
+                            0.0,
+                            0.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            10.0,
+                            0.0,
+                            3.0
+                        ],
+                        "v": [
+                            0.0,
+                            0.0,
+                            -3.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            10.0,
+                            0.0,
+                            0.0
+                        ],
+                        "v": [
+                            0.0,
+                            10.0,
+                            0.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            10.0,
+                            10.0,
+                            0.0
+                        ],
+                        "v": [
+                            0.0,
+                            0.0,
+                            3.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            10.0,
+                            10.0,
+                            3.0
+                        ],
+                        "v": [
+                            0.0,
+                            -10.0,
+                            0.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            10.0,
+                            10.0,
+                            3.0
+                        ],
+                        "v": [
+                            0.0,
+                            0.0,
+                            -3.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            10.0,
+                            10.0,
+                            0.0
+                        ],
+                        "v": [
+                            -10.0,
+                            0.0,
+                            0.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            0.0,
+                            10.0,
+                            0.0
+                        ],
+                        "v": [
+                            0.0,
+                            0.0,
+                            3.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            0.0,
+                            10.0,
+                            3.0
+                        ],
+                        "v": [
+                            10.0,
+                            0.0,
+                            0.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            0.0,
+                            10.0,
+                            3.0
+                        ],
+                        "v": [
+                            0.0,
+                            0.0,
+                            -3.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            0.0,
+                            10.0,
+                            0.0
+                        ],
+                        "v": [
+                            0.0,
+                            -10.0,
+                            0.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "v": [
+                            0.0,
+                            0.0,
+                            3.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            0.0,
+                            0.0,
+                            3.0
+                        ],
+                        "v": [
+                            0.0,
+                            10.0,
+                            0.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            10.0,
+                            10.0,
+                            0.0
+                        ],
+                        "v": [
+                            0.0,
+                            -10.0,
+                            0.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            10.0,
+                            0.0,
+                            0.0
+                        ],
+                        "v": [
+                            -10.0,
+                            0.0,
+                            0.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "v": [
+                            0.0,
+                            10.0,
+                            0.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            0.0,
+                            10.0,
+                            0.0
+                        ],
+                        "v": [
+                            10.0,
+                            0.0,
+                            0.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            0.0,
+                            10.0,
+                            3.0
+                        ],
+                        "v": [
+                            0.0,
+                            -10.0,
+                            0.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            0.0,
+                            0.0,
+                            3.0
+                        ],
+                        "v": [
+                            10.0,
+                            0.0,
+                            0.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            10.0,
+                            0.0,
+                            3.0
+                        ],
+                        "v": [
+                            0.0,
+                            10.0,
+                            0.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                },
+                {
+                    "type": "DisplayLineSegment3D",
+                    "geometry": {
+                        "p": [
+                            10.0,
+                            10.0,
+                            3.0
+                        ],
+                        "v": [
+                            -10.0,
+                            0.0,
+                            0.0
+                        ],
+                        "type": "LineSegment3D"
+                    },
+                    "color": {
+                        "r": 0,
+                        "g": 0,
+                        "b": 0,
+                        "a": 255,
+                        "type": "Color"
+                    },
+                    "line_width": 2.0,
+                    "line_type": "Continuous"
+                }
+            ],
+            "hidden": false
+        }
+    ],
+    "display_name": "unnamed"
+}
