@@ -545,6 +545,13 @@ def from_text(
             angle = math.degrees(angle_rad)
             if angle > 0.1:
                 vector = rotated_plane.n
+                # this is an edge case that I couldn't really figure out why is happening
+                # we should try to find a more generic solution. Use the simple_box.vsf
+                # sample file for testing
+                if rotated_plane.x.angle(Vector3D(0, 0, 1)) < 0.01 and \
+                        plane.x.angle(Vector3D(0, -1, 0)) < 0.01 and \
+                        vector.angle(Vector3D(-1, 0, 0)) < 0.01:
+                    vector = Vector3D(1, 0, 0)
                 transform.RotateWXYZ(angle, vector.x, vector.y, vector.z)
                 rotated_plane = rotated_plane.rotate(vector, angle_rad, original_plane.o)
 
