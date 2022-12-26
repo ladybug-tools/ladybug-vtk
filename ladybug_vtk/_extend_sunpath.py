@@ -55,7 +55,7 @@ def sunpath_to_vtkjs(
     # monthly arcs
     if not make_2d:
         arcs = self.monthly_day_arc3d(radius=radius)
-        monthly_polydata = [arc.to_polydata(resolution=100) for arc in arcs]
+        monthly_polydata = [arc.to_polydata() for arc in arcs]
     else:
         polylines = self.monthly_day_polyline2d(radius=radius)
         monthly_polydata = [polyline.to_polydata() for polyline in polylines]
@@ -93,7 +93,7 @@ def sunpath_to_vtkjs(
     # compass minor labels
     minor_scale = (radius * 2) / 100
     minor_text_polydata = [from_text(text, plane=compass.minor_azimuth_points[count].
-                                   move(left_vector).move(down_vector), height=minor_scale)
+                                     move(left_vector).move(down_vector), height=minor_scale)
                            for count, text in enumerate(compass.MINOR_TEXT)]
     minor_label_dataset = DisplayPolyData(
         name='Sun path::Minor Labels', identifier='minor_labels',
@@ -104,7 +104,7 @@ def sunpath_to_vtkjs(
     # compass major labels
     major_scale = (radius * 5) / 100
     major_text_polydata = [from_text(text, plane=compass.major_azimuth_points[count].
-                                   move(left_vector).move(down_vector), height=major_scale) for
+                                     move(left_vector).move(down_vector), height=major_scale) for
                            count, text in enumerate(compass.MAJOR_TEXT)]
     major_label_dataset = DisplayPolyData(
         name='Sun path::Major Labels', identifier='major_labels',
