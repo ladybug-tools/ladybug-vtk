@@ -79,7 +79,7 @@ def test_to_html(temp_folder):
     data = json.loads(pathlib.Path('./tests/assets/comfort.vsf').read_text())
     vs = LBVisualizationSet.from_dict(data)
     vs = VisualizationSet.from_visualization_set(vs)
-    path = vs.to_html(folder=temp_folder, name='comfort', open=True)
+    path = vs.to_html(folder=temp_folder, name='comfort')
     path = pathlib.Path(path)
     assert path.is_file()
     assert path.name == 'comfort.html'
