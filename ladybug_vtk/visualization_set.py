@@ -3,14 +3,14 @@
 from __future__ import annotations
 import shutil
 import tempfile
-import os
-
+import pathlib
+import webbrowser
 
 from typing import List, Union
 from ladybug_display.visualization import VisualizationSet as LBVisualizationSet
 
 from .vtkjs.schema import IndexJSON
-from .vtkjs.helper import convert_directory_to_zip_file
+from .vtkjs.helper import convert_directory_to_zip_file, add_data_to_viewer
 from .display_polydata import DisplayPolyData
 
 
@@ -47,17 +47,17 @@ class VisualizationSet:
         self.datasets.extend(datasets)
 
     def to_vtkjs(self, folder: str = '.', name: str = None) -> str:
-        """Write a vtkjs file.
+        """Translate the visualization set a vtkjs file.
 
-        Write your honeybee-vtk model to a vtkjs file that you can open in
+        Write the visualization set to a vtkjs file that you can open in
         Pollination Viewer.
 
         Args:
             folder: A valid text string representing the location of folder where
                 you'd want to write the vtkjs file. Defaults to current working
                 directory.
-            name : Name for the vtkjs file. File name will be Model.vtkjs if not
-                provided.
+            name: Name for the vtkjs file. File name will be visualization_set.vtkjs if
+                not provided.
 
         Returns:
             A text string representing the file path to the vtkjs file.
@@ -68,9 +68,9 @@ class VisualizationSet:
         # create a temp folder
         temp_folder = tempfile.mkdtemp()
         # The folder set by the user is the target folder
-        target_folder = os.path.abspath(folder)
+        target_folder = pathlib.Path(folder).absolute()
         # Set a file path to move the .zip file to the target folder
-        target_vtkjs_file = os.path.join(target_folder, file_name + '.vtkjs')
+        target_vtkjs_file = target_folder.joinpath(f'{file_name}.vtkjs').as_posix()
 
         # write every dataset
         scene = []
@@ -101,3 +101,40 @@ class VisualizationSet:
             pass
 
         return target_vtkjs_file
+
+    def to_html(self, folder: str = '.', name: str = None, open: bool = False) -> str:
+        """Translate the visualization set to an HTML file.
+
+        This HTML file is self .
+
+        Args:
+            folder: A valid text string representing the location of folder where
+                you'd want to write the HTML file. Defaults to current working
+                directory.
+            name: Name for the HTML file. File name will be visualization_set.html if
+                not provided.
+            open: A boolean to open the HTML file once created. Default is set to False.
+
+        Returns:
+            A text string representing the file path to the vtkjs file.
+        """
+        file_name = name or 'visualization_set'
+        target_folder = pathlib.Path(folder)
+        target_folder.mkdir(parents=True, exist_ok=True)
+
+        html_file = target_folder.joinpath(f'{file_name}.html').as_posix()
+
+        temp_folder = tempfile.mkdtemp()
+        vtkjs_file = self.to_vtkjs(folder=temp_folder, name=name)
+        temp_html_file = add_data_to_viewer(vtkjs_file)
+        shutil.copy(temp_html_file, html_file)
+
+        try:
+            shutil.rmtree(temp_folder)
+        except Exception:
+            pass
+
+        if open:
+            webbrowser.open(html_file)
+
+        return html_file
