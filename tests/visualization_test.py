@@ -73,3 +73,13 @@ def test_wind_profile_vsf(temp_folder):
     path = pathlib.Path(path)
     assert path.is_file()
     assert path.name == 'wind_profile.vtkjs'
+
+
+def test_to_html(temp_folder):
+    data = json.loads(pathlib.Path('./tests/assets/comfort.vsf').read_text())
+    vs = LBVisualizationSet.from_dict(data)
+    vs = VisualizationSet.from_visualization_set(vs)
+    path = vs.to_html(folder=temp_folder, name='comfort', open=True)
+    path = pathlib.Path(path)
+    assert path.is_file()
+    assert path.name == 'comfort.html'

@@ -18,6 +18,7 @@ setuptools.setup(
     url="https://github.com/ladybug-tools/ladybug-vtk",
     packages=setuptools.find_packages(exclude=["tests*"]),
     install_requires=requirements,
+    include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: Implementation :: CPython",
