@@ -492,7 +492,7 @@ def from_cylinder(
 
 def from_text(
     text: str, *, plane: Union[Point3D, Point2D, Plane], height: float = 2,
-    horizontal_alignment: int = 0, vertical_alignment: int = 0
+    horizontal_alignment: int = 0, vertical_alignment: int = 2
 ) -> PolyData:
     """Create a VTK text object from a text string and a ladybug Point3D.
 
@@ -523,10 +523,8 @@ def from_text(
         original_plane = Plane(
             n=Vector3D(0, 0, 1), o=Point3D(0, 0, 0), x=Vector3D(1, 0, 0)
         )
-        if plane.n == original_plane.n:
-            # text in XY
-            transform.Scale(height, height, height)
-        else:
+        rotated_plane = original_plane
+        if plane.n != original_plane.n:
             # match the normal of the two plane
             angle_rad = original_plane.n.angle(plane.n)
             angle = math.degrees(angle_rad)
@@ -537,34 +535,37 @@ def from_text(
 
                 transform.RotateWXYZ(angle, vector.x, vector.y, vector.z)
                 rotated_plane = original_plane.rotate(vector, angle_rad, original_plane.o)
-            else:
-                rotated_plane = plane
 
-            # now match the x axis
-            angle_rad = rotated_plane.x.angle(plane.x)
-            angle = math.degrees(angle_rad)
-            if angle > 0.1:
-                vector = rotated_plane.n
-                # this is an edge case that I couldn't really figure out why is happening
-                # we should try to find a more generic solution. Use the simple_box.vsf
-                # sample file for testing
-                if rotated_plane.x.angle(Vector3D(0, 0, 1)) < 0.01 and \
-                        plane.x.angle(Vector3D(0, -1, 0)) < 0.01 and \
-                        vector.angle(Vector3D(-1, 0, 0)) < 0.01:
-                    vector = Vector3D(1, 0, 0)
-                transform.RotateWXYZ(angle, vector.x, vector.y, vector.z)
-                rotated_plane = rotated_plane.rotate(vector, angle_rad, original_plane.o)
+        # now match the x axis
+        angle_rad = rotated_plane.x.angle(plane.x)
+        angle = math.degrees(angle_rad)
+        if angle > 0.1:
+            vector = rotated_plane.n
+            # this is an edge case that I couldn't really figure out why is happening
+            # we should try to find a more generic solution. Use the simple_box.vsf
+            # sample file for testing
+            if rotated_plane.x.angle(Vector3D(0, 0, 1)) < 0.01 and \
+                    plane.x.angle(Vector3D(0, -1, 0)) < 0.01 and \
+                    vector.angle(Vector3D(-1, 0, 0)) < 0.01:
+                vector = Vector3D(1, 0, 0)
+            transform.RotateWXYZ(angle, vector.x, vector.y, vector.z)
+            rotated_plane = rotated_plane.rotate(vector, angle_rad, original_plane.o)
 
-            transform.Scale(height, height, height)
+        transform.Scale(height, height, height)
 
         # add a transformation to move the text to the new plane origin
+        almost_horizontal = math.degrees(rotated_plane.x.angle(Vector3D(1, 0, 0))) < 5
         if offset_multiline:
-            line_count = len(text.split('\n')) - 1
-            transform.Translate(
-                plane.o.x,
-                plane.o.y - (line_count * 1.5 * height),
-                plane.o.z
-            )
+            if almost_horizontal and vertical_alignment == 0:
+                # horizontal text with top adjustment. No need to move
+                line_count = 0
+            else:
+                line_count = len(text.split('\n')) - 1
+
+            move_vector = rotated_plane.y * (line_count * 1.5 * height)
+            move_vector = move_vector.reverse()
+            moved_point = plane.o.move(move_vector)
+            transform.Translate(*moved_point)
         else:
             transform.Translate(*plane.o)
 
@@ -595,7 +596,7 @@ def from_text(
     offset_vector = plane.o - left_lower_corner
 
     # make adjustments for text justification
-    if horizontal_alignment + vertical_alignment != 0:
+    if not (horizontal_alignment == 0 and vertical_alignment == 2):
         # find the size of the text
         bounds = list(transform_filter.GetBounds())
         bottom_left = Point3D(bounds[0], bounds[2], bounds[4])
