@@ -30,11 +30,11 @@ class PolyDataMetaData(VisualizationMetaData):
         self.per_face = per_face  # indicate if data is per cell or per point
 
     def to_vtk_metadata(self):
-        default_data_type = GenericDataType(name='', base_unit='')
+        default_data_type = GenericDataType(name='Data', base_unit='')
         data = {
             'legend_parameters': None if not self.legend_parameters
             else self.legend_parameters.to_dict(),
-            'data_type': default_data_type if not self.data_type
+            'data_type': default_data_type.dict() if not self.data_type
             else self.data_type.to_dict(),
             'unit': self.unit or ''
         }

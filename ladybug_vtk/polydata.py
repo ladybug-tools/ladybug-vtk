@@ -172,7 +172,7 @@ class PolyData(vtk.vtkPolyData):
         elif data_set.legend_parameters and data_set.legend_parameters.title:
             ds_name = data_set.legend_parameters.title
         else:
-            ds_name = 'generic_data'
+            ds_name = 'Data'
 
         return ds_name
 
