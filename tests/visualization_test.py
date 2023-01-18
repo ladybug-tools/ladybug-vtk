@@ -83,3 +83,13 @@ def test_to_html(temp_folder):
     path = pathlib.Path(path)
     assert path.is_file()
     assert path.name == 'comfort.html'
+
+
+def test_utci_comfort_vsf(temp_folder):
+    data = json.loads(pathlib.Path('./tests/assets/visualization_utci.vsf').read_text())
+    vs = LBVisualizationSet.from_dict(data)
+    vs = VisualizationSet.from_visualization_set(vs)
+    path = vs.to_vtkjs(folder=temp_folder, name='visualization_utci')
+    path = pathlib.Path(path)
+    assert path.is_file()
+    assert path.name == 'visualization_utci.vtkjs'

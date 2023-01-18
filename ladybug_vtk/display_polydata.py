@@ -70,36 +70,36 @@ class DisplayPolyData:
 
     @classmethod
     def from_analysis_geometry(cls, geometry: AnalysisGeometry) -> 'DisplayPolyData':
-        """Create DisplayPolyData from a ContextGeometry."""
+        """Create DisplayPolyData from an AnalysisGeometry."""
         geometries = geometry.geometry
-        poly_datas: List[PolyData] = [
-            geometry.to_polydata() for geometry in geometries
-        ]
+        poly_datas: List[PolyData] = [geo.to_polydata() for geo in geometries]
         matching_method = geometry.matching_method
 
         all_mesh = all(
             isinstance(geo, (DisplayMesh3D, Mesh3D, Mesh2D, DisplayMesh2D))
-            for geo in geometry.geometry
+            for geo in geometries
         )
+
         all_points = all(
-            isinstance(geo, (DisplayPoint3D, Point3D)) for geo in geometry.geometry
+            isinstance(geo, (DisplayPoint3D, Point3D)) for geo in geometries
         )
+        if all_points:
+            # all the geometries are Points - translate them to a single Polydata
+            poly_datas = [from_points3d(geometries)]
+            matching_method = 'vertices'
 
         for ds_count, data_set in enumerate(geometry.data_sets):
             ds_name = PolyData._get_dataset_name(data_set)
             if matching_method == 'geometries' and not all_points:
                 data_set_values = []
-                # map the data per face of the geometry
+                # generate the data per face of based on the number of faces of geometry
                 for value, poly_data in zip(data_set.values, poly_datas):
                     face_count = poly_data.GetNumberOfCells()
                     values = [value] * face_count
                     data_set_values.append(values)
                 matching_method = 'faces'
             elif all_points:
-                # all the geometries are Points
-                poly_datas = [from_points3d(geometries)]
                 data_set_values = [data_set.values]
-                matching_method = 'vertices'
             elif all_mesh:
                 # break down the values for each mesh based on the number of faces
                 # or the number of vertices
@@ -202,7 +202,7 @@ class DisplayPolyData:
 
     @property
     def color_by(self) -> str:
-        """Gat and set the field that the DataSet should colored-by when exported to vtkjs.
+        """Get and set the field that the DataSet should colored-by when exported to vtkjs.
 
         By default the dataset will be colored by surface color and not data.
         """
