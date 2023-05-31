@@ -51,7 +51,7 @@ def write_to_folder(polydata: Union[vtk.vtkPolyData, vtk.vtkAppendPolyData],
     folder.mkdir(parents=True, exist_ok=True)
     try:
         writer.SetFileName(folder.as_posix())
-    except:
+    except AttributeError:
         archiver = vtk.vtkArchiver()
         archiver.SetArchiveName(folder.as_posix())
         writer.SetArchiver(archiver)
