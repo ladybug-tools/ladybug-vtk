@@ -3,6 +3,9 @@ import click
 import sys
 import os
 import logging
+import base64
+import tempfile
+import uuid
 
 from ladybug_display.visualization import VisualizationSet
 from ladybug.cli import main
@@ -26,8 +29,9 @@ def vtk():
     'with the vtkjs file embedded within it. ',
     type=str, default='vtkjs', show_default=True)
 @click.option(
-    '--output-file', help='File to output the result. Default: vis_set',
-    type=click.File('w'), default='vis_set', show_default=True)
+    '--output-file', help='Optional file to output the JSON string of '
+    'the config object. By default, it will be printed out to stdout.',
+    type=click.File('w'), default='-', show_default=True)
 def vis_set_to_vtk(vis_file, output_format, output_file):
     """Translate a VisualizationSet file (.vsf) to VTK formats.
 
@@ -36,17 +40,36 @@ def vis_set_to_vtk(vis_file, output_format, output_file):
         vis_file: Full path to a Ladybug Display Visualization Set (VSF) file.
     """
     try:
+        # load the visualization set from the file
         vis_set = VisualizationSet.from_file(vis_file)
         output_format = output_format.lower()
-        out_folder, out_file = os.path.split(output_file.name)
-        if out_file.endswith('.vtkjs'):
+        # set up the output folder and file
+        if output_file.name == '<stdout>':  # get a temporary file
+            out_file = str(uuid.uuid4())[:6]
+            out_folder = tempfile.gettempdir()
+        else:
+            out_folder, out_file = os.path.split(output_file.name)
+        if out_file.lower().endswith('.vtkjs'):
             out_file = out_file[:-6]
-        elif out_file.endswith('.html'):
+        elif out_file.lower().endswith('.html'):
             out_file = out_file[:-5]
+        # create the output file
         if output_format == 'vtkjs':
             vis_set.to_vtkjs(output_folder=out_folder, file_name=out_file)
         if output_format == 'html':
             vis_set.to_html(output_folder=out_folder, file_name=out_file)
+        if output_file.name == '<stdout>':  # load file contents to stdout
+            out_file_ext = out_file + '.' + output_format
+            out_file_path = os.path.join(out_folder, out_file_ext)
+            if output_format == 'html':
+                with open(out_file_path, encoding='utf-8') as of:
+                    f_contents = of.read()
+            else:  # vtkjs can only be read as binary
+                with open(out_file_path, 'rb') as of:
+                    f_contents = of.read()
+            b = base64.b64encode(f_contents)
+            base64_string = b.decode('utf-8')
+            output_file.write(base64_string)
     except Exception as e:
         _logger.exception('Failed to translate VisualizationSet to VTK.\n{}'.format(e))
         sys.exit(1)
