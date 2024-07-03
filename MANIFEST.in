@@ -1,0 +1,6 @@
+include ladybug_vtk/assets/*.html
+recursive-exclude docs *
+recursive-exclude .github *
+exclude .gitignore
+exclude .releaserc.json
+exclude deploy.sh
