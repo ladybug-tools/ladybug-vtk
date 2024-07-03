@@ -72,8 +72,8 @@ def add_data_to_viewer(data_path, src_html_path=None):
         base64Content = base64Content.decode().replace('\n', '')
 
     # Create new output file
-    with open(src_html_path, mode="r", encoding="utf-8") as srcHtml:
-        with open(dstHtmlPath, mode="w", encoding="utf-8") as dstHtml:
+    with open(src_html_path, mode='r', encoding="utf-8") as srcHtml:
+        with open(dstHtmlPath, mode='w', encoding="utf-8") as dstHtml:
             for line in srcHtml:
                 if "<noscript>You need to enable JavaScript to run this app.</noscript>" in line:
                     strings = line.split(
@@ -108,7 +108,7 @@ def zipAllTimeSteps(directory_path):
             return self[name]
 
     def InitIndex(sourcePath, destObj):
-        with open(sourcePath, "r") as sourceFile:
+        with open(sourcePath, 'r', encoding='utf-8') as sourceFile:
             sourceData = sourceFile.read()
             sourceObj = json.loads(sourceData)
             for key in sourceObj:
@@ -128,7 +128,8 @@ def zipAllTimeSteps(directory_path):
         dir_name, zipobj, storedData, rootIdx, timeStep, objNameToUrls
     ):
         # Update root index.json file from index.json of this timestep
-        with open(os.path.join(dir_name, "index.json"), "r") as currentIdxFile:
+        index_file = os.path.join(dir_name, 'index.json')
+        with open(index_file, 'r', encoding='utf-8') as currentIdxFile:
             currentIdx = json.loads(currentIdxFile.read())
             urlToName = getUrlToNameDictionary(currentIdx)
             rootTimeStepSection = rootIdx["animation"]["timeSteps"][timeStep]
@@ -159,7 +160,7 @@ def zipAllTimeSteps(directory_path):
             # Write the index.json containing pointers to these data arrays
             # while replacing every basepath as '../../data'
             objIndexFilePath = os.path.join(dir_name, folder, "index.json")
-            with open(objIndexFilePath, "r") as objIndexFile:
+            with open(objIndexFilePath, 'r', encoding='utf-8') as objIndexFile:
                 objIndexObjData = json.loads(objIndexFile.read())
             for elm in objIndexObjData.keys():
                 try:
@@ -183,7 +184,7 @@ def zipAllTimeSteps(directory_path):
     zip_file_path = "%s.zip" % directory_path
     currentDirectory = os.path.abspath(os.path.join(directory_path, os.pardir))
     rootIndexPath = os.path.join(currentDirectory, "index.json")
-    rootIndexFile = open(rootIndexPath, "r")
+    rootIndexFile = open(rootIndexPath, 'r', encoding='utf-8')
     rootIndexObj = json.loads(rootIndexFile.read())
 
     zf = zipfile.ZipFile(zip_file_path, mode="w")
