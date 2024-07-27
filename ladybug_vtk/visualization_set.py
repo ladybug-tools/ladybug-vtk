@@ -28,7 +28,8 @@ class VisualizationSet:
             DisplayPolyData.from_visualization_geometry(geometry)
             for geometry in visualization_set.geometry
         ]
-
+        # remove none datasets
+        data_sets = [ds for ds in data_sets if ds]
         return cls(data_sets)
 
     @staticmethod

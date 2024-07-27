@@ -93,3 +93,13 @@ def test_utci_comfort_vsf(temp_folder):
     path = pathlib.Path(path)
     assert path.is_file()
     assert path.name == 'visualization_utci.vtkjs'
+
+
+def test_model_with_empty_context_vsf(temp_folder):
+    data = json.loads(pathlib.Path('./tests/assets/model_with_empty_context.vsf').read_text())
+    vs = LBVisualizationSet.from_dict(data)
+    vs = VisualizationSet.from_visualization_set(vs)
+    path = vs.to_vtkjs(folder=temp_folder, name='model_with_empty_context')
+    path = pathlib.Path(path)
+    assert path.is_file()
+    assert path.name == 'model_with_empty_context.vtkjs'

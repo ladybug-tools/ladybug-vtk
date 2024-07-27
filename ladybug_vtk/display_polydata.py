@@ -150,7 +150,12 @@ class DisplayPolyData:
         # context geometry
         # the assumption is that all the geometries under the same context geometry
         # have the same display mode and color. We pick the first item.
-        first_geometry = geometry.geometry[0]
+        try:
+            first_geometry = geometry.geometry[0]
+        except IndexError:
+            # no context geometry
+            return
+
         all_points = all(
             isinstance(geo, (DisplayPoint3D, Point3D)) for geo in geometry.geometry
         )
