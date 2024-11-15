@@ -19,6 +19,9 @@ setuptools.setup(
     packages=setuptools.find_packages(exclude=["tests*"]),
     install_requires=requirements,
     include_package_data=True,
+    entry_points={
+        "console_scripts": ["ladybug-vtk = ladybug_vtk.cli:vtk"]
+    },
     classifiers=[
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.10",
