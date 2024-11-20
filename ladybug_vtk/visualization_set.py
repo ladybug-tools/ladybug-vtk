@@ -75,8 +75,10 @@ class VisualizationSet:
 
         # write every dataset
         scene = []
-
         for data in self.datasets:
+            if not data:
+                # empty data in dataset
+                continue
             path = data.to_folder(temp_folder)
             if not path:
                 # empty dataset
