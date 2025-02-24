@@ -3,8 +3,9 @@
 import vtk
 from typing import Dict, List, Tuple
 
-from ladybug_display.visualization import VisualizationData, \
-    LegendParameters, DataTypeBase
+from ladybug.datatype.base import DataTypeBase
+from ladybug.legend import LegendParameters
+from ladybug_display.visualization import VisualizationData
 
 from .metadata import PolyDataMetaData
 from .writer import write_to_folder, write_to_file, VTKWriters

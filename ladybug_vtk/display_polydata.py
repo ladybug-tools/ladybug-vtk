@@ -5,8 +5,11 @@ import uuid
 from typing import List, Union
 
 from ladybug.color import Color
-from ladybug_display.visualization import AnalysisGeometry, ContextGeometry, \
-    DisplayMesh3D, Mesh3D, Point3D, DisplayPoint3D, Mesh2D, DisplayMesh2D
+from ladybug_geometry.geometry2d import Mesh2D
+from ladybug_display.geometry2d import DisplayMesh2D
+from ladybug_geometry.geometry3d import Mesh3D, Point3D
+from ladybug_display.geometry3d import DisplayMesh3D, DisplayPoint3D
+from ladybug_display.visualization import AnalysisGeometry, ContextGeometry
 
 from .from_geometry import from_points3d
 from .polydata import PolyData

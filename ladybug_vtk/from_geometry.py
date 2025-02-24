@@ -6,7 +6,7 @@ import math
 from typing import List, Union
 from ladybug_geometry.geometry2d import Point2D, LineSegment2D, Polyline2D, \
     Polygon2D, Mesh2D
-from ladybug_geometry.geometry3d import Point3D, Polyline3D, Arc3D, LineSegment3D,\
+from ladybug_geometry.geometry3d import Point3D, Polyline3D, Arc3D, LineSegment3D, \
     Mesh3D, Polyface3D, Cone, Cylinder, Sphere, Face3D, Plane, Vector3D
 from .polydata import PolyData
 

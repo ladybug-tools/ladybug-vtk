@@ -1,4 +1,5 @@
-from ladybug_display.visualization import VisualizationMetaData, LegendParameters
+from ladybug.legend import LegendParameters
+from ladybug_display.visualization import VisualizationMetaData
 from ladybug_display_schema.visualization import GenericDataType
 from .vtkjs.schema import DataSetMetaData
 

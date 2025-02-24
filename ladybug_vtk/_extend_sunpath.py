@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import List
 from ladybug.color import Color
 from ladybug_geometry.geometry3d import Point3D
-from ladybug_geometry.geometry2d import Vector2D, Point2D
+from ladybug_geometry.geometry2d import Vector2D
 from ladybug.sunpath import Sunpath
 from ladybug.compass import Compass
 from ladybug.datacollection import HourlyContinuousCollection
