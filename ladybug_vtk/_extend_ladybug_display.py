@@ -9,7 +9,7 @@ from ladybug_display.geometry3d import DisplayPoint3D, DisplayLineSegment3D, \
 from .from_display_geometry import from_displayline2d, from_displaypoint2d, \
     from_displaypoint3d, from_displayline3d, from_displaypolyline3d, from_displayarc3d, \
     from_displaymesh3d, from_displaymesh2d, from_displayface3d, from_displaypolyface3d, \
-    from_displaycone,from_displaysphere, from_displaycylinder, from_displaypolyline2d, \
+    from_displaycone, from_displaysphere, from_displaycylinder, from_displaypolyline2d, \
     from_displaytext3d
 
 # 2d goemetry
