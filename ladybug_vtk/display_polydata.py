@@ -302,7 +302,7 @@ class DisplayPolyData:
             'opacity': self.opacity / 255
         }
 
-        ds_prop = DataSetProperty.parse_obj(prop)
+        ds_prop = DataSetProperty.model_validate(prop)
 
         mapper = DataSetMapper()
         if self.color_by:
@@ -311,20 +311,20 @@ class DisplayPolyData:
         # Collect meta data for each data attached to polydata. Since all the polydata
         # in a DisplayPolyData most have the same metadata we pick the first one
         metadata = [
-            metadata.to_vtk_metadata().dict()
+            metadata.to_vtk_metadata().model_dump()
             for metadata in self.polydata[0].data.values()
         ]
 
         data = {
             'name': self.name,
             'httpDataSetReader': {'url': self.identifier},
-            'property': ds_prop.dict(),
-            'mapper': mapper.dict(),
+            'property': ds_prop.model_dump(),
+            'mapper': mapper.model_dump(),
             'metadata': metadata,
             'hidden': self.hidden
         }
 
-        return DataSet.parse_obj(data)
+        return DataSet.model_validate(data)
 
     def __repr__(self) -> str:
         return f'DisplayPolyData: {self.name}' \

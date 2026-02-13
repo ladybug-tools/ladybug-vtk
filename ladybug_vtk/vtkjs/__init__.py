@@ -2,7 +2,7 @@ import json
 import pathlib
 from typing import Dict, List
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 
 _COLORSET = {
@@ -30,15 +30,18 @@ class Camera(BaseModel):
     """Camera in vtkjs viewer."""
     focalPoint: List[float] = Field(
         [2.5, 5, 1.5],
-        description='Camera focal point.', max_items=3, min_items=3
+        description='Camera focal point.',
+        max_length=3, min_length=3
     )
     position: List[float] = Field(
         [19.3843, -6.75305, 10.2683],
-        description='Camera position.', max_items=3, min_items=3
+        description='Camera position.',
+        max_length=3, min_length=3
     )
     viewUp: List[float] = Field(
         [-0.303079, 0.250543, 0.919441],
-        description='View up vector.', max_items=3, min_items=3
+        description='View up vector.',
+        max_length=3, min_length=3
     )
 
 
@@ -51,9 +54,9 @@ class DataSetResource(BaseModel):
 
 class DataSetActor(BaseModel):
     """A Dataset actor."""
-    origin: List[float] = Field([0, 0, 0])
-    scale: List[float] = Field([1, 1, 1])
-    position: List[float] = Field([0, 0, 0])
+    origin: List[float] = Field(default_factory=lambda: [0, 0, 0])
+    scale: List[float] = Field(default_factory=lambda: [1, 1, 1])
+    position: List[float] = Field(default_factory=lambda: [0, 0, 0])
 
 
 class DataSetMapper(BaseModel):
@@ -67,7 +70,8 @@ class DataSetProperty(BaseModel):
     edgeVisibility: int = Field(0)
     diffuseColor: List[float] = Field(
         [0.8, 0.8, 0.8],
-        description='Surface color.', max_items=3, min_items=3
+        description='Surface color.',
+        max_length=3, min_length=3
     )
     pointSize: int = Field(5)
     opacity: float = Field(1)
@@ -76,49 +80,57 @@ class DataSetProperty(BaseModel):
 class DataSet(BaseModel):
     """A VTKJS dataset."""
     name: str = Field(..., description='DataSet name.')
-    type: str = Field('httpDataSetReader')  # I don't know enough about this field!
+    type: str = Field('httpDataSetReader')
     httpDataSetReader: DataSetResource = Field(...)
     actor: DataSetActor = Field(DataSetActor())
     actorRotation: List[float] = Field(
         [0, 0, 0, 1],
-        description='Actor rotation axis.', max_items=4, min_items=4
+        description='Actor rotation axis.',
+        max_length=4, min_length=4
     )
-    mapper: DataSetMapper = Field(DataSetMapper())
-    property: DataSetProperty = Field(DataSetProperty())
+    mapper: DataSetMapper = Field(default_factory=DataSetMapper)
+    property: DataSetProperty = Field(default_factory=DataSetProperty)
 
 
 class ViewerSettings(BaseModel):
-    version = 1
+    version: int = 1
     background: List[float] = Field(
         [1, 1, 1],
-        description='Background color.', max_items=3, min_items=3
+        description='Background color.',
+        max_length=3, min_length=3
     )
     camera: Camera = Field(
-        Camera(),
+        default_factory=Camera,
         description='Initial camera in the viewer.'
     )
     centerOfRotation: List[float] = Field(
         [2.5, 5, 1.5],
-        description='X, Y, Z for center of rotation.', max_items=3, min_items=3
-    )
-    scene: List[DataSet] = Field(
-        None, description='List of data set in viewer.'
-    )
-    lookupTables: Dict = Field(
-        None
+        description='X, Y, Z for center of rotation.',
+        max_length=3, min_length=3
     )
 
-    @validator('scene', always=True)
+    scene: List[DataSet] = Field(
+        default_factory=list,
+        description='List of data set in viewer.'
+    )
+    lookupTables: Dict = Field(
+        default_factory=dict
+    )
+
+    # Updated to field_validator with mode='before' to handle None inputs
+    @field_validator('scene', mode='before')
+    @classmethod
     def empty_list(cls, v):
         return [] if v is None else v
 
-    @validator('lookupTables', always=True)
+    @field_validator('lookupTables', mode='before')
+    @classmethod
     def empty_dict(cls, v):
         return {} if v is None else v
 
     def to_json(self, folder: str) -> str:
         """Write the settings as index.json."""
-        data = self.dict()
+        data = self.model_dump()
         target_folder = pathlib.Path(folder)
         target_folder.mkdir(parents=True, exist_ok=True)
         index_file = pathlib.Path(target_folder, 'index.json')
