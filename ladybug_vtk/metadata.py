@@ -35,9 +35,9 @@ class PolyDataMetaData(VisualizationMetaData):
         data = {
             'legend_parameters': None if not self.legend_parameters
             else self.legend_parameters.to_dict(),
-            'data_type': default_data_type.dict() if not self.data_type
+            'data_type': default_data_type.model_dump() if not self.data_type
             else self.data_type.to_dict(),
             'unit': self.unit or ''
         }
 
-        return DataSetMetaData.parse_obj(data)
+        return DataSetMetaData.model_validate(data)
