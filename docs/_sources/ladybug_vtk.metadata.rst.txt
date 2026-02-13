@@ -1,0 +1,7 @@
+ladybug\_vtk.metadata module
+============================
+
+.. automodule:: ladybug_vtk.metadata
+   :members:
+   :undoc-members:
+   :show-inheritance:
