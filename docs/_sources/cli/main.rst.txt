@@ -1,0 +1,7 @@
+main
+====
+
+.. click:: ladybug_vtk.cli.__init__:vtk
+   :prog: ladybug-vtk
+   :show-nested:
+   :commands: vis-to-vtk
